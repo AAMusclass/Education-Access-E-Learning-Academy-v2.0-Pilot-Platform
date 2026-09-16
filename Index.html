@@ -1,0 +1,1371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#071b2a">
+<title>Education Access E-Learning Academy v2.0</title>
+
+<style>
+:root{
+  --bg:#07131f;
+  --panel:#0d2231;
+  --panel2:#102b3d;
+  --line:#1c4054;
+  --text:#edf7fb;
+  --muted:#9db5c2;
+  --teal:#21c7b7;
+  --gold:#e8b84a;
+  --blue:#4aa3df;
+  --red:#ef6b73;
+  --green:#46d58a;
+  --shadow:0 12px 30px rgba(0,0,0,.22);
+}
+*{box-sizing:border-box}
+body{
+  margin:0;background:linear-gradient(180deg,#06111b,#091d2b 55%,#06131f);
+  color:var(--text);font-family:Arial,Helvetica,sans-serif;line-height:1.5
+}
+button,input,textarea,select{font:inherit}
+button{cursor:pointer}
+.app{min-height:100vh}
+.topbar{
+  position:sticky;top:0;z-index:20;
+  background:rgba(5,17,27,.96);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line);padding:14px
+}
+.brand{display:flex;gap:12px;align-items:center}
+.logo{
+  width:48px;height:48px;border:1px solid var(--gold);border-radius:14px;
+  display:grid;place-items:center;background:linear-gradient(135deg,#0d3445,#102438);
+  color:var(--gold);font-weight:900;font-size:15px
+}
+.brand h1{font-size:16px;margin:0}
+.brand p{font-size:11px;color:var(--muted);margin:2px 0 0}
+.menu{
+  display:flex;gap:7px;overflow:auto;margin-top:12px;padding-bottom:2px
+}
+.menu button{
+  flex:0 0 auto;border:1px solid var(--line);background:#0a1d2a;
+  color:#bcd0d9;border-radius:10px;padding:8px 11px;font-size:12px
+}
+.menu button.active{background:#123f4a;color:#fff;border-color:var(--teal)}
+main{max-width:1180px;margin:auto;padding:16px}
+.view{display:none}
+.view.active{display:block}
+.hero{
+  background:linear-gradient(135deg,#0c2d3e,#102638);
+  border:1px solid var(--line);border-radius:20px;padding:20px;
+  box-shadow:var(--shadow);margin-bottom:16px
+}
+.hero h2{margin:0 0 6px;font-size:25px}
+.hero p{margin:5px 0;color:var(--muted)}
+.badges{display:flex;gap:7px;flex-wrap:wrap;margin-top:13px}
+.badge{
+  display:inline-block;border:1px solid var(--line);background:#09202e;
+  color:#cfe1e8;border-radius:20px;padding:5px 9px;font-size:11px
+}
+.grid{
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px
+}
+.card{
+  background:rgba(13,34,49,.95);border:1px solid var(--line);
+  border-radius:16px;padding:15px;box-shadow:var(--shadow)
+}
+.card h3,.card h4{margin:0 0 8px}
+.card p{color:var(--muted);margin:5px 0}
+.stat{font-size:25px;font-weight:800;color:var(--teal)}
+.small{font-size:12px;color:var(--muted)}
+.section-title{
+  margin:24px 0 10px;display:flex;justify-content:space-between;
+  align-items:center;gap:10px
+}
+.section-title h2{font-size:18px;margin:0}
+.actions{display:flex;gap:8px;flex-wrap:wrap}
+.btn{
+  border:0;border-radius:10px;padding:10px 13px;background:var(--teal);
+  color:#04151b;font-weight:700
+}
+.btn.secondary{background:#15364a;color:#eaf7fb;border:1px solid var(--line)}
+.btn.gold{background:var(--gold);color:#171006}
+.btn.danger{background:#5a2229;color:#ffdfe2;border:1px solid #853740}
+.btn.smallbtn{padding:7px 9px;font-size:12px}
+.progress{
+  height:8px;background:#07151f;border-radius:20px;overflow:hidden;margin-top:9px
+}
+.progress span{display:block;height:100%;background:var(--teal);border-radius:20px}
+.subject-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+.subject{
+  min-height:145px;display:flex;flex-direction:column;justify-content:space-between
+}
+.subject .icon{font-size:25px}
+.subject button{margin-top:10px}
+.lesson{
+  border-left:3px solid var(--teal);padding-left:12px;margin:12px 0
+}
+.lesson.done{border-left-color:var(--green)}
+.lesson h4{margin-bottom:3px}
+.pill{
+  padding:4px 8px;border-radius:20px;font-size:10px;font-weight:bold;
+  display:inline-block;background:#18374a;color:#bfe1ee
+}
+.mastered{color:var(--green)}
+.developing{color:var(--gold)}
+.attention{color:var(--red)}
+.question{
+  border:1px solid var(--line);border-radius:14px;padding:14px;margin:12px 0;
+  background:#0a1e2b
+}
+.question label{display:block;margin:7px 0;color:#d4e6ed}
+.question input[type=text],.question textarea,.field{
+  width:100%;background:#071923;color:#fff;border:1px solid var(--line);
+  border-radius:9px;padding:10px
+}
+.question textarea{min-height:90px;resize:vertical}
+.notice{
+  padding:12px;border-radius:12px;background:#102d3b;border:1px solid var(--line);
+  margin:10px 0;color:#d5e8ee
+}
+.success{border-color:#247653;background:#0c2c26}
+.warning{border-color:#80662c;background:#302711}
+.dangerbox{border-color:#7a3038;background:#32171b}
+.tablewrap{overflow:auto}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{padding:9px;border-bottom:1px solid var(--line);text-align:left}
+th{color:#b7d2dc}
+.modal{
+  position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:50;
+  display:none;align-items:center;justify-content:center;padding:15px
+}
+.modal.show{display:flex}
+.modalbox{
+  max-width:700px;width:100%;max-height:90vh;overflow:auto;
+  background:#0b2030;border:1px solid var(--line);border-radius:18px;padding:18px
+}
+.modalbox h2{margin-top:0}
+.close{float:right;background:none;color:#fff;border:0;font-size:22px}
+footer{
+  padding:30px 16px;text-align:center;color:#7893a1;font-size:11px
+}
+@media(max-width:900px){
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .subject-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:560px){
+  main{padding:11px}
+  .grid,.subject-grid{grid-template-columns:1fr}
+  .hero h2{font-size:21px}
+}
+@media print{
+  .topbar,.menu,.actions,.no-print{display:none!important}
+  body{background:white;color:black}
+  .card,.hero{box-shadow:none;border:1px solid #bbb;color:black}
+  .card p,.small{color:#444}
+  .view{display:block!important}
+}
+</style>
+</head>
+
+<body>
+<div class="app">
+
+<header class="topbar">
+  <div class="brand">
+    <div class="logo">EA<br>2.0</div>
+    <div>
+      <h1>EDUCATION ACCESS E-LEARNING ACADEMY</h1>
+      <p>v2.0 • PILOT PLATFORM • Form One Transition Programme</p>
+    </div>
+  </div>
+
+  <nav class="menu" id="menu">
+    <button data-view="home" class="active">Home</button>
+    <button data-view="learn">Learn</button>
+    <button data-view="assess">Assess</button>
+    <button data-view="journey">Journey</button>
+    <button data-view="journal">Journal</button>
+    <button data-view="progress">Progress</button>
+    <button data-view="parent">Parent</button>
+    <button data-view="settings">Settings</button>
+  </nav>
+</header>
+
+<main>
+
+<!-- HOME -->
+<section id="home" class="view active">
+  <div class="hero">
+    <div class="badge">PILOT LEARNER</div>
+    <h2>Welcome, <span id="welcomeName">Briela</span> 👋</h2>
+    <p>Form One Transition Programme • October–December 2026</p>
+    <p>Learn • Practise • Apply • Explain • Assess • Improve • Progress</p>
+
+    <div class="badges">
+      <span class="badge">15 Weeks</span>
+      <span class="badge">9 Core Subjects</span>
+      <span class="badge">Daily Learning</span>
+      <span class="badge">Friday Assessments</span>
+      <span class="badge">Mastery Tracking</span>
+      <span class="badge">January 2027 Readiness</span>
+    </div>
+  </div>
+
+  <div class="grid">
+    <div class="card"><h3>Current Week</h3><div class="stat" id="statWeek">1</div><p id="weekTitle">Foundation & Discovery</p></div>
+    <div class="card"><h3>Lessons</h3><div class="stat" id="statLessons">0</div><p>completed</p></div>
+    <div class="card"><h3>Average</h3><div class="stat" id="statAverage">0%</div><p>assessment score</p></div>
+    <div class="card"><h3>Streak</h3><div class="stat" id="statStreak">0</div><p>learning days</p></div>
+  </div>
+
+  <div class="section-title"><h2>Today's Learning</h2></div>
+  <div class="card" id="todayCard"></div>
+
+  <div class="section-title"><h2>Quick Actions</h2></div> o
+  <div class="actions">
+    <button class="btn" onclick="showView('learn')">Start Learning</button>
+    <button class="btn secondary" onclick="showView('assess')">Take Assessment</button>
+    <button class="btn secondary" onclick="showView('journal')">Write Journal</button>
+    <button class="btn gold" onclick="showView('progress')">View Progress</button>
+  </div>
+
+  <div class="section-title"><h2>The Learning Partnership</h2></div>
+  <div class="grid">
+    <div class="card">
+      <h3>👩‍🎓 Briela</h3>
+      <p>Learner & Independent Explorer</p>
+      <p class="small">Learns, practises, applies, explains and reflects.</p>
+    </div>
+    <div class="card">
+      <h3>👨‍🏫 Home Teacher</h3>
+      <p>Mr. Patrick Ngowi</p>
+      <p class="small">Daily home-learning facilitation and observation.</p>
+    </div>
+    <div class="card">
+      <h3>🎓 Programme Advisor</h3>
+      <p>Dr. James K. Mushi</p>
+      <p class="small">Three days each week × two hours of direct engagement.</p>
+    </div>
+    <div class="card">
+      <h3>🌐 Online Presentation</h3>
+      <p>Digital interactive sessions</p>
+      <p class="small">Present • Ask • Explain • Participate • Learn.</p>
+    </div>
+  </div>
+</section>
+
+<!-- LEARN -->
+<section id="learn" class="view">
+  <div class="hero">
+    <h2>Student Learning Centre</h2>
+    <p>Select a subject and begin the current learning unit.</p>
+  </div>
+  <div class="grid subject-grid" id="subjectGrid"></div>
+</section>
+
+<!-- COURSE -->
+<section id="course" class="view">
+  <div class="hero">
+    <button class="btn secondary smallbtn" onclick="showView('learn')">← Subjects</button>
+    <h2 id="courseTitle">Subject</h2>
+    <p id="courseDescription"></p>
+    <div class="progress"><span id="courseProgress" style="width:0%"></span></div>
+    <p class="small" id="courseProgressText"></p>
+  </div>
+  <div id="lessonList"></div>
+</section>
+
+<!-- LESSON -->
+<section id="lesson" class="view">
+  <div class="hero">
+    <button class="btn secondary smallbtn" onclick="showView('course')">← Course</button>
+    <h2 id="lessonTitle"></h2>
+    <p id="lessonMeta"></p>
+  </div>
+  <div id="lessonContent"></div>
+</section>
+
+<!-- ASSESS -->
+<section id="assess" class="view">
+  <div class="hero">
+    <h2>Assessment Centre</h2>
+    <p>Daily checks, weekly quizzes and the 15 Friday assessments.</p>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <h3>Daily Checks</h3>
+      <p>Short checks after learning.</p>
+      <button class="btn smallbtn" onclick="openDailyCheck()">Start Check</button>
+    </div>
+    <div class="card">
+      <h3>Weekly Quiz</h3>
+      <p>Review the week's learning.</p>
+      <button class="btn smallbtn" onclick="openWeeklyQuiz()">Start Quiz</button>
+    </div>
+    <div class="card">
+      <h3>Friday Assessments</h3>
+      <p>15 programme assessments.</p>
+      <button class="btn gold smallbtn" onclick="renderAssessments()">View Tests</button>
+    </div>
+    <div class="card">
+      <h3>Final Readiness</h3>
+      <p>January 2027 preparation.</p>
+      <button class="btn secondary smallbtn" onclick="openFinalAssessment()">Open</button>
+    </div>
+  </div>
+
+  <div class="section-title"><h2>Friday Assessment Centre</h2></div>
+  <div id="assessmentList"></div>
+</section>
+
+<!-- JOURNEY -->
+<section id="journey" class="view">
+  <div class="hero">
+    <h2>My 15-Week Journey</h2>
+    <p>October–December 2026 • From Foundation to Form One Readiness</p>
+  </div>
+  <div id="journeyList"></div>
+</section>
+
+<!-- JOURNAL -->
+<section id="journal" class="view">
+  <div class="hero">
+    <h2>Digital Learning Journal</h2>
+    <p>Record what you learned, what challenged you and what you discovered.</p>
+  </div>
+
+  <div class="card">
+    <label>Date</label>
+    <input class="field" type="date" id="journalDate">
+    <label>What did I learn today?</label>
+    <textarea class="field" id="journalLearn" placeholder="Write your learning..."></textarea>
+    <label>What was difficult?</label>
+    <textarea class="field" id="journalDifficult" placeholder="Describe the challenge..."></textarea>
+    <label>How did I solve or understand it?</label>
+    <textarea class="field" id="journalSolve" placeholder="Explain your thinking..."></textarea>
+    <label>What question do I still have?</label>
+    <textarea class="field" id="journalQuestion" placeholder="Write your question..."></textarea>
+    <br>
+    <button class="btn" onclick="saveJournal()">Save Journal Entry</button>
+  </div>
+
+  <div class="section-title"><h2>Previous Entries</h2></div>
+  <div id="journalList"></div>
+</section>
+
+<!-- PROGRESS -->
+<section id="progress" class="view">
+  <div class="hero">
+    <h2>Progress & Mastery</h2>
+    <p>Mastery is more important than simply completing activities.</p>
+  </div>
+  <div class="grid">
+    <div class="card"><h3>Lessons</h3><div class="stat" id="pLessons">0</div></div>
+    <div class="card"><h3>Assessments</h3><div class="stat" id="pAssess">0</div></div>
+    <div class="card"><h3>Assignments</h3><div class="stat" id="pAssignments">0</div></div>
+    <div class="card"><h3>Journal</h3><div class="stat" id="pJournal">0</div></div>
+  </div>
+
+  <div class="section-title"><h2>Subject Mastery</h2></div>
+  <div id="masteryList"></div>
+
+  <div class="section-title"><h2>Remediation Centre</h2></div>
+  <div id="remediationList"></div>
+
+  <div class="section-title"><h2>Achievements</h2></div>
+  <div id="achievementList"></div>
+</section>
+
+<!-- PARENT -->
+<section id="parent" class="view">
+  <div class="hero">
+    <h2>Parent / Home Teacher Centre</h2>
+    <p>Progress monitoring, observations, intervention and readiness.</p>
+  </div>
+
+  <div id="parentLocked">
+    <div class="card">
+      <h3>Parent Centre Locked</h3>
+      <p>Enter the Parent PIN to access learner monitoring tools.</p>
+      <input class="field" id="parentPinInput" type="password" inputmode="numeric" maxlength="8" placeholder="Parent PIN">
+      <br><br>
+      <button class="btn" onclick="unlockParent()">Unlock</button>
+      <button class="btn secondary" onclick="setInitialPin()">Set / Change PIN</button>
+    </div>
+  </div>
+
+  <div id="parentContent" style="display:none">
+    <div class="grid">
+      <div class="card"><h3>Current Week</h3><div class="stat" id="parentWeek">1</div></div>
+      <div class="card"><h3>Average</h3><div class="stat" id="parentAverage">0%</div></div>
+      <div class="card"><h3>Mastery</h3><div class="stat" id="parentMastery">0%</div></div>
+      <div class="card"><h3>Lessons</h3><div class="stat" id="parentLessons">0</div></div>
+    </div>
+
+    <div class="section-title"><h2>Weekly Observation</h2></div>
+    <div class="card">
+      <select class="field" id="observationWeek"></select>
+      <textarea class="field" id="observationText" placeholder="Record Briela's participation, independence, confidence and difficulties."></textarea>
+      <br><button class="btn" onclick="saveObservation()">Save Observation</button>
+    </div>
+
+    <div class="section-title"><h2>Intervention Plan</h2></div>
+    <div class="card" id="interventionPlan"></div>
+
+    <div class="section-title"><h2>Readiness Report</h2></div>
+    <div class="card" id="readinessReport"></div>
+
+    <div class="actions">
+      <button class="btn gold" onclick="window.print()">Print / Save Report</button>
+      <button class="btn secondary" onclick="exportData()">Export Backup</button>
+      <button class="btn secondary" onclick="document.getElementById('importFile').click()">Import Backup</button>
+      <input type="file" id="importFile" accept=".json" style="display:none" onchange="importData(event)">
+    </div>
+  </div>
+</section>
+
+<!-- SETTINGS -->
+<section id="settings" class="view">
+  <div class="hero">
+    <h2>Programme Settings</h2>
+    <p>Data-driven learner profile and local backup controls.</p>
+  </div>
+
+  <div class="card">
+    <h3>Learner Profile</h3>
+
+    <label>Learner Name</label>
+    <input class="field" id="profileName">
+
+    <label>School</label>
+    <input class="field" id="profileSchool">
+
+    <label>Current Level</label>
+    <input class="field" id="profileClass">
+
+    <label>Programme</label>
+    <input class="field" id="profileProgramme">
+
+    <label>Programme Start Date</label>
+    <input class="field" type="date" id="profileStart">
+
+    <label>Target Transition</label>
+    <input class="field" id="profileTarget">
+
+    <br>
+    <button class="btn" onclick="saveProfile()">Save Profile</button>
+  </div>
+
+  <div class="section-title"><h2>Data Management</h2></div>
+  <div class="card">
+    <p>All progress is stored locally in this browser using localStorage.</p>
+    <p class="small">This is offline data persistence, not a secure multi-user cloud database.</p>
+    <div class="actions">
+      <button class="btn secondary" onclick="exportData()">Export JSON Backup</button>
+      <button class="btn secondary" onclick="document.getElementById('importFile2').click()">Import JSON</button>
+      <input type="file" id="importFile2" accept=".json" style="display:none" onchange="importData(event)">
+      <button class="btn danger" onclick="resetData()">Reset Programme Data</button>
+    </div>
+  </div>
+
+  <div class="section-title"><h2>Programme Architecture</h2></div>
+  <div class="grid">
+    <div class="card"><h3>Student Centre</h3><p>Learning, practice, assignments and portfolio.</p></div>
+    <div class="card"><h3>Course Engine</h3><p>Nine core subjects and structured lessons.</p></div>
+    <div class="card"><h3>Assessment Engine</h3><p>Checks, quizzes, Friday tests and readiness.</p></div>
+    <div class="card"><h3>Mastery Engine</h3><p>Mastered, Developing and Needs Attention.</p></div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  Education Access E-Learning Academy v2.0 • Pilot Platform<br>
+  Form One Transition Programme • October–December 2026 • January 2027 Readiness
+</footer>
+</div>
+
+<!-- MODAL -->
+<div class="modal" id="modal">
+  <div class="modalbox">
+    <button class="close" onclick="closeModal()">×</button>
+    <div id="modalContent"></div>
+  </div>
+</div>
+
+<script>
+/* =========================================================
+   EDUCATION ACCESS E-LEARNING ACADEMY v2.0
+   Single-file pilot learning platform
+   ========================================================= */
+
+const STORAGE_KEY="EA_ELEARNING_V20_Briela";
+
+const SUBJECTS=[
+ {id:"math",name:"Mathematics",icon:"∑",desc:"Numbers, algebra, geometry, measurement and problem solving."},
+ {id:"english",name:"English",icon:"A",desc:"Grammar, comprehension, vocabulary, writing and communication."},
+ {id:"kiswahili",name:"Kiswahili",icon:"K",desc:"Sarufi, ufahamu, msamiati, insha and communication."},
+ {id:"biology",name:"Biology",icon:"🧬",desc:"Living things, cells, nutrition, health and life processes."},
+ {id:"chemistry",name:"Chemistry",icon:"⚗",desc:"Matter, elements, mixtures, separation and chemical ideas."},
+ {id:"physics",name:"Physics",icon:"⚡",desc:"Measurement, force, motion, energy and everyday physics."},
+ {id:"geography",name:"Geography",icon:"🌍",desc:"Maps, environment, weather, resources and human activities."},
+ {id:"history",name:"History",icon:"⌛",desc:"Sources, early human life, societies and historical thinking."},
+ {id:"civics",name:"Civics",icon:"⚖",desc:"Citizenship, rights, responsibilities, leadership and society."}
+];
+
+const WEEKS=[
+ ["Foundation & Discovery","Orientation, learning habits and diagnostic foundations"],
+ ["Numbers & Algebra","Mathematical foundations and algebraic thinking"],
+ ["English Communication","Grammar, comprehension and composition"],
+ ["October Foundation Diagnostic","Review across all nine core subjects"],
+ ["Cells & Living Processes","Introduction to cells and life processes"],
+ ["Algebra & Problem Solving","Algebraic reasoning and practical mathematics"],
+ ["Reading & Composition","Reading comprehension and structured writing"],
+ ["Kiswahili Language Skills","Sarufi, ufahamu and insha"],
+ ["Maps & Environment","Map skills, environment and geography"],
+ ["Measurement, Force & Motion","Physics foundations"],
+ ["Historical Sources & Early Human Life","Evidence and historical thinking"],
+ ["Matter, Elements & Mixtures","Chemistry foundations"],
+ ["Nutrition & Health","Healthy living and biological systems"],
+ ["Comprehensive Form One Mock","Integrated preparation across subjects"],
+ ["Final Form One Readiness","Final readiness review and transition"]
+];
+
+const TESTS=[
+ {id:1,week:1,subject:"Biology",title:"Introduction to Biology",marks:25},
+ {id:2,week:2,subject:"Mathematics",title:"Numbers & Algebra",marks:30},
+ {id:3,week:3,subject:"English",title:"Grammar, Comprehension & Composition",marks:30},
+ {id:4,week:4,subject:"All Subjects",title:"October Foundation Diagnostic",marks:45},
+ {id:5,week:5,subject:"Biology",title:"Cells & Living Processes",marks:30},
+ {id:6,week:6,subject:"Mathematics",title:"Algebra & Problem Solving",marks:30},
+ {id:7,week:7,subject:"English",title:"Reading & Composition",marks:30},
+ {id:8,week:8,subject:"Kiswahili",title:"Sarufi, Ufahamu & Insha",marks:30},
+ {id:9,week:9,subject:"Geography",title:"Maps & Environment",marks:30},
+ {id:10,week:10,subject:"Physics",title:"Measurement, Force & Motion",marks:30},
+ {id:11,week:11,subject:"History",title:"Historical Sources & Early Human Life",marks:30},
+ {id:12,week:12,subject:"Chemistry",title:"Matter, Elements & Mixtures",marks:30},
+ {id:13,week:13,subject:"Biology",title:"Nutrition & Health",marks:30},
+ {id:14,week:14,subject:"All Subjects",title:"Comprehensive Form One Mock",marks:60},
+ {id:15,week:15,subject:"All Subjects",title:"Final Form One Readiness Assessment",marks:80}
+];
+
+const LESSON_TOPICS={
+ math:[
+  "Whole Numbers and Place Value","Fractions, Decimals and Percentages","Introduction to Algebra",
+  "Equations and Problem Solving","Geometry and Measurement","Graphs and Data"
+ ],
+ english:[
+  "Parts of Speech","Sentence Structure","Reading Comprehension","Vocabulary in Context",
+  "Paragraph Writing","Composition and Presentation"
+ ],
+ kiswahili:[
+  "Aina za Maneno","Muundo wa Sentensi","Ufahamu","Msamiati",
+  "Uandishi wa Insha","Mawasiliano"
+ ],
+ biology:[
+  "What is Biology?","Characteristics of Living Things","Cells and Cell Structures",
+  "Nutrition","Human Health","Life Processes"
+ ],
+ chemistry:[
+  "Introduction to Chemistry","States of Matter","Elements and Compounds",
+  "Mixtures and Separation","Physical and Chemical Changes","Laboratory Safety"
+ ],
+ physics:[
+  "What is Physics?","Measurement","Motion","Force",
+  "Energy","Simple Machines"
+ ],
+ geography:[
+  "What is Geography?","Map Reading","Weather and Climate","Environment",
+  "Natural Resources","Human Activities"
+ ],
+ history:[
+  "Historical Sources","Time and Chronology","Early Human Life",
+  "Communities and Society","Technology and Change","Historical Evidence"
+ ],
+ civics:[
+  "Citizenship","Rights and Responsibilities","Leadership",
+  "Rules and Laws","Community Participation","Good Governance"
+ ]
+};
+
+const CHALLENGES=[
+ "Create a simple weekly learning timetable and explain why you chose it.",
+ "Solve a real household problem using mathematics and explain your method.",
+ "Read a short article and give a two-minute oral summary.",
+ "Identify five examples of science in your home and explain them.",
+ "Draw a map of an area you know and include a key and direction.",
+ "Interview an adult about one historical change they have witnessed.",
+ "Prepare a short presentation on one topic you have learned.",
+ "Identify one personal learning weakness and design a plan to improve it.",
+ "Create a simple revision guide for one subject.",
+ "Teach someone one concept you understand well."
+];
+
+const state=loadState();
+
+function defaultState(){
+ return {
+  profile:{
+   name:"Briela",
+   school:"Fedha Primary School, Kawe",
+   className:"Standard Seven Graduate",
+   programme:"Form One Transition Programme",
+   start:"2026-10-01",
+   target:"Form One – January 2027"
+  },
+  completedLessons:[],
+  checks:[],
+  assessments:[],
+  assignments:[],
+  journal:[],
+  observations:[],
+  remediation:[],
+  achievements:[],
+  streak:0,
+  lastLearningDate:"",
+  parentPin:"",
+  currentSubject:"math"
+ };
+}
+
+function loadState(){
+ try{
+  const x=JSON.parse(localStorage.getItem(STORAGE_KEY));
+  return x?Object.assign(defaultState(),x):defaultState();
+ }catch(e){return defaultState()}
+}
+function saveState(){
+ localStorage.setItem(STORAGE_KEY,JSON.stringify(state));
+ renderAll();
+}
+function esc(v){
+ return String(v??"").replace(/[&<>"']/g,m=>({
+  "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
+ }[m]));
+}
+function today(){
+ return new Date().toISOString().slice(0,10);
+}
+function currentWeek(){
+ const start=new Date("2026-10-01T00:00:00");
+ const now=new Date();
+ const diff=Math.floor((now-start)/86400000);
+ return Math.min(15,Math.max(1,Math.floor(diff/7)+1));
+}
+function weekTitle(w=currentWeek()){
+ return WEEKS[w-1] ? WEEKS[w-1][0] : WEEKS[0][0];
+}
+function showView(id){
+ document.querySelectorAll(".view").forEach(v=>v.classList.remove("active"));
+ const el=document.getElementById(id);
+ if(el)el.classList.add("active");
+ document.querySelectorAll("#menu button").forEach(b=>{
+  b.classList.toggle("active",b.dataset.view===id);
+ });
+ window.scrollTo({top:0,behavior:"smooth"});
+ renderAll();
+}
+document.querySelectorAll("#menu button").forEach(b=>{
+ b.onclick=()=>showView(b.dataset.view);
+});
+
+function openModal(html){
+ document.getElementById("modalContent").innerHTML=html;
+ document.getElementById("modal").classList.add("show");
+}
+function closeModal(){
+ document.getElementById("modal").classList.remove("show");
+}
+
+function renderHome(){
+ document.getElementById("welcomeName").textContent=state.profile.name;
+ const w=currentWeek();
+ document.getElementById("statWeek").textContent=w;
+ document.getElementById("weekTitle").textContent=weekTitle(w);
+ document.getElementById("statLessons").textContent=state.completedLessons.length;
+ document.getElementById("statAverage").textContent=averageScore()+"%";
+ document.getElementById("statStreak").textContent=state.streak;
+
+ const t=lessonForToday();
+ document.getElementById("todayCard").innerHTML=`
+  <div class="lesson ${state.completedLessons.includes(t.id)?"done":""}">
+   <span class="pill">${esc(t.subjectName)} • Week ${t.week}</span>
+   <h3>${esc(t.title)}</h3>
+   <p>${esc(t.description)}</p>
+   <p class="small"><b>Learning cycle:</b> Discover → Understand → Practise → Apply → Explain → Assess</p>
+   <button class="btn" onclick="openLesson('${t.id}')">
+    ${state.completedLessons.includes(t.id)?"Review Lesson":"Start Lesson"}
+   </button>
+  </div>`;
+}
+
+function lessonForToday(){
+ const w=currentWeek();
+ const idx=(new Date().getDay()+6)%7;
+ const day=Math.min(4,idx);
+ const s=SUBJECTS[day%SUBJECTS.length];
+ const topics=LESSON_TOPICS[s.id];
+ const topic=topics[(w+day-1)%topics.length];
+ return makeLesson(s,w,topic,day);
+}
+
+function makeLesson(subject,week,topic,day=0){
+ return {
+  id:`${subject.id}-w${week}-${slug(topic)}`,
+  subject:subject.id,
+  subjectName:subject.name,
+  week,
+  day,
+  title:topic,
+  description:`${subject.name}: ${topic}. Build understanding through explanation, practice and application.`,
+  objectives:[
+   `Explain the main idea of ${topic}.`,
+   `Use the idea in a simple example.`,
+   `Connect the concept to real life.`
+  ],
+  concepts:conceptsFor(subject.id,topic),
+  practice:practiceFor(subject.id,topic),
+  challenge:CHALLENGES[(week+day)%CHALLENGES.length]
+ };
+}
+function slug(s){return s.toLowerCase().replace(/[^a-z0-9]+/g,"-")}
+function conceptsFor(id,topic){
+ const common={
+  math:["Look for patterns.","Show every important step.","Check whether the answer makes sense."],
+  english:["Meaning depends on context.","Clear sentences communicate ideas.","Evidence from a passage supports an answer."],
+  kiswahili:["Sarufi hujenga usahihi wa lugha.","Ufahamu unahitaji kusoma kwa makini.","Insha inahitaji mpangilio wa mawazo."],
+  biology:["Living systems are organised.","Structure and function are connected.","Observation helps explain life."],
+  chemistry:["Matter has observable properties.","Materials can be classified.","Safe practical work requires careful observation."],
+  physics:["Physical quantities can be measured.","Models help explain observations.","Physics connects ideas to everyday events."],
+  geography:["Location matters.","Maps represent places using symbols.","People and environment influence each other."],
+  history:["History depends on evidence.","Sources must be examined carefully.","Chronology helps us understand change."],
+  civics:["Citizens live within communities.","Rights come with responsibilities.","Participation affects society."]
+ };
+ return common[id]||["Understand the idea.","Practise it.","Explain it in your own words."];
+}
+function practiceFor(id,topic){
+ const q={
+  math:"Give one example and show all working.",
+  english:"Write two clear sentences using the concept.",
+  kiswahili:"Andika mifano miwili na ueleze matumizi yake.",
+  biology:"Name an example from living things and explain it.",
+  chemistry:"Give a household example and describe its properties.",
+  physics:"Give an everyday example and explain the physics.",
+  geography:"Give a local example and describe its location.",
+  history:"Identify one source that could provide evidence.",
+  civics:"Give one community example and explain its importance."
+ };
+ return q[id]||"Give an example and explain your reasoning.";
+}
+
+function renderSubjects(){
+ const grid=document.getElementById("subjectGrid");
+ grid.innerHTML=SUBJECTS.map(s=>{
+  const lessons=getLessons(s.id);
+  const done=lessons.filter(l=>state.completedLessons.includes(l.id)).length;
+  const pct=Math.round(done/lessons.length*100);
+  return `<div class="card subject">
+   <div>
+    <div class="icon">${s.icon}</div>
+    <h3>${esc(s.name)}</h3>
+    <p>${esc(s.desc)}</p>
+   </div>
+   <div>
+    <div class="progress"><span style="width:${pct}%"></span></div>
+    <p class="small">${done}/${lessons.length} lessons • ${pct}%</p>
+    <button class="btn smallbtn" onclick="openCourse('${s.id}')">Open Course</button>
+   </div>
+  </div>`;
+ }).join("");
+}
+
+function getLessons(subjectId){
+ const s=SUBJECTS.find(x=>x.id===subjectId);
+ let arr=[];
+ for(let w=1;w<=15;w++){
+  const topic=LESSON_TOPICS[subjectId][(w-1)%LESSON_TOPICS[subjectId].length];
+  arr.push(makeLesson(s,w,topic,(w-1)%5));
+ }
+ return arr;
+}
+
+function openCourse(id){
+ state.currentSubject=id;
+ saveState();
+ showView("course");
+}
+function renderCourse(){
+ const s=SUBJECTS.find(x=>x.id===state.currentSubject)||SUBJECTS[0];
+ const lessons=getLessons(s.id);
+ const done=lessons.filter(l=>state.completedLessons.includes(l.id)).length;
+ const pct=Math.round(done/lessons.length*100);
+ document.getElementById("courseTitle").textContent=s.name;
+ document.getElementById("courseDescription").textContent=s.desc;
+ document.getElementById("courseProgress").style.width=pct+"%";
+ document.getElementById("courseProgressText").textContent=`${done} of ${lessons.length} learning units completed • ${pct}%`;
+ document.getElementById("lessonList").innerHTML=lessons.map((l,i)=>`
+  <div class="card lesson ${state.completedLessons.includes(l.id)?"done":""}">
+   <span class="pill">Week ${l.week} • Learning Unit ${i+1}</span>
+   <h3>${esc(l.title)}</h3>
+   <p>${esc(l.description)}</p>
+   <button class="btn smallbtn" onclick="openLesson('${l.id}')">
+    ${state.completedLessons.includes(l.id)?"Review":"Open Lesson"}
+   </button>
+  </div>`).join("");
+}
+
+function findLesson(id){
+ for(const s of SUBJECTS){
+  const found=getLessons(s.id).find(l=>l.id===id);
+  if(found)return found;
+ }
+ return null;
+}
+function openLesson(id){
+ const l=findLesson(id);
+ if(!l)return;
+ document.getElementById("lessonTitle").textContent=l.title;
+ document.getElementById("lessonMeta").textContent=`${l.subjectName} • Week ${l.week}`;
+ document.getElementById("lessonContent").innerHTML=`
+  <div class="card">
+   <h3>Discover</h3>
+   <p>${esc(l.description)}</p>
+  </div>
+
+  <div class="card">
+   <h3>Understand</h3>
+   <h4>Learning objectives</h4>
+   <ul>${l.objectives.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>
+   <h4>Key concepts</h4>
+   <ul>${l.concepts.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>
+  </div>
+
+  <div class="card">
+   <h3>Practise</h3>
+   <p>${esc(l.practice)}</p>
+   <textarea class="field" id="lessonPractice" placeholder="Write your answer here..."></textarea>
+  </div>
+
+  <div class="card">
+   <h3>Apply</h3>
+   <p><b>Challenge:</b> ${esc(l.challenge)}</p>
+   <textarea class="field" id="lessonApply" placeholder="Describe how you applied the idea..."></textarea>
+  </div>
+
+  <div class="card">
+   <h3>Explain</h3>
+   <p>Imagine you are teaching this concept to your Home Teacher. Explain it in your own words.</p>
+   <textarea class="field" id="lessonExplain" placeholder="Teach the concept in your own words..."></textarea>
+  </div>
+
+  <div class="card">
+   <h3>Assess</h3>
+   <div class="question">
+    <b>What is the most important thing you learned from this lesson?</b>
+    <textarea class="field" id="lessonCheck" placeholder="Your answer..."></textarea>
+   </div>
+   <button class="btn" onclick="completeLesson('${l.id}')">
+    Mark Learning Unit Complete
+   </button>
+  </div>`;
+ showView("lesson");
+}
+function completeLesson(id){
+ if(!state.completedLessons.includes(id))state.completedLessons.push(id);
+ const d=today();
+ if(state.lastLearningDate!==d){
+  state.streak++;
+  state.lastLearningDate=d;
+ }
+ award("First Learning Unit",state.completedLessons.length>=1);
+ award("Five Learning Units",state.completedLessons.length>=5);
+ award("Ten Learning Units",state.completedLessons.length>=10);
+ award("Twenty Learning Units",state.completedLessons.length>=20);
+ saveState();
+ alert("Learning unit completed. Great work!");
+ showView("course");
+}
+
+function award(name,condition){
+ if(condition&&!state.achievements.includes(name))state.achievements.push(name);
+}
+
+/* DAILY CHECKS */
+function openDailyCheck(){
+ const l=lessonForToday();
+ openModal(`
+  <h2>Daily Knowledge Check</h2>
+  <p>${esc(l.subjectName)} • ${esc(l.title)}</p>
+  <div class="question">
+   <b>1. Which approach best shows understanding?</b>
+   <label><input type="radio" name="dc1" value="a"> Memorising without understanding</label>
+   <label><input type="radio" name="dc1" value="b"> Explaining the idea and applying it</label>
+   <label><input type="radio" name="dc1" value="c"> Skipping practice</label>
+  </div>
+  <div class="question">
+   <b>2. What should you do when you do not understand something?</b>
+   <label><input type="radio" name="dc2" value="a"> Hide the difficulty</label>
+   <label><input type="radio" name="dc2" value="b"> Identify the gap and seek help</label>
+   <label><input type="radio" name="dc2" value="c"> Stop learning</label>
+  </div>
+  <button class="btn" onclick="markDailyCheck()">Submit Check</button>`);
+}
+function markDailyCheck(){
+ const a=document.querySelector('input[name="dc1"]:checked');
+ const b=document.querySelector('input[name="dc2"]:checked');
+ if(!a||!b){alert("Please answer both questions.");return}
+ const score=(a.value==="b"?50:0)+(b.value==="b"?50:0);
+ state.checks.push({date:today(),score,lesson:lessonForToday().id});
+ if(score<50)state.remediation.push({
+  subject:lessonForToday().subjectName,
+  concept:lessonForToday().title,
+  reason:"Daily check below 50%",
+  date:today()
+ });
+ saveState();
+ closeModal();
+ alert(`Daily check recorded: ${score}%`);
+}
+
+/* WEEKLY QUIZ */
+function openWeeklyQuiz(){
+ const w=currentWeek();
+ openModal(`
+  <h2>Week ${w} Review Quiz</h2>
+  <p>${esc(weekTitle(w))}</p>
+  ${quizQuestions(w)}
+  <button class="btn" onclick="submitWeeklyQuiz()">Submit Quiz</button>`);
+}
+function quizQuestions(w){
+ return `
+ <div class="question"><b>1. What is the purpose of practice?</b>
+ <label><input type="radio" name="q1" value="a"> To avoid thinking</label>
+ <label><input type="radio" name="q1" value="b"> To strengthen understanding and skill</label>
+ <label><input type="radio" name="q1" value="c"> To replace learning</label></div>
+ <div class="question"><b>2. Which step comes after Understand in the learning cycle?</b>
+ <label><input type="radio" name="q2" value="a"> Practise</label>
+ <label><input type="radio" name="q2" value="b"> Forget</label>
+ <label><input type="radio" name="q2" value="c"> Stop</label></div>
+ <div class="question"><b>3. Why is explain-back useful?</b>
+ <label><input type="radio" name="q3" value="a"> It shows whether the learner can communicate understanding</label>
+ <label><input type="radio" name="q3" value="b"> It removes the need to learn</label>
+ <label><input type="radio" name="q3" value="c"> It is only entertainment</label></div>`;
+}
+function submitWeeklyQuiz(){
+ let score=0;
+ ["q1","q2","q3"].forEach((n,i)=>{
+  const x=document.querySelector(`input[name="${n}"]:checked`);
+  if(x&&x.value==="a" || x&&n==="q1"&&x.value==="b")score++;
+ });
+ /* q1 correct b, q2 a, q3 a */
+ score=0;
+ if(document.querySelector('input[name="q1"]:checked')?.value==="b")score++;
+ if(document.querySelector('input[name="q2"]:checked')?.value==="a")score++;
+ if(document.querySelector('input[name="q3"]:checked')?.value==="a")score++;
+ const pct=Math.round(score/3*100);
+ state.assessments.push({type:"Weekly Quiz",week:currentWeek(),score:pct,max:100,date:today()});
+ saveState();
+ closeModal();
+ alert(`Weekly quiz recorded: ${pct}%`);
+}
+
+/* FRIDAY TESTS */
+function renderAssessments(){
+ const box=document.getElementById("assessmentList");
+ box.innerHTML=TESTS.map(t=>{
+  const result=state.assessments.find(x=>x.testId===t.id);
+  return `<div class="card lesson ${result?"done":""}">
+   <span class="pill">Test ${t.id} • Week ${t.week}</span>
+   <h3>${esc(t.title)}</h3>
+   <p>${esc(t.subject)} • ${t.marks} marks</p>
+   ${result?`<p class="success">Recorded score: <b>${result.score}%</b></p>`:"<p class=\"small\">Not yet completed</p>"}
+   <button class="btn smallbtn" onclick="openFridayTest(${t.id})">${result?"Retake":"Start Test"}</button>
+  </div>`;
+ }).join("");
+}
+function openFridayTest(id){
+ const t=TESTS.find(x=>x.id===id);
+ if(!t)return;
+ const questions=makeTestQuestions(t);
+ openModal(`
+  <h2>Friday Assessment ${t.id}</h2>
+  <p><b>${esc(t.title)}</b></p>
+  <p>${esc(t.subject)} • ${t.marks} marks • Week ${t.week}</p>
+  ${questions}
+  <button class="btn gold" onclick="submitFridayTest(${t.id})">Submit Assessment</button>`);
+}
+function makeTestQuestions(t){
+ const qs=[
+  ["Which statement best describes learning?","a","Learning involves understanding, practice and application."],
+  ["Which action demonstrates independent learning?","b","Finding evidence and explaining your reasoning."],
+  ["Why should a learner check an answer?","c","To identify mistakes and improve accuracy."],
+  ["What should happen when a learner struggles?","a","The learner should identify the gap and practise it."],
+  ["What is a useful study habit?","b","Planning time and reviewing regularly."]
+ ];
+ return qs.map((q,i)=>`
+  <div class="question">
+   <b>${i+1}. ${esc(q[0])}</b>
+   <label><input type="radio" name="ft${i}" value="a"> ${i%2===0?esc(q[2]):"Memorising without understanding."}</label>
+   <label><input type="radio" name="ft${i}" value="b"> ${i%2===1?esc(q[2]):"Skipping the activity."}</label>
+   <label><input type="radio" name="ft${i}" value="c"> ${i%3===0?esc(q[2]):"Ignoring the feedback."}</label>
+  </div>`).join("");
+}
+function submitFridayTest(id){
+ const t=TESTS.find(x=>x.id===id);
+ let correct=0;
+ const correctAnswers=["a","b","c","a","b"];
+ for(let i=0;i<5;i++){
+  const x=document.querySelector(`input[name="ft${i}"]:checked`);
+  if(x&&x.value===correctAnswers[i])correct++;
+ }
+ const score=Math.round(correct/5*100);
+ state.assessments=state.assessments.filter(x=>x.testId!==id);
+ state.assessments.push({
+  type:"Friday Assessment",
+  testId:id,
+  week:t.week,
+  subject:t.subject,
+  title:t.title,
+  score,
+  max:t.marks,
+  date:today()
+ });
+ if(score<50){
+  state.remediation.push({
+   subject:t.subject,
+   concept:t.title,
+   reason:`Friday Assessment ${id} below 50%`,
+   date:today()
+  });
+ }
+ award("First Assessment",state.assessments.length>=1);
+ award("Assessment Explorer",state.assessments.length>=5);
+ award("Assessment Champion",state.assessments.length>=10);
+ saveState();
+ closeModal();
+ alert(`Assessment ${id} recorded: ${score}%`);
+}
+
+/* FINAL */
+function openFinalAssessment(){
+ openModal(`
+  <h2>Final Form One Readiness Assessment</h2>
+  <p>This assessment reviews academic readiness and independent learning.</p>
+  <div class="question">
+   <b>1. Can you explain a concept without reading directly from notes?</b>
+   <label><input type="radio" name="fr1" value="a"> Yes</label>
+   <label><input type="radio" name="fr1" value="b"> Sometimes</label>
+   <label><input type="radio" name="fr1" value="c"> Not yet</label>
+  </div>
+  <div class="question">
+   <b>2. When you meet a difficult question, what do you normally do?</b>
+   <label><input type="radio" name="fr2" value="a"> Try different methods and seek evidence</label>
+   <label><input type="radio" name="fr2" value="b"> Wait for someone to give the answer</label>
+   <label><input type="radio" name="fr2" value="c"> Leave it unanswered</label>
+  </div>
+  <div class="question">
+   <b>3. What area do you most want to strengthen before Form One?</b>
+   <textarea class="field" id="finalArea"></textarea>
+  </div>
+  <button class="btn gold" onclick="submitFinalAssessment()">Save Readiness Assessment</button>`);
+}
+function submitFinalAssessment(){
+ const a=document.querySelector('input[name="fr1"]:checked');
+ const b=document.querySelector('input[name="fr2"]:checked');
+ if(!a||!b){alert("Please complete the first two questions.");return}
+ let score=0;
+ if(a.value==="a")score+=50;
+ else if(a.value==="b")score+=30;
+ if(b.value==="a")score+=50;
+ else if(b.value==="b")score+=25;
+ state.assessments.push({
+  type:"Final Form One Readiness Assessment",
+  score,
+  max:80,
+  readinessScore:score,
+  focus:document.getElementById("finalArea").value,
+  date:today()
+ });
+ saveState();
+ closeModal();
+ alert("Final readiness assessment saved.");
+}
+
+/* JOURNEY */
+function renderJourney(){
+ document.getElementById("journeyList").innerHTML=WEEKS.map((w,i)=>{
+  const n=i+1;
+  const test=TESTS.find(t=>t.week===n);
+  const done=state.assessments.some(a=>a.testId===test?.id);
+  return `<div class="card lesson ${done?"done":""}">
+   <span class="pill">WEEK ${n}</span>
+   <h3>${esc(w[0])}</h3>
+   <p>${esc(w[1])}</p>
+   <p><b>Friday:</b> ${esc(test.title)} • ${test.marks} marks</p>
+   ${n===1?`<div class="notice">Programme begins with learning orientation and foundation building.</div>`:""}
+   ${n===15?`<div class="notice success">Final destination: Form One Readiness Assessment.</div>`:""}
+  </div>`;
+ }).join("");
+}
+
+/* ASSIGNMENTS */
+function assignmentForWeek(w){
+ return {
+  id:"challenge-"+w,
+  week:w,
+  title:`Weekly Real-World Challenge – Week ${w}`,
+  text:CHALLENGES[(w-1)%CHALLENGES.length]
+ };
+}
+
+/* PROGRESS */
+function averageScore(){
+ if(!state.assessments.length)return 0;
+ return Math.round(state.assessments.reduce((a,b)=>a+Number(b.score||0),0)/state.assessments.length);
+}
+function subjectScore(s){
+ const assessments=state.assessments.filter(a=>
+  a.subject===s.name ||
+  a.subject==="All Subjects"
+ );
+ const lessons=getLessons(s.id);
+ const done=lessons.filter(l=>state.completedLessons.includes(l.id)).length;
+ let score=assessments.length?
+   assessments.reduce((a,b)=>a+Number(b.score||0),0)/assessments.length:
+   0;
+ if(!assessments.length)score=done/lessons.length*100;
+ else score=Math.min(100,score*.7+(done/lessons.length*100)*.3);
+ return Math.round(score);
+}
+function masteryLabel(score){
+ if(score>=80)return ["Mastered","mastered"];
+ if(score>=50)return ["Developing","developing"];
+ return ["Needs Attention","attention"];
+}
+function renderProgress(){
+ const avg=averageScore();
+ document.getElementById("pLessons").textContent=state.completedLessons.length;
+ document.getElementById("pAssess").textContent=state.assessments.length;
+ document.getElementById("pAssignments").textContent=state.assignments.length;
+ document.getElementById("pJournal").textContent=state.journal.length;
+
+ document.getElementById("masteryList").innerHTML=SUBJECTS.map(s=>{
+  const score=subjectScore(s);
+  const m=masteryLabel(score);
+  return `<div class="card lesson">
+   <div style="display:flex;justify-content:space-between;gap:10px">
+    <h3>${s.icon} ${esc(s.name)}</h3>
+    <b class="${m[1]}">${m[0]}</b>
+   </div>
+   <div class="progress"><span style="width:${score}%"></span></div>
+   <p>${score}% mastery indicator</p>
+  </div>`;
+ }).join("");
+
+ const rem=state.remediation.slice(-10).reverse();
+ document.getElementById("remediationList").innerHTML=rem.length?
+  rem.map(r=>`<div class="card lesson"><h3>${esc(r.subject)}</h3><p>${esc(r.concept)}</p><p class="small">${esc(r.reason)} • ${esc(r.date)}</p><div class="notice warning">Recommended action: revisit the concept, practise again, explain it aloud, then retake an appropriate check.</div></div>`).join(""):
+  `<div class="card success"><h3>No current remediation items</h3><p>Continue learning and use assessments to identify future gaps.</p></div>`;
+
+ document.getElementById("achievementList").innerHTML=state.achievements.length?
+  state.achievements.map(a=>`<span class="badge">🏅 ${esc(a)}</span>`).join(" "):
+  `<div class="card"><p>Achievements will appear as learning milestones are completed.</p></div>`;
+}
+
+/* JOURNAL */
+function saveJournal(){
+ const d=document.getElementById("journalDate").value||today();
+ const learn=document.getElementById("journalLearn").value.trim();
+ if(!learn){alert("Please write what you learned.");return}
+ state.journal.push({
+  date:d,
+  learn,
+  difficult:document.getElementById("journalDifficult").value,
+  solve:document.getElementById("journalSolve").value,
+  question:document.getElementById("journalQuestion").value
+ });
+ document.getElementById("journalLearn").value="";
+ document.getElementById("journalDifficult").value="";
+ document.getElementById("journalSolve").value="";
+ document.getElementById("journalQuestion").value="";
+ saveState();
+ alert("Journal entry saved.");
+}
+function renderJournal(){
+ document.getElementById("journalDate").value=today();
+ document.getElementById("journalList").innerHTML=state.journal.length?
+  state.journal.slice().reverse().map(j=>`
+   <div class="card">
+    <span class="pill">${esc(j.date)}</span>
+    <h3>What I learned</h3><p>${esc(j.learn)}</p>
+    ${j.difficult?`<h4>Difficulty</h4><p>${esc(j.difficult)}</p>`:""}
+    ${j.solve?`<h4>How I solved it</h4><p>${esc(j.solve)}</p>`:""}
+    ${j.question?`<h4>Question</h4><p>${esc(j.question)}</p>`:""}
+   </div>`).join(""):
+  `<div class="card"><p>No journal entries yet.</p></div>`;
+}
+
+/* PARENT */
+function setInitialPin(){
+ const p=prompt("Create a Parent PIN (4–8 digits):");
+ if(!p||!/^\d{4,8}$/.test(p)){alert("PIN must contain 4–8 digits.");return}
+ state.parentPin=p;
+ saveState();
+ alert("Parent PIN saved.");
+}
+function unlockParent(){
+ if(!state.parentPin){
+  setInitialPin();
+  return;
+ }
+ const p=document.getElementById("parentPinInput").value;
+ if(p!==state.parentPin){alert("Incorrect Parent PIN.");return}
+ document.getElementById("parentLocked").style.display="none";
+ document.getElementById("parentContent").style.display="block";
+ renderParent();
+}
+function renderParent(){
+ const w=currentWeek();
+ document.getElementById("parentWeek").textContent=w;
+ document.getElementById("parentAverage").textContent=averageScore()+"%";
+ const mastery=Math.round(SUBJECTS.reduce((a,s)=>a+subjectScore(s),0)/SUBJECTS.length);
+ document.getElementById("parentMastery").textContent=mastery+"%";
+ document.getElementById("parentLessons").textContent=state.completedLessons.length;
+
+ document.getElementById("observationWeek").innerHTML=WEEKS.map((x,i)=>
+  `<option value="${i+1}">Week ${i+1} – ${esc(x[0])}</option>`).join("");
+
+ const weak=SUBJECTS.map(s=>({s,score:subjectScore(s)})).filter(x=>x.score<80).sort((a,b)=>a.score-b.score);
+ document.getElementById("interventionPlan").innerHTML=weak.length?
+  weak.map(x=>`<div class="notice ${x.score<50?"dangerbox":"warning"}">
+   <b>${esc(x.s.name)} – ${x.score}%</b><br>
+   Revisit core concepts, complete a targeted practice activity, explain the concept aloud and reassess.
+  </div>`).join(""):
+  `<div class="notice success"><b>Current indicators are at or above 80%.</b><br>Continue enrichment and independent application.</div>`;
+
+ const readiness=Math.round(
+   (averageScore()+mastery)/2
+ );
+ document.getElementById("readinessReport").innerHTML=`
+  <h3>${esc(state.profile.name)} – Form One Readiness Profile</h3>
+  <table>
+   <tr><th>Programme</th><td>${esc(state.profile.programme)}</td></tr>
+   <tr><th>Current Week</th><td>${w} of 15</td></tr>
+   <tr><th>Lessons Completed</th><td>${state.completedLessons.length}</td></tr>
+   <tr><th>Assessment Average</th><td>${averageScore()}%</td></tr>
+   <tr><th>Mastery Indicator</th><td>${mastery}%</td></tr>
+   <tr><th>Journal Entries</th><td>${state.journal.length}</td></tr>
+   <tr><th>Readiness Indicator</th><td>${readiness}%</td></tr>
+  </table>
+  <div class="notice">
+   <b>Interpretation:</b> This is a programme monitoring indicator, not a formal school examination grade.
+   It should be considered together with teacher observations, learner independence, communication,
+   practical application and assessment evidence.
+  </div>`;
+}
+function saveObservation(){
+ const week=Number(document.getElementById("observationWeek").value);
+ const text=document.getElementById("observationText").value.trim();
+ if(!text){alert("Write an observation first.");return}
+ state.observations.push({week,text,date:today()});
+ document.getElementById("observationText").value="";
+ saveState();
+ alert("Observation saved.");
+}
+
+/* EXPORT / IMPORT */
+function exportData(){
+ const blob=new Blob([JSON.stringify(state,null,2)],{type:"application/json"});
+ const a=document.createElement("a");
+ a.href=URL.createObjectURL(blob);
+ a.download="education-access-briela-v20-backup.json";
+ a.click();
+ URL.revokeObjectURL(a.href);
+}
+function importData(e){
+ const file=e.target.files[0];
+ if(!file)return;
+ const reader=new FileReader();
+ reader.onload=()=>{
+  try{
+   const imported=JSON.parse(reader.result);
+   localStorage.setItem(STORAGE_KEY,JSON.stringify(imported));
+   location.reload();
+  }catch(err){alert("Invalid backup file.")}
+ };
+ reader.readAsText(file);
+}
+function resetData(){
+ if(!confirm("Reset all local programme data? This cannot be undone unless you have a backup."))return;
+ localStorage.removeItem(STORAGE_KEY);
+ location.reload();
+}
+
+/* PROFILE */
+function renderSettings(){
+ document.getElementById("profileName").value=state.profile.name;
+ document.getElementById("profileSchool").value=state.profile.school;
+ document.getElementById("profileClass").value=state.profile.className;
+ document.getElementById("profileProgramme").value=state.profile.programme;
+ document.getElementById("profileStart").value=state.profile.start;
+ document.getElementById("profileTarget").value=state.profile.target;
+}
+function saveProfile(){
+ state.profile.name=document.getElementById("profileName").value||"Briela";
+ state.profile.school=document.getElementById("profileSchool").value;
+ state.profile.className=document.getElementById("profileClass").value;
+ state.profile.programme=document.getElementById("profileProgramme").value;
+ state.profile.start=document.getElementById("profileStart").value;
+ state.profile.target=document.getElementById("profileTarget").value;
+ saveState();
+ alert("Learner profile saved.");
+}
+
+/* ASSESSMENT VIEW */
+function renderAssessments(){
+ const box=document.getElementById("assessmentList");
+ box.innerHTML=TESTS.map(t=>{
+  const result=state.assessments.find(x=>x.testId===t.id);
+  return `<div class="card lesson ${result?"done":""}">
+   <span class="pill">Test ${t.id} • Week ${t.week}</span>
+   <h3>${esc(t.title)}</h3>
+   <p>${esc(t.subject)} • ${t.marks} marks</p>
+   ${result?`<div class="notice success">Latest recorded score: <b>${result.score}%</b></div>`:"<p class=\"small\">Not yet completed</p>"}
+   <button class="btn smallbtn" onclick="openFridayTest(${t.id})">${result?"Retake":"Start Test"}</button>
+  </div>`;
+ }).join("");
+}
+
+/* ASSIGNMENTS + PORTFOLIO */
+function renderAssignmentCentre(){
+ /* Kept as an engine function for future dashboard expansion. */
+}
+
+/* GLOBAL RENDER */
+function renderAll(){
+ renderHome();
+ renderSubjects();
+ renderCourse();
+ renderJourney();
+ renderAssessments();
+ renderJournal();
+ renderProgress();
+ renderSettings();
+
+ const parentOpen=document.getElementById("parentContent").style.display==="block";
+ if(parentOpen)renderParent();
+}
+
+/* INITIALISE */
+renderAll();
+
+/* Make sure initial profile is visible */
+document.getElementById("welcomeName").textContent=state.profile.name;
+
+/* Keyboard-friendly modal closing */
+document.getElementById("modal").addEventListener("click",e=>{
+ if(e.target.id==="modal")closeModal();
+});
+</script>
+</body>
+</html>

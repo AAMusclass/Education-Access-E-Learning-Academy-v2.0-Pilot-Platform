@@ -1,1852 +1,2779 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#08111f">
-<title>Education Access E-Learning Academy v2.0 — Integrated Learning Evidence Platform</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="theme-color" content="#07101d">
+<title>Education Access E-Learning Academy v2.0</title>
+
 <style>
-:root{--bg:#07101d;--panel:#0d1929;--panel2:#111f33;--line:#22334b;--text:#edf5ff;--muted:#9db0c7;--accent:#35d39a;--accent2:#5ea7ff;--warn:#f6c85f;--danger:#ff7272;--shadow:0 14px 40px #0007}*{box-sizing:border-box}html,body{margin:0;background:linear-gradient(135deg,#06101c,#0a1424 55%,#07111e);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif}button,input,select,textarea{font:inherit}button{cursor:pointer}.app{min-height:100vh}.top{position:sticky;top:0;z-index:20;background:#07101de8;backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}.topin{max-width:1300px;margin:auto;padding:12px 16px;display:flex;gap:14px;align-items:center;justify-content:space-between}.brand{display:flex;align-items:center;gap:11px}.logo{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;background:linear-gradient(145deg,#35d39a,#2271b8);font-weight:900;box-shadow:var(--shadow)}h1,h2,h3{margin:.15rem 0 .6rem}.brand h1{font-size:1rem}.brand small{color:var(--muted)}.nav{display:flex;gap:7px;overflow:auto;padding:8px 16px;max-width:1300px;margin:auto}.nav button,.pill,.tab{border:1px solid var(--line);background:#0b1727;color:var(--text);border-radius:10px;padding:9px 12px;white-space:nowrap}.nav button.active,.tab.active{background:var(--accent);color:#03140e;border-color:var(--accent);font-weight:800}.wrap{max-width:1300px;margin:auto;padding:18px 16px 60px}.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:14px}.card{background:linear-gradient(145deg,#0d1929,#0b1726);border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:var(--shadow)}.span12{grid-column:span 12}.span8{grid-column:span 8}.span6{grid-column:span 6}.span4{grid-column:span 4}.span3{grid-column:span 3}.muted{color:var(--muted)}.small{font-size:.86rem}.kpi{font-size:1.65rem;font-weight:900}.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.between{display:flex;justify-content:space-between;gap:10px;align-items:center}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.btn{border:1px solid var(--line);background:#122238;color:var(--text);border-radius:10px;padding:10px 13px}.btn.primary{background:var(--accent);color:#03140e;border-color:var(--accent);font-weight:800}.btn.blue{background:#17355c;border-color:#2e6ca9}.btn.warn{background:#4a3b18;border-color:#806621}.btn.danger{background:#481d25;border-color:#7d303d}.subject-card{min-height:160px}.subject-card h3{margin-bottom:3px}.tag{display:inline-block;border:1px solid #2d4965;background:#0c1c30;border-radius:999px;padding:4px 8px;font-size:.75rem;color:#b9d4ef;margin:3px}.progress{height:9px;background:#17263a;border-radius:99px;overflow:hidden}.progress i{display:block;height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));width:0}.select,textarea,input{width:100%;background:#081422;color:var(--text);border:1px solid var(--line);border-radius:10px;padding:10px}.select{appearance:auto}.tabs{display:flex;gap:7px;overflow:auto;margin:14px 0}.content{line-height:1.62}.content ul{padding-left:20px}.mission{border-left:4px solid var(--accent);padding:12px 14px;background:#0b2130;border-radius:10px}.callout{border-left:4px solid var(--accent2);padding:12px 14px;background:#0b1c30;border-radius:10px}.check{display:grid;gap:10px}.question{padding:12px;border:1px solid var(--line);border-radius:12px;background:#091625}.status{font-weight:800}.secure{color:var(--accent)}.developing{color:var(--warn)}.emerging{color:#ff9c72}.mastered{color:#8ee7ff}.hidden{display:none!important}.footer{text-align:center;color:var(--muted);padding:20px}.modal{position:fixed;inset:0;background:#0009;z-index:50;display:grid;place-items:center;padding:18px}.modalbox{max-width:800px;width:100%;max-height:90vh;overflow:auto;background:#0b1726;border:1px solid var(--line);border-radius:18px;padding:18px}.recording{padding:12px;border:1px solid var(--line);border-radius:12px;margin:8px 0}.recording audio{width:100%}.metric{display:flex;justify-content:space-between;gap:8px;margin:7px 0}.notice{padding:10px 12px;border-radius:10px;background:#10233a;border:1px solid #234b72}.dangerbox{background:#32151c;border:1px solid #6c2936}.table{width:100%;border-collapse:collapse}.table th,.table td{padding:8px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}.hero{background:radial-gradient(circle at 80% 10%,#164b59 0,#0c1d2c 42%,#0a1523 100%)}@media(max-width:900px){.span8,.span6,.span4,.span3{grid-column:span 12}.topin{align-items:flex-start}.brand small{display:block}.nav{padding-bottom:10px}.wrap{padding-top:12px}}@media(max-width:560px){.topin{padding:10px}.wrap{padding:10px 10px 45px}.card{padding:13px}.kpi{font-size:1.35rem}}
-</style>
-</head>
-<body>
-<div id="app" class="app"></div>
-<script>
-'use strict';
-
-const KEY='EA_Academy_v2_Integrated_V2_1';
-
-const SUBJECTS={
- mathematics:{
-  name:'Mathematics',
-  icon:'🧮',
-  lab:'Maths Reasoning Lab',
-  signature:'SHOW YOUR THINKING',
-  weeks:[
-   'Mathematics Is Everywhere',
-   'Number Universe: Rational, Irrational & Real Numbers',
-   'Decimals, Recurring Decimals & Number Lines',
-   'Inequalities & Absolute Value',
-   'Ratios & Proportions in Real Life',
-   'Approximation, Estimation & Significant Figures',
-   'Geometry Around Me',
-   'Algebra Translator',
-   'Build-and-Solve Algebra Lab',
-   'Unknown X Investigation',
-   'Mathematics in Real-World Decisions',
-   'Integrated Numerical Reasoning',
-   'Geometry + Algebra Design Challenge',
-   'Mathematics Mastery Mission',
-   'Explain-Your-Thinking Final Challenge'
-  ]
- },
- kiswahili:{
-  name:'Kiswahili',
-  icon:'📝',
-  lab:'Lugha & Uandishi Studio',
-  signature:'SIKILIZA → SEMA → SOMA → CHAMBUA → ANDIKA → HARIRI → BORESHA',
-  weeks:[
-   'Kiswahili, Taifa na Mtanzania',
-   'Kiswahili katika Mazingira ya Kiutamaduni',
-   'Masimulizi, Kiimbo, Mkazo na Lafudhi',
-   'Aina za Maneno katika Tungo',
-   'Sentensi na Uhusiano wa Maneno',
-   'Aya na Uhusiano wa Sentensi',
-   'Uandishi wa Hadithi',
-   'Kusikiliza na Kuelewa Mazungumzo',
-   'Kusoma na Kuelewa Matini',
-   'Msamiati na Matumizi Sahihi',
-   'Mawasiliano ya Mazungumzo',
-   'Uandishi na Uhariri',
-   'Mawasiliano na Uhawilishaji',
-   'Integrated Kiswahili Portfolio',
-   'Readiness Assessment'
-  ]
- },
- english:{
-  name:'English Language',
-  icon:'🇬🇧',
-  lab:'Communication Lab',
-  signature:'LISTEN → UNDERSTAND → SPEAK → READ → WRITE → PRESENT',
-  weeks:[
-   'Finding Information & Responsible Sources',
-   'Listening for Information',
-   'Speaking Clear Short Messages',
-   'Pronunciation, Fluency & Intelligibility',
-   'Vocabulary Development',
-   'Reading for Meaning',
-   'Grammar in Communication',
-   'Sentence Construction',
-   'Paragraph Writing',
-   'Functional Communication',
-   'Reading + Vocabulary Integration',
-   'Listening + Speaking Integration',
-   'Writing + Editing',
-   'Integrated Communication Portfolio',
-   'Readiness Assessment'
-  ]
- },
- business:{
-  name:'Business Studies',
-  icon:'💼',
-  lab:'Young Enterprise Lab',
-  signature:'IDEA → CUSTOMER → RESOURCES → COST → VALUE → RECORD → DECIDE',
-  weeks:[
-   'What Is Business Studies?',
-   'Business in Everyday Life',
-   'Business and Other Disciplines',
-   'Entrepreneurship',
-   'Entrepreneurial Characteristics',
-   'Entrepreneurial Skills',
-   'Finding Business Opportunities',
-   'Forms and Ownership',
-   'Sole Proprietorship & Decisions',
-   'Business Resources & Operations',
-   'Customers, Markets & Value',
-   'Costs, Pricing, Revenue & Profit',
-   'Business Records & Decisions',
-   'Brielle Enterprise Project',
-   'Readiness Assessment'
-  ]
- },
- geography:{
-  name:'Geography',
-  icon:'🌍',
-  lab:'Geo-Intelligence Lab',
-  signature:'OBSERVE → LOCATE → DESCRIBE → EXPLAIN → CONNECT → INVESTIGATE → PRESENT',
-  weeks:[
-   'What Is Geography?',
-   'Geography in Everyday Life',
-   'Earth: Origin, Structure & Shape',
-   'Earth in Space',
-   'Latitude & Longitude',
-   'Movements of the Earth',
-   'Solar System',
-   'Continents & Oceans',
-   'Major Physical Features',
-   'Relief & Landforms',
-   'Inland Water Bodies',
-   'Vegetation & Environment',
-   'Map Interpretation & Application',
-   'My World Geo-Investigation',
-   'Readiness Assessment'
-  ]
- },
- history:{
-  name:'Historia ya Tanzania na Maadili',
-  icon:'🏛️',
-  lab:'Heritage & Civic Reasoning Lab',
-  signature:'SOURCE → TIME → PLACE → PEOPLE → CAUSE → CHANGE → CONSEQUENCE → REFLECTION',
-  weeks:[
-   'Origins of Tanzanian Societies',
-   'Bantu, Nilotic, Cushitic & Related Communities',
-   'Activities of Tanzanian Societies',
-   'Values & Heritage',
-   'Opportunities within Heritage',
-   'Social Systems before Colonialism',
-   'Economic & Political Systems',
-   'Science & Technology before Colonialism',
-   'Colonialism and Its Emergence',
-   'Colonial Effects & Responses',
-   'Resistance to Colonial Rule',
-   'Independence & Nation-Building',
-   'Zanzibar Revolution & Union',
-   'Heritage Evidence Project',
-   'Readiness Assessment'
-  ]
- }
-};
-
-function defaultState(){
- return {
-  profile:{
-   learnerName:'Brielle',
-   school:'Fedha Primary School, Kawe',
-   level:'Grade 7 → Form One',
-   goal:'January 2027 Form One readiness',
-   parentName:'Mr. Patrick',
-   programme:'October–December 2026'
-  },
-  current:{
-   subject:'mathematics',
-   week:1,
-   tab:'discover'
-  },
-  completed:{},
-  checks:{},
-  journals:{},
-  evidence:[],
-  assessments:{},
-  mastery:{},
-  flags:{},
-  settings:{voiceAutoTag:true},
-  version:'2.1'
- };
+:root{
+ --bg:#07101d;
+ --panel:#0d1929;
+ --panel2:#111f33;
+ --line:#22334b;
+ --text:#edf5ff;
+ --muted:#9db0c7;
+ --accent:#35d39a;
+ --blue:#5ea7ff;
+ --warn:#f6c85f;
 }
 
-const DB_NAME='EA_Academy_V21_Evidence';
-const DB_VERSION=1;
-const AUDIO_STORE='audio';
+*{box-sizing:border-box}
 
-let state=load();
-let recorder=null;
-let recordingChunks=[];
-let audioDB=null;
+body{
+ margin:0;
+ background:var(--bg);
+ color:var(--text);
+ font-family:Arial,sans-serif;
+ line-height:1.5;
+}
+
+button,input,textarea,select{
+ font:inherit;
+}
+
+button{
+ cursor:pointer;
+}
+
+.app{
+ min-height:100vh;
+}
+
+.header{
+ position:sticky;
+ top:0;
+ z-index:10;
+ background:#07101df2;
+ border-bottom:1px solid var(--line);
+}
+
+.headerTop{
+ display:flex;
+ align-items:center;
+ gap:12px;
+ padding:12px;
+ max-width:1200px;
+ margin:auto;
+}
+
+.logo{
+ width:44px;
+ height:44px;
+ border-radius:12px;
+ background:linear-gradient(135deg,var(--accent),var(--blue));
+ color:#061018;
+ display:grid;
+ place-items:center;
+ font-weight:bold;
+}
+
+.brand h1{
+ margin:0;
+ font-size:17px;
+}
+
+.brand small{
+ color:var(--muted);
+}
+
+.nav{
+ display:flex;
+ gap:6px;
+ overflow-x:auto;
+ padding:8px 12px;
+ max-width:1200px;
+ margin:auto;
+}
+
+.nav button,
+.btn{
+ border:1px solid var(--line);
+ background:var(--panel2);
+ color:var(--text);
+ border-radius:9px;
+ padding:9px 12px;
+ white-space:nowrap;
+}
+
+.nav button.active,
+.btn.primary{
+ background:var(--accent);
+ color:#03140e;
+ font-weight:bold;
+}
+
+.wrap{
+ max-width:1200px;
+ margin:auto;
+ padding:15px;
+}
+
+.grid{
+ display:grid;
+ grid-template-columns:repeat(12,1fr);
+ gap:12px;
+}
+
+.card{
+ background:var(--panel);
+ border:1px solid var(--line);
+ border-radius:14px;
+ padding:15px;
+}
+
+.full{grid-column:span 12}
+.half{grid-column:span 6}
+.third{grid-column:span 4}
+
+.hero{
+ background:linear-gradient(135deg,#0d2635,#0d1929);
+}
+
+.muted{
+ color:var(--muted);
+}
+
+.tag{
+ display:inline-block;
+ padding:4px 8px;
+ margin:2px;
+ border:1px solid var(--line);
+ border-radius:20px;
+ font-size:12px;
+ color:var(--muted);
+}
+
+.progress{
+ height:8px;
+ background:#17263a;
+ border-radius:10px;
+ overflow:hidden;
+}
+
+.progress i{
+ display:block;
+ height:100%;
+ background:linear-gradient(90deg,var(--accent),var(--blue));
+}
+
+.actions{
+ display:flex;
+ gap:8px;
+ flex-wrap:wrap;
+ margin-top:12px;
+}
+
+@media(max-width:700px){
+ .half,.third{
+  grid-column:span 12;
+ }
+}
+</style>
+</head>
+
+<body>
+
+<div id="app" class="app"></div>
+
+<script>
+"use strict";
+
+/* EDUCATION ACCESS E-LEARNING ACADEMY v2.0
+   PART 1/6 — FOUNDATION
+*/
+
+const APP={
+ name:"Education Access E-Learning Academy",
+ version:"v2.0",
+ learner:"Brielle",
+ level:"Grade 7 → Form One",
+ period:"October–December 2026",
+ goal:"January 2027 Form One readiness",
+ teacher:"Mr. Patrick",
+ founder:"Dr. James K. Mushi, PhD"
+};
+
+const SUBJECTS={};
+
+const state={
+ page:"dashboard",
+ subject:null,
+ week:1,
+ tab:"discover",
+ completed:{},
+ evidence:[],
+ journals:{},
+ checks:{},
+ mastery:{},
+ assessments:{}
+};
+
+function save(){
+ localStorage.setItem(
+  "EA_Academy_v2_Integrated_V2_1",
+  JSON.stringify(state)
+ );
+}
 
 function load(){
  try{
-  const raw=JSON.parse(localStorage.getItem(KEY)||'{}');
-  const d=defaultState();
-  return {
-   ...d,
-   ...raw,
-   profile:{...d.profile,...(raw.profile||{})},
-   current:{...d.current,...(raw.current||{})},
-   settings:{...d.settings,...(raw.settings||{})}
-  };
- }catch(e){
-  return defaultState();
- }
+  const x=JSON.parse(
+   localStorage.getItem(
+    "EA_Academy_v2_Integrated_V2_1"
+   )
+  );
+  if(x) Object.assign(state,x);
+ }catch(e){}
 }
 
-function save(){
- const safe={
-  ...state,
-  evidence:state.evidence.map(({audioUrl,...x})=>x)
- };
- localStorage.setItem(KEY,JSON.stringify(safe));
+function esc(x){
+ return String(x??"")
+ .replace(/[&<>"']/g,m=>({
+  "&":"&amp;",
+  "<":"&lt;",
+  ">":"&gt;",
+  '"':"&quot;",
+  "'":"&#39;"
+ }[m]));
+}
+
+function go(page){
+ state.page=page;
+ save();
  render();
- hydrateAudioUrls();
-}
-
-function openAudioDB(){
- if(audioDB)return Promise.resolve(audioDB);
-
- return new Promise((resolve,reject)=>{
-  const r=indexedDB.open(DB_NAME,DB_VERSION);
-
-  r.onupgradeneeded=()=>{
-   const db=r.result;
-   if(!db.objectStoreNames.contains(AUDIO_STORE)){
-    db.createObjectStore(AUDIO_STORE,{keyPath:'id'});
-   }
-  };
-
-  r.onsuccess=()=>{
-   audioDB=r.result;
-   resolve(audioDB);
-  };
-
-  r.onerror=()=>reject(r.error);
- });
-}
-
-async function putAudio(id,blob){
- const db=await openAudioDB();
-
- return new Promise((resolve,reject)=>{
-  const tx=db.transaction(AUDIO_STORE,'readwrite');
-  tx.objectStore(AUDIO_STORE).put({
-   id,
-   blob,
-   createdAt:new Date().toISOString()
-  });
-  tx.oncomplete=resolve;
-  tx.onerror=()=>reject(tx.error);
- });
-}
-
-async function getAudio(id){
- const db=await openAudioDB();
-
- return new Promise((resolve,reject)=>{
-  const tx=db.transaction(AUDIO_STORE,'readonly');
-  const r=tx.objectStore(AUDIO_STORE).get(id);
-
-  r.onsuccess=()=>{
-   resolve(r.result?.blob||null);
-  };
-
-  r.onerror=()=>reject(r.error);
- });
-}
-
-async function hydrateAudioUrls(){
- for(const x of state.evidence.filter(e=>e.audioId)){
-  if(x.audioUrl)continue;
-
-  try{
-   const blob=await getAudio(x.audioId);
-   if(blob)x.audioUrl=URL.createObjectURL(blob);
-  }catch(e){}
- }
-
- if(document.visibilityState!=='hidden'){
-  renderAudioOnly();
- }
-}
-
-function renderAudioOnly(){
- const slots=document.querySelectorAll('[data-audio-id]');
-
- slots.forEach(el=>{
-  const id=el.dataset.audioId;
-  const item=state.evidence.find(x=>x.audioId===id);
-
-  if(item?.audioUrl&&!el.src){
-   el.src=item.audioUrl;
-  }
- });
-}
-
-function esc(s){
- return String(s??'').replace(
-  /[&<>'"]/g,
-  m=>({
-   '&':'&amp;',
-   '<':'&lt;',
-   '>':'&gt;',
-   "'":'&#39;',
-   '"':'&quot;'
-  }[m])
- );
-}
-
-function current(){
- return SUBJECTS[state.current.subject];
-}
-
-function unitKey(){
- return state.current.subject+'-'+state.current.week;
-}
-
-function done(k=unitKey()){
- return !!state.completed[k];
-}
-
-function evidenceFor(k=unitKey()){
- return state.evidence.filter(x=>x.unitKey===k);
-}
-
-function masteryFor(k=unitKey()){
- return state.mastery[k]||'Emerging';
-}
-
-function genericContent(s,w){
- const subj=SUBJECTS[s];
- const title=subj.weeks[w-1];
-
- const themes={
-  mathematics:'Use mathematical language, relationships, quantities and logical reasoning in a real situation.',
-  kiswahili:'Use Kiswahili accurately to listen, speak, read, analyse, write and revise.',
-  english:'Use English to understand information and communicate clearly in speech and writing.',
-  business:'Think like a young entrepreneur: identify needs, resources, value, costs and responsible decisions.',
-  geography:'Connect people, place, environment, location and evidence through geographic thinking.',
-  history:'Reason from evidence about people, time, place, change, causes, consequences and values.'
- };
-
- return {
-  mission:themes[s],
-
-  learn:`${title} is explored as an active learning investigation. Start with what you already know, connect the idea to everyday life, then explain it in your own words. Your goal is not to memorise a paragraph: it is to demonstrate understanding with evidence.`,
-
-  try:`Find one real example connected to “${title}”. Write the example, identify the important information, and explain what the example teaches you.`,
-
-  practice:[
-   'Define the key idea in your own words.',
-   'Give two examples from school, home or community.',
-   'Create one question someone could ask about this topic.',
-   'Solve, explain or demonstrate the question without copying a model answer.'
-  ],
-
-  voice:`In 45–90 seconds, teach one important idea from “${title}” as if you were helping a younger learner. State the idea, give an example, and explain why it matters.`,
-
-  apply:`Create a small piece of evidence from your environment: a calculation, paragraph, map, business idea, historical explanation, comparison, observation or explanation appropriate to this subject.`
- };
-}
-
-function mathWeek1(){
- return {
-  mission:'Mathematics Is Everywhere — become a Mathematics Detective.',
-
-  learn:'Mathematics is a field of reasoning about numbers, quantities, patterns, relationships, shapes, measurement and logical ideas. It helps people describe, measure, compare, calculate, predict and solve problems. It appears in money, shopping, time, distance, cooking, construction, business, transport, technology and everyday decisions.',
-
-  try:'Brielle has TZS 10,000. Bread costs TZS 2,000, milk TZS 2,500 and fruit TZS 1,500. How much remains? Explain why subtraction is used and show the working.',
-
-  practice:[
-   'Find five things at home that involve mathematics.',
-   'A family has TZS 12,000 and shares it equally among 3 people. How much does each receive?',
-   'School starts at 7:30 and a lesson lasts 45 minutes. What time does it finish?',
-   'A shop sells the same item at two different prices. Explain what information you need before choosing.',
-   'Create three mathematical situations from your home or community.'
-  ],
-
-  voice:'Explain one thing in your home that would be difficult to use, measure, compare or manage without mathematics. Then explain the mathematics involved.',
-
-  apply:'MY COMMUNITY — MATHEMATICS EVIDENCE: choose shopping, transport, cooking, electricity, water, farming, construction, school or business. Identify the numbers, mathematical idea/operation, answer and reasoning.'
- };
-}
-
-function content(){
- if(state.current.subject==='mathematics'&&state.current.week===1){
-  return mathWeek1();
- }
-
- return genericContent(
-  state.current.subject,
-  state.current.week
- );
-}
-
-function weekTabs(){
- return [
-  'discover',
-  'learn',
-  'practise',
-  'check',
-  'apply',
-  'voice',
-  'journal',
-  'friday',
-  'mastery'
- ].map(t=>
-  `<button class="tab ${state.current.tab===t?'active':''}" onclick="setTab('${t}')">${
-   t==='check'?'Knowledge Check':
-   t==='friday'?'Friday Assessment':
-   t==='mastery'?'Evidence & Mastery':
-   t[0].toUpperCase()+t.slice(1)
-  }</button>`
- ).join('');
 }
 
 function render(){
- document.getElementById('app').innerHTML=`
- <header class="top">
-  <div class="topin">
+
+ document.getElementById("app").innerHTML=`
+
+ <header class="header">
+
+  <div class="headerTop">
+
+   <div class="logo">EA</div>
+
    <div class="brand">
-    <div class="logo">EA</div>
-    <div>
-     <h1>Education Access E-Learning Academy</h1>
-     <small>v2.0 • Voice Studio Learning Evidence Engine v2.1</small>
-    </div>
+    <h1>${APP.name}</h1>
+    <small>
+     ${APP.version} • Integrated Learning Evidence Platform
+    </small>
    </div>
-   <div class="pill">Offline-first</div>
+
   </div>
 
   <nav class="nav">
-   ${[
-    'dashboard',
-    'curriculum',
-    'voice',
-    'assessment',
-    'journal',
-    'parent',
-    'profile'
-   ].map(x=>
-    `<button class="${state.page===x?'active':''}" onclick="go('${x}')">${label(x)}</button>`
-   ).join('')}
+
+   <button class="active"
+    onclick="go('dashboard')">
+    Command Centre
+   </button>
+
+   <button onclick="go('curriculum')">
+    Curriculum
+   </button>
+
+   <button onclick="go('voice')">
+    Voice Studio
+   </button>
+
+   <button onclick="go('assessment')">
+    Friday Assessment
+   </button>
+
+   <button onclick="go('journal')">
+    Journal
+   </button>
+
+   <button onclick="go('parent')">
+    Parent Centre
+   </button>
+
+   <button onclick="go('profile')">
+    Profile
+   </button>
+
   </nav>
+
  </header>
 
- <main class="wrap">${page()}</main>
-
- <div class="footer">
-  Education Access • Integrated Curriculum & Learning Evidence Platform •
-  Local learner data stays on this device unless exported.
- </div>
- `;
-}
-
-function label(x){
- return ({
-  dashboard:'Command Centre',
-  curriculum:'Curriculum',
-  voice:'Voice Studio',
-  assessment:'Friday Assessment',
-  journal:'Journal',
-  parent:'Parent Centre',
-  profile:'Profile'
- })[x]||x;
-}
-
-function page(){
- switch(state.page){
-  case'curriculum':return curriculumPage();
-  case'voice':return voicePage();
-  case'assessment':return assessmentPage();
-  case'journal':return journalPage();
-  case'parent':return parentPage();
-  case'profile':return profilePage();
-  default:return dashboardPage();
- }
-}
-
-function dashboardPage(){
- const units=90;
- const completed=Object.keys(state.completed).length;
- const ev=state.evidence.length;
-
- return `
- <section class="grid">
-
-  <div class="card hero span8">
-   <span class="tag">INTEGRATED LEARNING COMMAND CENTRE</span>
-   <h2>Build understanding. Capture evidence. Demonstrate mastery.</h2>
-   <p class="muted">
-    The Academy connects six Form One core subjects, 15 weeks,
-    active learning, Friday assessment and Voice Studio evidence
-    into one learner record.
-   </p>
-
-   <div class="actions">
-    <button class="btn primary" onclick="go('curriculum')">Open Curriculum</button>
-    <button class="btn blue" onclick="go('voice')">Open Voice Studio</button>
-   </div>
-  </div>
-
-  <div class="card span4">
-   <h3>January 2027 Mission</h3>
-   <div class="kpi">${Math.round(completed/units*100)}%</div>
-   <div class="progress">
-    <i style="width:${completed/units*100}%"></i>
-   </div>
-   <p class="small muted">
-    ${completed}/${units} learning units marked complete
-   </p>
-   <p class="small">
-    Voice evidence: <b>${ev}</b>
-   </p>
-  </div>
-
-  <div class="card span12">
-   <h3>Six Learning Labs</h3>
-
-   <div class="grid">
-    ${Object.entries(SUBJECTS).map(([k,s])=>
-     `<div class="card subject-card span4">
-      <div class="between">
-       <h3>${s.icon} ${s.name}</h3>
-       <span class="tag">15 weeks</span>
-      </div>
-
-      <p class="muted small">${s.lab}</p>
-      <p class="small">${s.signature}</p>
-
-      <button class="btn" onclick="openUnit('${k}',1)">
-       Enter Lab
-      </button>
-     </div>`
-    ).join('')}
-   </div>
-  </div>
-
-  <div class="card span6">
-   <h3>Signature Cross-Subject Project</h3>
-   <h2>MY COMMUNITY — ONE PLACE, SIX SUBJECTS</h2>
-   <p class="muted">
-    One real place becomes a shared evidence project:
-    mathematics, Kiswahili, English, Business Studies,
-    Geography and History each investigate the same community
-    from a different angle.
-   </p>
-  </div>
-
-  <div class="card span6">
-   <h3>Evidence Principle</h3>
-   <p>
-    Completion alone does not equal mastery. The Academy looks
-    for demonstrated understanding through work, explanation,
-    reflection, assessment and—where appropriate—voice evidence.
-   </p>
-  </div>
-
- </section>
- `;
-}
-
-function curriculumPage(){
- const s=current();
- const w=state.current.week;
- const c=content();
-
- return `
- <div class="grid">
-
-  <div class="card span12">
-
-   <div class="between">
-    <div>
-     <span class="tag">${s.icon} ${s.lab}</span>
-     <h2>${s.name}</h2>
-     <p class="muted">
-      Week ${w}/15 — ${esc(s.weeks[w-1])}
-     </p>
-    </div>
-
-    <span class="tag">${masteryFor()}</span>
-   </div>
-
-   <div class="row">
-
-    <select class="select"
-      style="max-width:360px"
-      onchange="chooseSubject(this.value)">
-      ${Object.entries(SUBJECTS).map(([k,x])=>
-       `<option value="${k}" ${k===state.current.subject?'selected':''}>
-        ${x.icon} ${x.name}
-       </option>`
-      ).join('')}
-    </select>
-
-    <select class="select"
-      style="max-width:170px"
-      onchange="chooseWeek(this.value)">
-      ${s.weeks.map((x,i)=>
-       `<option value="${i+1}" ${i+1===w?'selected':''}>
-        Week ${i+1}: ${esc(x)}
-       </option>`
-      ).join('')}
-    </select>
-
-    <span class="tag">
-     ${done()?'✓ Unit completed':'Learning in progress'}
-    </span>
-
-   </div>
-
-   <div class="tabs">${weekTabs()}</div>
-
-   ${tabContent(c)}
-
-  </div>
- </div>
- `;
-}
-
-function tabContent(c){
- const t=state.current.tab;
-
- if(t==='discover')
- return `
-  <div class="mission">
-   <b>DISCOVER</b>
-   <p>${esc(c.mission)}</p>
-  </div>
-
-  <div class="card">
-   <h3>Before you learn</h3>
-   <p>
-    Write or say what you already know.
-    Look for one example around you.
-    Ask one question you want this week to answer.
-   </p>
-
-   <textarea id="discoverNote"
-    placeholder="My starting idea..."></textarea>
-
-   <div class="actions">
-    <button class="btn primary" onclick="saveDiscover()">
-     Save Starting Evidence
-    </button>
-   </div>
-  </div>
- `;
-
- if(t==='learn')
- return `
-  <div class="content">
-   <h3>LEARN — Study Notes</h3>
-   <p>${esc(c.learn)}</p>
-
-   <div class="callout">
-    <b>Education Access rule:</b>
-    Explain the idea in your own words before moving to practice.
-   </div>
-  </div>
- `;
-
- if(t==='practise')
- return `
-  <div class="content">
-   <h3>PRACTISE</h3>
-
-   <ol>
-    ${c.practice.map(x=>`<li>${esc(x)}</li>`).join('')}
-   </ol>
-
-   <textarea id="practiceNote"
-    placeholder="Show your work, examples or explanation..."></textarea>
-
-   <div class="actions">
-    <button class="btn primary" onclick="savePractice()">
-     Save Practice Evidence
-    </button>
-   </div>
-  </div>
- `;
-
- if(t==='check')
- return checkTab();
-
- if(t==='apply')
- return `
-  <div class="content">
-   <h3>APPLY — Create evidence</h3>
-   <p>${esc(c.apply)}</p>
-
-   <textarea id="applyNote"
-    rows="7"
-    placeholder="Describe or paste your application evidence..."></textarea>
-
-   <div class="actions">
-    <button class="btn primary" onclick="saveApply()">
-     Save Application Evidence
-    </button>
-   </div>
-  </div>
- `;
-
- if(t==='voice')
- return voiceTaskTab(c);
-
- if(t==='journal')
- return journalTab();
-
- if(t==='friday')
- return fridayMini();
-
- return masteryTab();
-}
-
-function checkTab(){
- let q=state.checks[unitKey()]||{};
-
- let qs=
- state.current.subject==='mathematics'&&state.current.week===1
- ?[
-   ['q1','In your own words, what is mathematics?'],
-   ['q2','Give three everyday uses of mathematics.'],
-   ['q3','Why is mathematics useful when managing money?'],
-   ['q4','Calculate TZS 20,000 − 7,500.'],
-   ['q5','Explain the difference between giving an answer and explaining your reasoning.']
-  ]
- :[
-   ['q1','Define the main idea of this week in your own words.'],
-   ['q2','Give two real-life examples.'],
-   ['q3','What evidence shows that you understand it?']
-  ];
-
- return `
- <div class="check">
-  <h3>KNOWLEDGE CHECK</h3>
-
-  ${qs.map(([id,text])=>
-   `<div class="question">
-    <b>${esc(text)}</b>
-    <textarea id="${id}" rows="3">${esc(q[id]||'')}</textarea>
-   </div>`
-  ).join('')}
- </div>
-
- <div class="actions">
-  <button class="btn primary" onclick="saveCheck()">
-   Submit Knowledge Check
-  </button>
- </div>
- `;
-}
-
-function voiceTaskTab(c){
- return `
- <div class="mission">
-  <b>VOICE STUDIO TASK</b>
-  <p>${esc(c.voice)}</p>
- </div>
-
- <div class="card">
-
-  <p class="small muted">
-   Auto-tag:
-   <b>
-    ${SUBJECTS[state.current.subject].name}
-    → Week ${state.current.week}
-    → ${esc(SUBJECTS[state.current.subject].weeks[state.current.week-1])}
-   </b>
-  </p>
-
-  <label>
-   Learner reflection before/after recording
-   <textarea
-    id="voiceReflection"
-    rows="3"
-    placeholder="What did I understand? What was difficult?"
-   ></textarea>
-  </label>
-
-  <div class="actions">
-   <button class="btn primary" onclick="startRecording()">
-    🎙️ Start Recording
-   </button>
-
-   <button class="btn danger" onclick="stopRecording()">
-    ⏹ Stop
-   </button>
-  </div>
-
-  <div id="recStatus"
-   class="notice"
-   style="margin-top:10px">
-   Ready. Record a 45–90 second explanation.
-  </div>
-
- </div>
-
- <div class="card">
-  <h3>Evidence captured for this unit</h3>
-  ${renderRecordings(unitKey())}
- </div>
- `;
-}
-
-function renderRecordings(k){
- const a=evidenceFor(k);
-
- if(!a.length)
-  return '<p class="muted">No voice evidence yet.</p>';
-
- return a.map((x,i)=>
-  `<div class="recording">
-
-   <div class="between">
-    <b>
-     Evidence ${i+1} —
-     ${esc(x.type||'Learning Evidence')}
-    </b>
-
-    <span class="tag">
-     ${esc(x.status||'Emerging')}
-    </span>
-   </div>
-
-   <p class="small muted">
-    ${esc(x.topic)} •
-    ${new Date(x.createdAt).toLocaleString()}
-   </p>
-
-   ${
-    x.audioId
-    ?`<audio controls
-       ${x.audioUrl?`src="${x.audioUrl}"`:''}
-       data-audio-id="${esc(x.audioId)}">
-      </audio>`
-    :''
-   }
-
-   <p>
-    <b>Learner reflection:</b>
-    ${esc(x.reflection||'No reflection added yet.')}
-   </p>
-
-   <p>
-    <b>Parent review:</b>
-    ${esc(x.review||'Pending review')}
-   </p>
-
-  </div>`
- ).join('');
-}
-
-function journalTab(){
- const k=unitKey();
-
- return `
- <div>
-  <h3>LEARNING JOURNAL</h3>
-
-  <p class="muted">
-   Record what changed in your understanding.
-  </p>
-
-  <label>
-   What I learned
-   <textarea id="jl" rows="3">
-${esc((state.journals[k]||{}).learned||'')}
-   </textarea>
-  </label>
-
-  <label>
-   What was difficult
-   <textarea id="jd" rows="3">
-${esc((state.journals[k]||{}).difficult||'')}
-   </textarea>
-  </label>
-
-  <label>
-   What I can now explain
-   <textarea id="je" rows="3">
-${esc((state.journals[k]||{}).explain||'')}
-   </textarea>
-  </label>
-
-  <div class="actions">
-   <button class="btn primary" onclick="saveJournal()">
-    Save Journal Evidence
-   </button>
-  </div>
- </div>
- `;
-}
-
-function fridayMini(){
- return `
- <div class="card">
-  <h3>FRIDAY ASSESSMENT CENTRE</h3>
-
-  <p>
-   Independent assessment. Suggested duration: 45 minutes.
-   Complete without copying the study notes, then use the
-   answer key and parent marking scheme.
-  </p>
-
-  <div class="callout">
-   <b>Week 1 Mathematics — 30 marks</b><br>
-   Section A: Understanding (5) •
-   B: Application (10) •
-   C: Reasoning (10) •
-   D: Reflection (5)
-  </div>
-
-  <button class="btn primary" onclick="go('assessment')">
-   Open Assessment Centre
-  </button>
- </div>
- `;
-}
-
-function masteryTab(){
- const k=unitKey();
-
- return `
- <div class="grid">
-
-  <div class="card span6">
-   <h3>Evidence & Mastery</h3>
-
-   <p>
-    Current status:
-    <span class="status ${masteryFor(k).toLowerCase()}">
-     ${masteryFor(k)}
-    </span>
-   </p>
-
-   <select class="select" onchange="setMastery(this.value)">
-    <option>Emerging</option>
-    <option>Developing</option>
-    <option>Secure</option>
-    <option>Mastered</option>
-   </select>
-
-   <div class="actions">
-    <button class="btn primary" onclick="completeUnit()">
-     Mark Unit Complete
-    </button>
-   </div>
-  </div>
-
-  <div class="card span6">
-   <h3>Evidence count</h3>
-
-   <div class="kpi">
-    ${evidenceFor(k).length}
-   </div>
-
-   <p class="muted">
-    Voice evidence items linked to this unit.
-   </p>
-
-   <p class="small">
-    Knowledge check:
-    ${state.checks[k]?'Submitted':'Not submitted'}
-   </p>
-  </div>
-
- </div>
- `;
-}
-
-function voicePage(){
- return `
- <div class="grid">
-
-  <div class="card hero span8">
-   <span class="tag">
-    VOICE STUDIO LEARNING EVIDENCE ENGINE v2.1
-   </span>
-
-   <h2>
-    The voice is evidence, not just audio.
-   </h2>
-
-   <p class="muted">
-    Every recording is designed to answer:
-    <b>
-     What was the learner asked to demonstrate?
-     What did she explain?
-     What learning outcome does it evidence?
-     What happens next?
-    </b>
-   </p>
-
-   <div class="actions">
-    <button class="btn primary" onclick="go('curriculum')">
-     Record from a learning task
-    </button>
-   </div>
-  </div>
-
-  <div class="card span4">
-   <h3>Portfolio</h3>
-
-   <div class="kpi">
-    ${state.evidence.length}
-   </div>
-
-   <p class="muted">evidence items</p>
-
-   <p>
-    Mastered:
-    ${state.evidence.filter(x=>x.status==='Mastered').length}
-   </p>
-  </div>
-
-  <div class="card span12">
-   <h3>Evidence Pipeline</h3>
-
-   <div class="grid">
-
-    <div class="card span3">
-     <b>1. PROMPT</b>
-     <p class="small muted">
-      Learning outcome generates the voice task.
-     </p>
-    </div>
-
-    <div class="card span3">
-     <b>2. CAPTURE</b>
-     <p class="small muted">
-      Recording is linked to subject/week/unit.
-     </p>
-    </div>
-
-    <div class="card span3">
-     <b>3. REVIEW</b>
-     <p class="small muted">
-      Learner and parent reflect on evidence.
-     </p>
-    </div>
-
-    <div class="card span3">
-     <b>4. MASTER</b>
-     <p class="small muted">
-      Evidence contributes to readiness.
-     </p>
-    </div>
-
-   </div>
-  </div>
-
-  <div class="card span12">
-   <h3>Voice Evidence Portfolio</h3>
-
-   ${
-    state.evidence.length
-    ?state.evidence.slice().reverse().map(x=>
-     `<div class="recording">
-
-      <div class="between">
-       <b>
-        ${SUBJECTS[x.subject]?.name||x.subject}
-        — Week ${x.week}
-       </b>
-
-       <span class="tag">
-        ${x.status}
-       </span>
-      </div>
-
-      <p class="small muted">
-       ${esc(x.topic)} •
-       ${new Date(x.createdAt).toLocaleString()}
-      </p>
-
-      ${
-       x.audioId
-       ?`<audio controls
-          ${x.audioUrl?`src="${x.audioUrl}"`:''}
-          data-audio-id="${esc(x.audioId)}">
-         </audio>`
-       :''
-      }
-
-      <p>
-       <b>Learner reflection:</b>
-       ${esc(x.reflection||'')}
-      </p>
-
-      <p>
-       <b>Parent review:</b>
-       ${esc(x.review||'Pending review')}
-      </p>
-
-     </div>`
-    ).join('')
-    :'<p class="muted">No evidence recorded yet. Start from a weekly Voice Studio task.</p>'
-   }
-
-  </div>
-
- </div>
- `;
-}
-
-function assessmentPage(){
- return `
- <div class="grid">
-
-  <div class="card span12">
-   <h2>Friday Assessment Centre</h2>
-
-   <p class="muted">
-    Independent evidence checkpoint.
-    Assessment scores should be entered after the learner
-    completes the paper offline.
-   </p>
-  </div>
-
-  <div class="card span8">
-   <h3>Week 1 Mathematics — 30 Marks</h3>
-
-   <ol>
-    <li>Define mathematics in your own words. (2)</li>
-    <li>Give three everyday areas where mathematics is used. (3)</li>
-    <li>
-     Brielle has TZS 50,000. She spends TZS 12,500 and
-     TZS 8,000. How much remains? Show working. (3)
-    </li>
-    <li>
-     A lesson begins at 7:30 and lasts 45 minutes.
-     When does it finish? (2)
-    </li>
-    <li>
-     A library has 100 books and 37 are borrowed.
-     How many remain? (2)
-    </li>
-    <li>
-     Explain why accurate calculation matters in business. (3)
-    </li>
-    <li>
-     Compare two shop prices and explain which information
-     is needed before deciding. (4)
-    </li>
-    <li>
-     Create and solve one real-life mathematics problem
-     and show your reasoning. (6)
-    </li>
-    <li>
-     Write 3–5 sentences explaining:
-     “Mathematics is not only a school subject.” (5)
-    </li>
-   </ol>
-  </div>
-
-  <div class="card span4">
-   <h3>Enter Result</h3>
-
-   <input
-    id="score"
-    type="number"
-    min="0"
-    max="30"
-    placeholder="Score / 30">
-
-   <textarea
-    id="assessNote"
-    placeholder="Parent/teacher feedback"></textarea>
-
-   <button class="btn primary" onclick="saveAssessment()">
-    Save Assessment
-   </button>
-
-   <hr>
-
-   <h3>Answer Key</h3>
-
-   <p class="small">
-    29,500 • 8:15 • 63.
-    Other answers require accurate reasoning and relevant examples.
-   </p>
-  </div>
-
- </div>
- `;
-}
-
-function journalPage(){
- return `
- <div class="card">
-  <h2>Learning Journal & Portfolio</h2>
-
-  <p class="muted">
-   A longitudinal record of how understanding develops.
-  </p>
-
-  ${
-   Object.entries(state.journals).length
-   ?Object.entries(state.journals).map(([k,v])=>
-    `<div class="recording">
-     <b>${esc(k)}</b>
-
-     <p>
-      <b>Learned:</b>
-      ${esc(v.learned||'')}
-     </p>
-
-     <p>
-      <b>Difficult:</b>
-      ${esc(v.difficult||'')}
-     </p>
-
-     <p>
-      <b>Can explain:</b>
-      ${esc(v.explain||'')}
-     </p>
-    </div>`
-   ).join('')
-   :'<p class="muted">No journal entries yet.</p>'
-  }
- </div>
- `;
-}
-
-function parentPage(){
- const rows=Object.entries(SUBJECTS).map(([k,s])=>{
-  let vals=[];
-
-  for(let w=1;w<=15;w++){
-   vals.push(masteryFor(k+'-'+w));
-  }
-
-  let secure=vals.filter(
-   x=>x==='Secure'||x==='Mastered'
-  ).length;
-
-  return `
-   <tr>
-    <td>${s.icon} ${s.name}</td>
-    <td>${secure}/15</td>
-    <td>${vals.filter(x=>x==='Mastered').length}</td>
-    <td>${state.evidence.filter(x=>x.subject===k).length}</td>
-   </tr>
-  `;
- }).join('');
-
- const reviews=
- state.evidence.slice().reverse().slice(0,12).map(x=>
-  `<div class="recording">
-
-   <div class="between">
-    <b>
-     ${esc(SUBJECTS[x.subject]?.name||x.subject)}
-     — Week ${x.week}
-    </b>
-
-    <span class="tag">
-     ${esc(x.status||'Emerging')}
-    </span>
-   </div>
-
-   <p class="small muted">
-    ${esc(x.type||'Evidence')} •
-    ${esc(x.topic||'')}
-   </p>
-
-   ${
-    x.audioId
-    ?`<audio controls
-       ${x.audioUrl?`src="${x.audioUrl}"`:''}
-       data-audio-id="${esc(x.audioId)}">
-      </audio>`
-    :''
-   }
-
-   <p class="small">
-    <b>Learner:</b>
-    ${esc(x.reflection||'No reflection')}
-   </p>
-
-   <textarea
-    id="review-${esc(x.id)}"
-    rows="2"
-    placeholder="Parent review / next-step feedback">${esc(x.review||'')}</textarea>
-
-   <button
-    class="btn primary"
-    onclick="saveReview('${esc(x.id)}')">
-    Save Parent Review
-   </button>
-
-  </div>`
- ).join('');
-
- return `
- <div class="grid">
-
-  <div class="card span12">
-   <h2>Parent Centre</h2>
-
-   <p class="muted">
-    Evidence-focused oversight for ${esc(state.profile.parentName)}.
-    Review evidence, identify the next learning action,
-    and avoid replacing learner reasoning with answers.
-   </p>
-  </div>
-
-  <div class="card span12">
-   <table class="table">
-
-    <thead>
-     <tr>
-      <th>Subject</th>
-      <th>Secure+</th>
-      <th>Mastered</th>
-      <th>Evidence</th>
-     </tr>
-    </thead>
-
-    <tbody>
-     ${rows}
-    </tbody>
-
-   </table>
-  </div>
-
-  <div class="card span12">
-   <h3>Evidence Review Desk</h3>
-   ${reviews||'<p class="muted">No evidence is ready for review yet.</p>'}
-  </div>
-
-  <div class="card span6">
-   <h3>Parent Feedback Principle</h3>
-
-   <p>
-    Ask:
-    “What information did you identify?”
-    “What are you trying to find?”
-    “Why did you choose that method?”
-    before supplying the answer.
-   </p>
-  </div>
-
-  <div class="card span6">
-   <h3>Readiness Evidence</h3>
-   <p>${readinessText()}</p>
-  </div>
-
- </div>
- `;
-}
-
-function readinessText(){
- const secure=
-  Object.values(state.mastery)
-   .filter(x=>x==='Secure'||x==='Mastered')
-   .length;
-
- const assessed=
-  Object.keys(state.assessments).length;
-
- return `${secure} learning units have Secure/Mastered evidence and ${assessed} assessment result(s) are recorded. Readiness should be interpreted as a profile of evidence, not a single score.`;
-}
-
-function profilePage(){
- return `
- <div class="card">
-
-  <h2>Learner & Programme Profile</h2>
+ <main class="wrap">
 
   <div class="grid">
 
-   <label class="span6">
-    Learner name
-    <input id="pname" value="${esc(state.profile.learnerName)}">
-   </label>
+   <section class="card hero full">
 
-   <label class="span6">
-    School
-    <input id="pschool" value="${esc(state.profile.school)}">
-   </label>
+    <span class="tag">AAMUSHCLASS</span>
+    <span class="tag">FORM ONE 2027</span>
 
-   <label class="span6">
-    Level
-    <input id="plevel" value="${esc(state.profile.level)}">
-   </label>
+    <h2>
+     Welcome, ${esc(APP.learner)} 🌟
+    </h2>
 
-   <label class="span6">
-    Parent/Home teacher
-    <input id="pparent" value="${esc(state.profile.parentName)}">
-   </label>
+    <p>
+     Ready to discover, learn, practise,
+     explain and show what you know?
+    </p>
 
-   <label class="span6">
-    Programme
-    <input id="pprogramme" value="${esc(state.profile.programme)}">
-   </label>
+    <p class="muted">
+     ${APP.goal}
+    </p>
 
-   <label class="span6">
-    Goal
-    <input id="pgoal" value="${esc(state.profile.goal)}">
-   </label>
+    <div class="actions">
+
+     <button class="btn primary"
+      onclick="go('curriculum')">
+      Start Learning
+     </button>
+
+     <button class="btn"
+      onclick="go('voice')">
+      Voice Studio
+     </button>
+
+    </div>
+
+   </section>
+
+   <section class="card third">
+    <b>Curriculum</b>
+    <h2>90 Units</h2>
+    <div class="progress">
+     <i style="width:0%"></i>
+    </div>
+    <small class="muted">
+     6 subjects × 15 weeks
+    </small>
+   </section>
+
+   <section class="card third">
+    <b>Learning Evidence</b>
+    <h2>${state.evidence.length}</h2>
+    <small class="muted">
+     Voice, practice and application evidence
+    </small>
+   </section>
+
+   <section class="card third">
+    <b>Mastery</b>
+    <h2>${Object.keys(state.mastery).length}</h2>
+    <small class="muted">
+     Evidence-based progress
+    </small>
+   </section>
+
+   <section class="card full">
+
+    <h3>
+     Learning Engine
+    </h3>
+
+    <div>
+     <span class="tag">DISCOVER</span>
+     <span class="tag">LEARN</span>
+     <span class="tag">PRACTISE</span>
+     <span class="tag">KNOWLEDGE CHECK</span>
+     <span class="tag">APPLY</span>
+     <span class="tag">VOICE</span>
+     <span class="tag">JOURNAL</span>
+     <span class="tag">ASSESS</span>
+     <span class="tag">MASTER</span>
+    </div>
+
+   </section>
 
   </div>
 
-  <div class="actions">
+ </main>
 
-   <button class="btn primary" onclick="saveProfile()">
-    Save Profile
-   </button>
+ <footer class="wrap muted">
+  <center>
+   Education Access E-Learning Academy v2.0<br>
+   Developed by Dr. James K. Mushi, PhD.
+  </center>
+ </footer>
+ `;
 
-   <button class="btn blue" onclick="exportData()">
-    Export JSON Backup
-   </button>
+}
 
-   <button
-    class="btn"
-    onclick="document.getElementById('importFile').click()">
-    Import JSON
-   </button>
+load();
+render();
+/* ===============================
+   PART 2/6
+   MATHEMATICS + KISWAHILI
+================================ */
 
-   <input
-    id="importFile"
-    class="hidden"
-    type="file"
-    accept="application/json"
-    onchange="importData(this)">
+SUBJECTS.mathematics={
+ name:"Mathematics",
+ icon:"🧮",
+ lab:"Maths Reasoning Lab",
+ signature:"SHOW YOUR THINKING",
+ weeks:[
+ "Mathematical Concepts & Importance",
+ "Rational, Irrational & Real Numbers",
+ "Decimals & Number Lines",
+ "Inequalities & Absolute Values",
+ "Ratios & Proportions",
+ "Approximation & Estimation",
+ "Geometry Around Me",
+ "Algebraic Language",
+ "Algebraic Operations",
+ "Equations & Problem Solving",
+ "Mathematical Applications",
+ "Numerical Reasoning",
+ "Geometry & Algebra Challenge",
+ "Form One Consolidation",
+ "Final Maths Challenge"
+ ]
+};
 
-   <button class="btn danger" onclick="resetProgress()">
-    Reset Progress
-   </button>
+SUBJECTS.kiswahili={
+ name:"Kiswahili",
+ icon:"📝",
+ lab:"Lugha & Uandishi Studio",
+ signature:"SIKILIZA → SEMA → SOMA → CHAMBUA → ANDIKA → HARIRI",
+ weeks:[
+ "Kiswahili, Taifa na Mtanzania",
+ "Kiswahili katika Mazingira ya Kiutamaduni",
+ "Masimulizi, Kiimbo, Mkazo na Lafudhi",
+ "Aina za Maneno katika Tungo",
+ "Sentensi na Uhusiano wa Maneno",
+ "Aya na Uhusiano wa Sentensi",
+ "Uandishi wa Hadithi",
+ "Kusikiliza na Kuelewa Mazungumzo",
+ "Kusoma na Kuelewa Matini",
+ "Msamiati na Matumizi Sahihi",
+ "Mawasiliano ya Mazungumzo",
+ "Uandishi na Uhariri",
+ "Mawasiliano na Uhawilishaji",
+ "Kiswahili Portfolio",
+ "Readiness Assessment"
+ ]
+};
+
+
+/* -------- UNIT CONTENT -------- */
+
+const UNIT_CONTENT={
+
+ mathematics:{
+  1:{
+   outcome:"Understand mathematics, its branches and importance.",
+   discover:"Find five situations at home where mathematics is used.",
+   learn:[
+    "Mathematics studies numbers, quantities, patterns, relationships and shapes.",
+    "Major areas include arithmetic, algebra, geometry and statistics.",
+    "Mathematics helps people make accurate decisions."
+   ],
+   practise:[
+    "Name three uses of mathematics.",
+    "Name two branches of mathematics.",
+    "Explain why accuracy matters."
+   ],
+   apply:"Become a Maths Detective and record three mathematical decisions made today.",
+   voice:"Explain what mathematics means and give two real-life examples."
+  },
+
+  2:{
+   outcome:"Distinguish rational, irrational and real numbers.",
+   discover:"Compare ordinary fractions with numbers such as √2.",
+   learn:[
+    "Rational numbers can be written as a fraction.",
+    "Irrational numbers cannot be written as such a fraction.",
+    "Real numbers include rational and irrational numbers."
+   ],
+   practise:[
+    "Classify 1/2.",
+    "Classify √2.",
+    "Explain why 5 is rational."
+   ],
+   apply:"Create a Number Universe showing different types of numbers.",
+   voice:"Explain rational and irrational numbers using your own examples."
+  }
+ },
+
+ kiswahili:{
+  1:{
+   outcome:"Kuelewa nafasi ya Kiswahili katika maisha ya Mtanzania.",
+   discover:"Tambua mazingira matano unayotumia Kiswahili.",
+   learn:[
+    "Kiswahili ni lugha muhimu ya mawasiliano.",
+    "Lugha huunganisha watu na kuhifadhi utamaduni.",
+    "Matumizi sahihi ya lugha huongeza uelewano."
+   ],
+   practise:[
+    "Taja mazingira matatu ya matumizi ya Kiswahili.",
+    "Eleza umuhimu wake.",
+    "Andika sentensi mbili."
+   ],
+   apply:"Tengeneza ramani ya matumizi ya Kiswahili nyumbani, shuleni na katika jamii.",
+   voice:"Eleza kwa sekunde 30–60 kwa nini Kiswahili ni muhimu."
+  },
+
+  2:{
+   outcome:"Kuelewa matumizi ya Kiswahili katika mazingira ya kiutamaduni.",
+   discover:"Tafuta methali au msemo unaotumiwa katika familia.",
+   learn:[
+    "Lugha hubeba utamaduni.",
+    "Methali na hadithi huhifadhi maarifa.",
+    "Mazingira huathiri matumizi ya lugha."
+   ],
+   practise:[
+    "Andika methali moja.",
+    "Eleza maana yake.",
+    "Taja mazingira ya matumizi yake."
+   ],
+   apply:"Unda ukurasa wa urithi wa lugha.",
+   voice:"Eleza methali uliyochagua na maana yake."
+  }
+ }
+
+};
+/* ===============================
+   PART 3/6
+   ENGLISH + BUSINESS STUDIES
+================================ */
+
+SUBJECTS.english={
+ name:"English Language",
+ icon:"🇬🇧",
+ lab:"Communication Lab",
+ signature:"LISTEN → UNDERSTAND → SPEAK → READ → WRITE → PRESENT",
+ weeks:[
+ "Finding Information & Responsible Sources",
+ "Listening for Information",
+ "Speaking Clear Messages",
+ "Pronunciation & Fluency",
+ "Vocabulary Development",
+ "Reading for Meaning",
+ "Grammar in Communication",
+ "Sentence Construction",
+ "Paragraph Writing",
+ "Functional Communication",
+ "Reading & Vocabulary",
+ "Listening & Speaking",
+ "Writing & Editing",
+ "Communication Portfolio",
+ "Readiness Assessment"
+ ]
+};
+
+SUBJECTS.business={
+ name:"Business Studies",
+ icon:"💼",
+ lab:"Young Enterprise Lab",
+ signature:"IDEA → CUSTOMER → RESOURCES → COST → VALUE → RECORD → DECIDE",
+ weeks:[
+ "What Is Business Studies?",
+ "Business in Everyday Life",
+ "Business & Other Disciplines",
+ "Entrepreneurship",
+ "Entrepreneurial Characteristics",
+ "Entrepreneurial Skills",
+ "Business Opportunities",
+ "Forms & Ownership",
+ "Sole Proprietorship",
+ "Business Resources",
+ "Customers & Markets",
+ "Costs, Pricing & Revenue",
+ "Business Records",
+ "Brielle Enterprise Project",
+ "Readiness Assessment"
+ ]
+};
+
+
+/* -------- ENGLISH CONTENT -------- */
+
+UNIT_CONTENT.english={
+
+ 1:{
+  outcome:"Identify reliable information and use sources responsibly.",
+  discover:"Find three sources of information you use during a normal week.",
+  learn:[
+   "Information can come from books, teachers, websites, interviews and observations.",
+   "A responsible learner checks whether information is relevant and trustworthy.",
+   "Information should be used honestly and not copied without understanding."
+  ],
+  practise:[
+   "Name three information sources.",
+   "Explain why a source should be checked.",
+   "Write one rule for responsible information use."
+  ],
+  apply:"Compare two sources about the same simple topic and identify what they have in common.",
+  voice:"Explain one way you can check whether information is trustworthy."
+ },
+
+ 2:{
+  outcome:"Listen for important information and identify key details.",
+  discover:"Listen carefully to a short conversation and identify its main message.",
+  learn:[
+   "Good listening requires attention.",
+   "Key information may include people, places, dates, numbers and instructions.",
+   "A listener should distinguish the main idea from supporting details."
+  ],
+  practise:[
+   "Identify the main idea of a short message.",
+   "Write three details you heard.",
+   "Explain why careful listening matters."
+  ],
+  apply:"Ask someone at home to give you three instructions and repeat them accurately.",
+  voice:"Retell the main information from something you recently heard."
+ },
+
+ 3:{
+  outcome:"Speak clearly using short, organised messages.",
+  discover:"Prepare a 30-second message about something you know well.",
+  learn:[
+   "A clear message has a beginning, middle and ending.",
+   "Good speaking uses appropriate vocabulary and understandable pronunciation.",
+   "Eye contact, confidence and listening support communication."
+  ],
+  practise:[
+   "Introduce yourself in English.",
+   "Describe your favourite activity.",
+   "Give a short explanation of something you learned."
+  ],
+  apply:"Deliver a one-minute presentation about your learning experience.",
+  voice:"Record a 30–60 second explanation in clear English."
+ }
+
+};
+
+
+/* -------- BUSINESS CONTENT -------- */
+
+UNIT_CONTENT.business={
+
+ 1:{
+  outcome:"Understand the meaning and importance of business studies.",
+  discover:"Identify five businesses you know in your neighbourhood.",
+  learn:[
+   "Business involves activities that provide goods or services to satisfy needs and wants.",
+   "Business Studies helps us understand how businesses operate.",
+   "Businesses require decisions about customers, resources, costs and income."
+  ],
+  practise:[
+   "Define business in your own words.",
+   "Name three businesses.",
+   "Identify one good and one service."
+  ],
+  apply:"Create a simple map of businesses around your neighbourhood.",
+  voice:"Explain what a business is and give two examples."
+ },
+
+ 2:{
+  outcome:"Recognise the role of business in everyday life.",
+  discover:"Think about what your family buys in one ordinary day.",
+  learn:[
+   "People depend on businesses for many goods and services.",
+   "Businesses create opportunities for income and employment.",
+   "Consumers make choices based on needs, wants, price and quality."
+  ],
+  practise:[
+   "List five goods used at home.",
+   "List three services.",
+   "Explain one reason people choose a particular seller."
+  ],
+  apply:"Observe one local business and describe what it sells and who its customers are.",
+  voice:"Explain how one business helps people in your community."
+ },
+
+ 3:{
+  outcome:"Understand the relationship between business and other subjects.",
+  discover:"Think about the subjects needed to operate a small business.",
+  learn:[
+   "Mathematics helps with calculations and records.",
+   "English and Kiswahili support communication.",
+   "Geography helps us understand location and resources.",
+   "History helps us understand economic change and society."
+  ],
+  practise:[
+   "Name three subjects connected to business.",
+   "Explain one connection.",
+   "Give one example from real life."
+  ],
+  apply:"Design a small business idea and identify which school subjects would help you operate it.",
+  voice:"Explain why Mathematics is important in running a business."
+ }
+
+};
+
+
+/* -------- SUBJECT OPENING -------- */
+
+function openSubject(key){
+
+ state.subject=key;
+ state.week=1;
+ state.page="curriculum";
+
+ save();
+ render();
+
+}
+
+
+/* -------- UNIT VIEW -------- */
+
+function showUnit(subject,week){
+
+ const data=UNIT_CONTENT[subject]?.[week];
+
+ if(!data){
+
+  return `
+   <div class="card full">
+    <h3>
+     Week ${week}: ${SUBJECTS[subject].weeks[week-1]}
+    </h3>
+
+    <div class="notice">
+     This unit is part of the 15-week learning pathway.
+     Full learning activities are connected to the
+     Academy evidence engine.
+    </div>
+   </div>
+  `;
+
+ }
+
+ return `
+
+ <section class="card full">
+
+  <span class="tag">
+   WEEK ${week}
+  </span>
+
+  <h2>
+   ${SUBJECTS[subject].weeks[week-1]}
+  </h2>
+
+  <div class="mission">
+
+   <b>Learning Outcome</b><br>
+   ${data.outcome}
 
   </div>
+
+  <div class="grid">
+
+   <div class="card half">
+    <h3>1. DISCOVER</h3>
+    <p>${data.discover}</p>
+   </div>
+
+   <div class="card half">
+    <h3>2. LEARN</h3>
+    <ul>
+     ${data.learn.map(x=>`<li>${x}</li>`).join("")}
+    </ul>
+   </div>
+
+   <div class="card half">
+    <h3>3. PRACTISE</h3>
+    <ol>
+     ${data.practise.map(x=>`<li>${x}</li>`).join("")}
+    </ol>
+   </div>
+
+   <div class="card half">
+    <h3>4. APPLY</h3>
+    <p>${data.apply}</p>
+   </div>
+
+   <div class="card full">
+    <h3>5. VOICE</h3>
+
+    <div class="notice">
+     ${data.voice}
+    </div>
+
+    <button class="btn primary"
+     onclick="go('voice')">
+     Open Voice Studio
+    </button>
+   </div>
+
+  </div>
+
+ </section>
+
+`;
+}
+
+
+/* -------- CURRICULUM SCREEN -------- */
+
+function curriculumPage(){
+
+ const key=state.subject||"mathematics";
+ const subject=SUBJECTS[key];
+ const week=state.week||1;
+
+ return `
+
+ <div class="grid">
+
+  <section class="card full">
+
+   <span class="tag">
+    ${subject.icon} ${subject.lab}
+   </span>
+
+   <h2>${subject.name}</h2>
+
+   <p class="muted">
+    ${subject.signature}
+   </p>
+
+   <div class="actions">
+
+    ${Object.entries(SUBJECTS).map(
+     ([k,s])=>`
+      <button class="btn"
+       onclick="openSubject('${k}')">
+       ${s.icon} ${s.name}
+      </button>
+     `
+    ).join("")}
+
+   </div>
+
+  </section>
+
+
+  <section class="card full">
+
+   <h3>Select Learning Week</h3>
+
+   <select onchange="
+    state.week=Number(this.value);
+    save();
+    render();
+   ">
+
+    ${subject.weeks.map((w,i)=>`
+     <option value="${i+1}"
+      ${week===i+1?"selected":""}>
+      Week ${i+1}: ${w}
+     </option>
+    `).join("")}
+
+   </select>
+
+  </section>
+
+  ${showUnit(key,week)}
 
  </div>
- `;
+
+`;
 }
 
-function go(p){
- state.page=p;
- render();
+
+/* -------- CURRICULUM RENDER EXTENSION -------- */
+
+const baseRender=render;
+
+render=function(){
+
+ if(state.page==="curriculum"){
+
+  document.getElementById("app").innerHTML=`
+
+   <header class="header">
+
+    <div class="headerTop">
+
+     <div class="logo">EA</div>
+
+     <div class="brand">
+      <h1>${APP.name}</h1>
+      <small>
+       ${APP.version} • Learning Evidence Platform
+      </small>
+     </div>
+
+    </div>
+
+    <nav class="nav">
+
+     <button onclick="go('dashboard')">
+      Command Centre
+     </button>
+
+     <button class="active"
+      onclick="go('curriculum')">
+      Curriculum
+     </button>
+
+     <button onclick="go('voice')">
+      Voice Studio
+     </button>
+
+     <button onclick="go('assessment')">
+      Friday Assessment
+     </button>
+
+     <button onclick="go('journal')">
+      Journal
+     </button>
+
+     <button onclick="go('parent')">
+      Parent Centre
+     </button>
+
+     <button onclick="go('profile')">
+      Profile
+     </button>
+
+    </nav>
+
+   </header>
+
+   <main class="wrap">
+    ${curriculumPage()}
+   </main>
+
+  `;
+
+  return;
+ }
+
+ baseRender();
+
+};
+/* ===============================
+   PART 4/6
+   GEOGRAPHY + HISTORY
+================================ */
+
+SUBJECTS.geography={
+ name:"Geography",
+ icon:"🌍",
+ lab:"Geo-Intelligence Lab",
+ signature:"OBSERVE → LOCATE → DESCRIBE → EXPLAIN → CONNECT → INVESTIGATE",
+ weeks:[
+ "What Is Geography?",
+ "Geography in Everyday Life",
+ "Earth: Origin, Structure & Shape",
+ "Earth in Space",
+ "Latitude & Longitude",
+ "Movements of the Earth",
+ "Solar System",
+ "Continents & Oceans",
+ "Major Physical Features",
+ "Relief & Landforms",
+ "Inland Water Bodies",
+ "Vegetation & Environment",
+ "Map Interpretation",
+ "My World Geo-Investigation",
+ "Readiness Assessment"
+ ]
+};
+
+SUBJECTS.history={
+ name:"Historia ya Tanzania na Maadili",
+ icon:"🏛️",
+ lab:"Heritage & Civic Reasoning Lab",
+ signature:"SOURCE → TIME → PLACE → PEOPLE → CAUSE → CHANGE → CONSEQUENCE",
+ weeks:[
+ "Origins of Tanzanian Societies",
+ "Bantu, Nilotic, Cushitic & Related Communities",
+ "Activities of Tanzanian Societies",
+ "Values & Heritage",
+ "Opportunities within Heritage",
+ "Social Systems before Colonialism",
+ "Economic & Political Systems",
+ "Science & Technology before Colonialism",
+ "Colonialism and Its Emergence",
+ "Colonial Effects & Responses",
+ "Resistance to Colonial Rule",
+ "Independence & Nation-Building",
+ "Zanzibar Revolution & Union",
+ "Heritage Evidence Project",
+ "Readiness Assessment"
+ ]
+};
+
+
+/* -------- GEOGRAPHY CONTENT -------- */
+
+UNIT_CONTENT.geography={
+
+ 1:{
+  outcome:"Understand the meaning, scope and importance of Geography.",
+  discover:"Observe your surroundings and identify natural and human-made features.",
+  learn:[
+   "Geography studies places, people, environments and relationships between them.",
+   "Physical geography focuses on natural features and processes.",
+   "Human geography considers people and their activities.",
+   "Geography helps us understand our environment and make informed decisions."
+  ],
+  practise:[
+   "Define Geography in your own words.",
+   "Name two natural features.",
+   "Name two human-made features."
+  ],
+  apply:"Create a simple Geography observation record for your neighbourhood.",
+  voice:"Explain what Geography means and why it is useful in everyday life."
+ },
+
+ 2:{
+  outcome:"Recognise the importance of Geography in everyday life.",
+  discover:"Think about how location affects your journey to school.",
+  learn:[
+   "Geography helps people understand location and distance.",
+   "Maps support movement, planning and decision-making.",
+   "Knowledge of the environment helps communities manage resources."
+  ],
+  practise:[
+   "Give three everyday uses of Geography.",
+   "Explain how location affects transport.",
+   "Identify one environmental issue near you."
+  ],
+  apply:"Draw a simple route from home to an important place and describe the features along it.",
+  voice:"Explain one way Geography helps your family or community."
+ },
+
+ 3:{
+  outcome:"Understand basic ideas about the Earth, its structure and shape.",
+  discover:"Observe a globe or picture of Earth and identify its general shape.",
+  learn:[
+   "Earth is approximately spherical.",
+   "The Earth has layers with different characteristics.",
+   "Understanding Earth's structure helps explain natural processes."
+  ],
+  practise:[
+   "Describe the general shape of Earth.",
+   "Name one major Earth layer.",
+   "Explain why Earth is represented by a globe."
+  ],
+  apply:"Create a labelled Earth model or drawing showing its main layers.",
+  voice:"Explain what you understand about the shape and structure of Earth."
+ }
+
+};
+
+
+/* -------- HISTORY CONTENT -------- */
+
+UNIT_CONTENT.history={
+
+ 1:{
+  outcome:"Understand the origins and development of early Tanzanian societies.",
+  discover:"Identify evidence that can help us learn about people who lived in the past.",
+  learn:[
+   "History studies past human experiences and changes over time.",
+   "Evidence may include oral traditions, archaeology, written records and material remains.",
+   "Different communities developed social, economic and cultural systems."
+  ],
+  practise:[
+   "Define History.",
+   "Name two types of historical evidence.",
+   "Explain why evidence is important."
+  ],
+  apply:"Create a simple family or community history using information that can be responsibly verified.",
+  voice:"Explain why evidence is important when studying history."
+ },
+
+ 2:{
+  outcome:"Understand broad language and cultural groupings among communities in Tanzania.",
+  discover:"Find out which languages or cultural traditions are represented in your community.",
+  learn:[
+   "Tanzania contains many communities with different histories and traditions.",
+   "Historical classification can involve language, migration and cultural evidence.",
+   "Communities have interacted and influenced one another over time."
+  ],
+  practise:[
+   "Name communities you know in Tanzania.",
+   "Identify one cultural practice.",
+   "Explain why historical evidence matters when studying communities."
+  ],
+  apply:"Prepare a respectful cultural profile of one Tanzanian community.",
+  voice:"Describe one cultural tradition and explain why it is valuable."
+ },
+
+ 3:{
+  outcome:"Examine activities and ways of life of Tanzanian societies.",
+  discover:"Think about traditional farming, fishing, trade, crafts or other activities.",
+  learn:[
+   "Societies developed economic activities suited to their environments.",
+   "Activities included agriculture, livestock keeping, fishing, hunting, crafts and trade.",
+   "Historical activities help us understand how communities adapted to their surroundings."
+  ],
+  practise:[
+   "Name three traditional economic activities.",
+   "Explain one activity.",
+   "Identify one resource needed for that activity."
+  ],
+  apply:"Compare one historical economic activity with a similar modern activity.",
+  voice:"Explain how one traditional activity supported a community."
+ }
+
+};
+
+
+/* -------- COMPLETE SUBJECT REGISTRATION -------- */
+
+function allSubjects(){
+
+ return Object.keys(SUBJECTS);
+
 }
 
-function setTab(t){
- state.current.tab=t;
- render();
-}
 
-function chooseSubject(s){
- state.current.subject=s;
- state.current.week=1;
- state.current.tab='discover';
- render();
-}
+/* -------- SUBJECT SUMMARY -------- */
 
-function chooseWeek(w){
- state.current.week=+w;
- state.current.tab='discover';
- render();
-}
+function subjectSummary(){
 
-function openUnit(s,w){
- state.page='curriculum';
- state.current={
-  subject:s,
-  week:w,
-  tab:'discover'
- };
- render();
-}
+ return Object.entries(SUBJECTS).map(
+  ([key,s])=>{
 
-function saveDiscover(){
- const k=unitKey();
+   const completed=
+    Object.keys(state.completed)
+     .filter(x=>x.startsWith(key+"-"))
+     .length;
 
- state.flags[k]={
-  ...(state.flags[k]||{}),
-  discover:document.getElementById('discoverNote').value
- };
+   return `
+    <div class="card third">
 
- save();
+     <span class="tag">
+      ${s.icon}
+     </span>
 
- alert('Starting evidence saved.');
-}
+     <h3>${s.name}</h3>
 
-function savePractice(){
- addEvidence(
-  'Practice evidence',
-  document.getElementById('practiceNote').value
- );
+     <p class="muted">
+      ${s.lab}
+     </p>
 
- alert('Practice evidence saved.');
-}
+     <div class="progress">
+      <i style="
+       width:${Math.round(completed/15*100)}%">
+      </i>
+     </div>
 
-function saveApply(){
- addEvidence(
-  'Application evidence',
-  document.getElementById('applyNote').value
- );
+     <small>
+      ${completed}/15 weeks completed
+     </small>
 
- alert('Application evidence saved.');
-}
+    </div>
+   `;
 
-function saveCheck(){
- const ids=[
-  ...document.querySelectorAll('.check textarea')
- ];
-
- state.checks[unitKey()]=Object.fromEntries(
-  ids.map(x=>[x.id,x.value])
- );
-
- save();
-
- alert('Knowledge Check submitted.');
-}
-
-function saveJournal(){
- state.journals[unitKey()]={
-  learned:document.getElementById('jl').value,
-  difficult:document.getElementById('jd').value,
-  explain:document.getElementById('je').value
- };
-
- save();
-
- alert('Journal evidence saved.');
-}
-
-function addEvidence(type,reflection){
- state.evidence.push({
-  id:crypto.randomUUID?crypto.randomUUID():Date.now()+Math.random(),
-  unitKey:unitKey(),
-  subject:state.current.subject,
-  week:state.current.week,
-  topic:SUBJECTS[state.current.subject].weeks[state.current.week-1],
-  type,
-  reflection,
-  createdAt:new Date().toISOString(),
-  status:masteryFor()
- });
-
- save();
-}
-
-async function startRecording(){
- const status=document.getElementById('recStatus');
-
- try{
-
-  if(
-   !navigator.mediaDevices?.getUserMedia||
-   !window.MediaRecorder
-  ){
-   throw new Error(
-    'Voice recording is not supported by this browser'
-   );
   }
+ ).join("");
 
-  const stream=
-   await navigator.mediaDevices.getUserMedia({
-    audio:true
-   });
+}
 
-  const mime=
-   MediaRecorder.isTypeSupported('audio/webm')
-   ?'audio/webm'
-   :(MediaRecorder.isTypeSupported('audio/mp4')
-     ?'audio/mp4'
-     :'');
 
-  recorder=
-   new MediaRecorder(
-    stream,
-    mime?{mimeType:mime}:undefined
-   );
+/* -------- EXTEND DASHBOARD -------- */
 
-  recordingChunks=[];
+const previousRender=render;
 
-  recorder.ondataavailable=e=>{
-   if(e.data.size){
-    recordingChunks.push(e.data);
-   }
-  };
+render=function(){
 
-  recorder.onstop=async()=>{
-   const blob=
-    new Blob(
-     recordingChunks,
-     {type:mime||'audio/webm'}
-    );
+ if(state.page==="dashboard"){
 
-   const id=
-    crypto.randomUUID
-    ?crypto.randomUUID()
-    :String(Date.now());
+  document.getElementById("app").innerHTML=`
 
-   try{
+   <header class="header">
 
-    await putAudio(id,blob);
+    <div class="headerTop">
 
-    state.evidence.push({
-     id,
-     audioId:id,
-     unitKey:unitKey(),
-     subject:state.current.subject,
-     week:state.current.week,
-     topic:SUBJECTS[state.current.subject].weeks[state.current.week-1],
+     <div class="logo">EA</div>
 
-     learningOutcome:
-      'Explain the weekly concept in your own words with an example and reasoning.',
+     <div class="brand">
+      <h1>${APP.name}</h1>
+      <small>
+       ${APP.version} • Integrated Learning Evidence Platform
+      </small>
+     </div>
 
-     type:'Voice Learning Evidence v2.1',
+    </div>
 
-     reflection:
-      document.getElementById('voiceReflection')?.value||'',
+    <nav class="nav">
 
-     review:'Pending parent review',
+     <button class="active"
+      onclick="go('dashboard')">
+      Command Centre
+     </button>
 
-     createdAt:new Date().toISOString(),
+     <button onclick="go('curriculum')">
+      Curriculum
+     </button>
 
-     status:masteryFor()
-    });
+     <button onclick="go('voice')">
+      Voice Studio
+     </button>
 
-    stream.getTracks().forEach(
-     t=>t.stop()
-    );
+     <button onclick="go('assessment')">
+      Friday Assessment
+     </button>
 
-    save();
+     <button onclick="go('journal')">
+      Journal
+     </button>
 
-    document.getElementById('recStatus').textContent=
-     'Saved permanently on this device in the Voice Evidence Engine.';
+     <button onclick="go('parent')">
+      Parent Centre
+     </button>
 
-   }catch(e){
+     <button onclick="go('profile')">
+      Profile
+     </button>
 
-    document.getElementById('recStatus').textContent=
-     'Recording captured but local evidence storage failed. Try again.';
+    </nav>
 
-    stream.getTracks().forEach(
-     t=>t.stop()
-    );
-   }
-  };
+   </header>
 
-  recorder.start();
+   <main class="wrap">
 
-  status.textContent=
-   'Recording… explain the idea, example and reasoning.';
+    <div class="grid">
 
- }catch(e){
+     <section class="card hero full">
 
-  status.textContent=
-   'Microphone unavailable or permission denied. You can still type learning evidence.';
+      <span class="tag">AAMUSHCLASS</span>
+      <span class="tag">90 LEARNING UNITS</span>
+
+      <h2>
+       Six Learning Labs
+      </h2>
+
+      <p class="muted">
+       Mathematics • Kiswahili • English • Business Studies
+       • Geography • Historia ya Tanzania na Maadili
+      </p>
+
+      <div class="actions">
+
+       <button class="btn primary"
+        onclick="go('curriculum')">
+        Continue Learning
+       </button>
+
+       <button class="btn"
+        onclick="go('voice')">
+        Voice Studio
+       </button>
+
+      </div>
+
+     </section>
+
+     ${subjectSummary()}
+
+     <section class="card full">
+
+      <h3>
+       Academy Learning Cycle
+      </h3>
+
+      <span class="tag">DISCOVER</span>
+      <span class="tag">LEARN</span>
+      <span class="tag">PRACTISE</span>
+      <span class="tag">CHECK</span>
+      <span class="tag">APPLY</span>
+      <span class="tag">VOICE</span>
+      <span class="tag">JOURNAL</span>
+      <span class="tag">ASSESS</span>
+      <span class="tag">MASTER</span>
+
+     </section>
+
+    </div>
+
+   </main>
+  `;
+
+  return;
  }
+
+ previousRender();
+
+}; 
+ <!-- PART 6/6 — FINAL APP ENGINE -->
+
+function dashboardPageFinal(){
+  const total=Object.keys(SUBJECTS).length*15;
+  const completed=Object.keys(state.completed||{}).length;
+  const evidence=(state.evidence||[]).length;
+  const mastered=Object.values(state.mastery||{}).filter(x=>x==="Mastered").length;
+
+  return `
+  <section class="hero">
+    <span class="tag">EDUCATION ACCESS • v2.0</span>
+    <h1>Form One Readiness Command Centre</h1>
+    <p class="muted">${APP.learner} • ${APP.period}</p>
+    <p>${APP.goal}</p>
+  </section>
+
+  <div class="grid">
+    <div class="card"><b>${total}</b><br><span class="muted">Learning Units</span></div>
+    <div class="card"><b>${completed}</b><br><span class="muted">Completed</span></div>
+    <div class="card"><b>${evidence}</b><br><span class="muted">Evidence</span></div>
+    <div class="card"><b>${mastered}</b><br><span class="muted">Mastered</span></div>
+  </div>
+
+  <div class="card full">
+    <h2>Learning Cycle</h2>
+    <p>DISCOVER → LEARN → PRACTISE → KNOWLEDGE CHECK → APPLY → VOICE → JOURNAL → ASSESS → MASTER</p>
+  </div>
+
+  <div class="grid">
+    ${Object.keys(SUBJECTS).map(k=>{
+      const s=SUBJECTS[k];
+      const done=Object.keys(state.completed||{}).filter(x=>x.startsWith(k+"-week-")).length;
+      return `
+      <div class="card">
+        <span class="tag">${s.lab}</span>
+        <h2>${s.title}</h2>
+        <p class="muted">${s.identity}</p>
+        <div class="progress"><i style="width:${done/15*100}%"></i></div>
+        <p>${done}/15 units completed</p>
+        <button class="btn primary" onclick="openSubject('${k}')">Open Lab</button>
+      </div>`;
+    }).join("")}
+  </div>
+
+  <div class="card full">
+    <h2>January 2027 Readiness</h2>
+    <p>Evidence-based preparation across six Form One readiness subjects.</p>
+    <button class="btn primary" onclick="go('profile')">Open Readiness Profile</button>
+    <button class="btn" onclick="go('parent')">Parent Centre</button>
+  </div>`;
 }
 
-function stopRecording(){
- if(
-  recorder&&
-  recorder.state!=='inactive'
- ){
-  recorder.stop();
- }
+function curriculumPageFinal(){
+  const s=SUBJECTS[state.subject||"mathematics"];
+  return `
+  <div class="card full">
+    <span class="tag">CURRICULUM ENGINE</span>
+    <h1>15-Week Learning Pathway</h1>
+    <div class="actions">
+      ${Object.keys(SUBJECTS).map(k=>`
+        <button class="btn ${state.subject===k?"primary":""}"
+          onclick="openSubject('${k}')">${SUBJECTS[k].title}</button>
+      `).join("")}
+    </div>
+  </div>
+
+  <div class="grid">
+    ${s.weeks.map((topic,i)=>{
+      const w=i+1;
+      const key=state.subject+"-week-"+w;
+      const done=!!state.completed[key];
+      return `
+      <div class="card">
+        <span class="tag">WEEK ${w}</span>
+        <h2>${topic}</h2>
+        <p>${done?"✓ Completed":"Ready to learn"}</p>
+        <button class="btn ${done?"":"primary"}"
+          onclick="openWeek(${w})">Open Unit</button>
+      </div>`;
+    }).join("")}
+  </div>
+
+  ${state.subject?unitPanelFinal(state.subject,state.week):""}`;
 }
 
-function setMastery(v){
- state.mastery[unitKey()]=v;
+function unitPanelFinal(subject,week){
+  const d=getUnitData(subject,week);
+  const key=subject+"-week-"+week;
+  const tab=state.tab||"discover";
 
- state.evidence.forEach(x=>{
-  if(x.unitKey===unitKey()){
-   x.status=v;
-  }
- });
+  return `
+  <div class="card full">
+    <span class="tag">${SUBJECTS[subject].lab} • WEEK ${week}</span>
+    <h1>${d.title||SUBJECTS[subject].weeks[week-1]}</h1>
+    <p class="muted">${d.outcome||""}</p>
 
- save();
+    <div class="actions">
+      ${["discover","learn","practise","check","apply","voice","journal","mastery"]
+      .map(x=>`<button class="btn ${tab===x?"primary":""}"
+      onclick="setTab('${x}')">${x==="check"?"Knowledge Check":x==="mastery"?"Evidence & Mastery":x[0].toUpperCase()+x.slice(1)}</button>`).join("")}
+    </div>
+
+    <div class="card">${tabContentFinal(d,subject,week,tab)}</div>
+  </div>`;
 }
 
-function saveReview(id){
- const el=document.getElementById('review-'+id);
- const x=state.evidence.find(e=>e.id===id);
+function tabContentFinal(d,subject,week,tab){
+  if(tab==="discover") return `
+    <h2>DISCOVER</h2>
+    <p>${d.discover}</p>
+    <button class="btn primary" onclick="setTab('learn')">Start Learning</button>`;
 
- if(x&&el){
-  x.review=el.value;
-  x.reviewedAt=new Date().toISOString();
+  if(tab==="learn") return `
+    <h2>LEARN</h2>
+    ${(d.learn||[]).map(x=>`<p>• ${x}</p>`).join("")}
+    <button class="btn primary" onclick="setTab('practise')">Practise</button>`;
 
-  save();
+  if(tab==="practise") return `
+    <h2>PRACTISE</h2>
+    ${(d.practise||[]).map(x=>`<p>☐ ${x}</p>`).join("")}
+    <button class="btn primary" onclick="setTab('check')">Knowledge Check</button>`;
 
-  alert('Parent review saved.');
- }
+  if(tab==="check") return `
+    <h2>KNOWLEDGE CHECK</h2>
+    <textarea id="checkAnswer" rows="6" placeholder="Write your answer or explanation...">${state.checks[unitKey()]?.answer||""}</textarea>
+    <br><button class="btn primary" onclick="saveCheck()">Save Check</button>`;
+
+  if(tab==="apply") return `
+    <h2>APPLY</h2>
+    <p>${d.apply}</p>
+    <button class="btn primary" onclick="completeUnit()">Mark Unit Complete</button>`;
+
+  if(tab==="voice") return voiceTaskTabFinal(d);
+
+  if(tab==="journal") return `
+    <h2>LEARNING JOURNAL</h2>
+    <textarea id="journalText" rows="7"
+      placeholder="What did I understand? What was difficult? What will I improve?">${state.journals[unitKey()]||""}</textarea>
+    <br><button class="btn primary" onclick="saveJournal()">Save Journal</button>`;
+
+  return masteryTabFinal(subject,week);
 }
 
-function completeUnit(){
- state.completed[unitKey()]=true;
+function voiceTaskTabFinal(d){
+  const e=evidenceFor(unitKey());
+  return `
+  <h2>VOICE STUDIO</h2>
+  <p><b>Signature task:</b> ${d.voice||"Explain what you learned in your own words."}</p>
+  <p class="muted">Record your explanation, example and reasoning.</p>
 
- save();
+  <div class="actions">
+    <button class="btn primary" onclick="startRecording()">🎙 Start Recording</button>
+    <button class="btn" onclick="stopRecording()">■ Stop</button>
+  </div>
 
- alert(
-  'Unit marked complete. Continue building evidence rather than stopping at completion.'
- );
+  <div id="recordingStatus" class="card">
+    ${recorder?"🔴 Recording...":"Ready for recording"}
+  </div>
+
+  <div id="recordings">${renderRecordingsFinal(e)}</div>`;
+}
+
+function renderRecordingsFinal(items){
+  if(!items.length) return `<p class="muted">No voice evidence recorded for this unit yet.</p>`;
+  return items.map(e=>`
+    <div class="card">
+      <span class="tag">${e.status||"Emerging"}</span>
+      <p><b>${e.topic}</b></p>
+      ${e.audioUrl?`<audio controls src="${e.audioUrl}" style="width:100%"></audio>`:""}
+      <p class="muted">${new Date(e.createdAt).toLocaleString()}</p>
+      <p>${e.review||"Pending parent review"}</p>
+    </div>`).join("");
+}
+
+function masteryTabFinal(subject,week){
+  const key=subject+"-week-"+week;
+  const current=state.mastery[key]||"Emerging";
+  const e=evidenceFor(key);
+
+  return `
+  <h2>EVIDENCE & MASTERY</h2>
+  <p>Current mastery: <b>${current}</b></p>
+
+  <div class="actions">
+    ${["Emerging","Developing","Secure","Mastered"].map(x=>
+      `<button class="btn ${current===x?"primary":""}"
+       onclick="setMastery('${x}')">${x}</button>`).join("")}
+  </div>
+
+  <h3>Evidence</h3>
+  ${e.length?e.map(x=>`
+    <div class="card">
+      <b>${x.type||"Learning Evidence"}</b>
+      <p>${x.reflection||"No reflection yet."}</p>
+      <p class="muted">${x.review||"Pending parent review"}</p>
+    </div>`).join(""):`<p class="muted">No evidence yet.</p>`}
+
+  <hr>
+  <p><b>Re-learning cycle:</b> Re-teach → Re-practise → Re-record → Compare Evidence → Update Mastery.</p>`;
+}
+
+function voicePageFinal(){
+  return `
+  <div class="hero">
+    <span class="tag">VOICE EVIDENCE PORTFOLIO</span>
+    <h1>Voice Studio</h1>
+    <p>Learning is captured as evidence, reviewed and connected to mastery.</p>
+  </div>
+
+  ${state.evidence.length?
+    state.evidence.map(e=>`
+      <div class="card">
+        <span class="tag">${e.status||"Emerging"}</span>
+        <h3>${e.subject} • Week ${e.week}</h3>
+        <p>${e.topic}</p>
+        ${e.audioUrl?`<audio controls src="${e.audioUrl}" style="width:100%"></audio>`:""}
+        <p>${e.reflection||""}</p>
+        <p class="muted">${e.review||"Pending parent review"}</p>
+      </div>`).join("")
+    :`<div class="card">No evidence has been captured yet.</div>`}`;
+}
+
+function assessmentPageFinal(){
+  const a=state.assessments["week1-math"]||{};
+  return `
+  <div class="hero">
+    <span class="tag">FRIDAY ASSESSMENT CENTRE</span>
+    <h1>Independent Assessment</h1>
+    <p>Week 1 Mathematics • 30 marks</p>
+  </div>
+
+  <div class="card full">
+    <p><b>1.</b> Define mathematics. (2)</p>
+    <textarea id="a1">${a.a1||""}</textarea>
+
+    <p><b>2.</b> Give three everyday uses of mathematics. (3)</p>
+    <textarea id="a2">${a.a2||""}</textarea>
+
+    <p><b>3.</b> TZS 50,000 − TZS 12,500 − TZS 8,000 = ? (3)</p>
+    <input id="a3" value="${a.a3||""}">
+
+    <p><b>4.</b> 7:30 + 45 minutes = ? (2)</p>
+    <input id="a4" value="${a.a4||""}">
+
+    <p><b>5.</b> 100 − 37 = ? (2)</p>
+    <input id="a5" value="${a.a5||""}">
+
+    <p><b>6.</b> Why does accurate calculation matter in business? (3)</p>
+    <textarea id="a6">${a.a6||""}</textarea>
+
+    <p><b>7.</b> Explain what information is needed when comparing shop prices. (4)</p>
+    <textarea id="a7">${a.a7||""}</textarea>
+
+    <p><b>8.</b> Create and solve one real-life mathematics problem. (6)</p>
+    <textarea id="a8">${a.a8||""}</textarea>
+
+    <p><b>9.</b> Write 3–5 sentences explaining: “Mathematics is not only a school subject.” (5)</p>
+    <textarea id="a9">${a.a9||""}</textarea>
+
+    <br>
+    <button class="btn primary" onclick="saveAssessment()">Save Assessment</button>
+  </div>
+
+  <div class="card">
+    <h3>Parent Marking Reference</h3>
+    <p>Q3 = 29,500 • Q4 = 8:15 • Q5 = 63.</p>
+    <p>Other responses should be marked for accuracy, relevance, explanation and reasoning.</p>
+  </div>`;
+}
+
+function journalPageFinal(){
+  return `
+  <div class="hero">
+    <span class="tag">LEARNER JOURNAL</span>
+    <h1>My Learning Journey</h1>
+    <p>Record discoveries, challenges, corrections and goals.</p>
+  </div>
+
+  ${Object.keys(state.journals).length?
+    Object.keys(state.journals).map(k=>`
+      <div class="card">
+        <span class="tag">${k}</span>
+        <p>${esc(state.journals[k])}</p>
+      </div>`).join("")
+    :`<div class="card">Your journal entries will appear here.</div>`}`;
+}
+
+function parentPageFinal(){
+  const total=Object.keys(SUBJECTS).length*15;
+  const completed=Object.keys(state.completed||{}).length;
+  const evidence=state.evidence||[];
+  const counts={Emerging:0,Developing:0,Secure:0,Mastered:0};
+
+  Object.values(state.mastery||{}).forEach(x=>{
+    if(counts[x]!==undefined) counts[x]++;
+  });
+
+  return `
+  <div class="hero">
+    <span class="tag">PARENT CENTRE</span>
+    <h1>Mr. Patrick — Learning Oversight</h1>
+    <p>Monitor progress, evidence, mastery and readiness.</p>
+  </div>
+
+  <div class="grid">
+    <div class="card"><b>${completed}/${total}</b><br>Units completed</div>
+    <div class="card"><b>${evidence.length}</b><br>Evidence records</div>
+    <div class="card"><b>${counts.Secure}</b><br>Secure</div>
+    <div class="card"><b>${counts.Mastered}</b><br>Mastered</div>
+  </div>
+
+  <div class="card">
+    <h2>Mastery Distribution</h2>
+    <p>Emerging: ${counts.Emerging}</p>
+    <p>Developing: ${counts.Developing}</p>
+    <p>Secure: ${counts.Secure}</p>
+    <p>Mastered: ${counts.Mastered}</p>
+  </div>
+
+  <div class="card full">
+    <h2>Evidence Review</h2>
+    ${evidence.length?evidence.map(e=>`
+      <div class="card">
+        <b>${e.subject} — Week ${e.week}</b>
+        <p>${e.topic}</p>
+        <p>${e.reflection||""}</p>
+        <textarea id="review-${e.id}" placeholder="Parent feedback...">${e.review||""}</textarea>
+        <br>
+        <button class="btn primary" onclick="saveReview('${e.id}')">Save Review</button>
+      </div>`).join("")
+    :"No evidence awaiting review."}
+  </div>`;
+}
+
+function profilePageFinal(){
+  const p=state.profile||{};
+  return `
+  <div class="hero">
+    <span class="tag">JANUARY 2027 READINESS PROFILE</span>
+    <h1>${APP.learner}</h1>
+    <p>Grade 7 → Form One</p>
+  </div>
+
+  <div class="card">
+    <h2>Learner Profile</h2>
+    <input id="profileName" value="${p.name||APP.learner}" placeholder="Learner name">
+    <input id="profileSchool" value="${p.school||"Fedha Primary School"} placeholder="Previous school">
+    <input id="profileGoal" value="${p.goal||APP.goal}" placeholder="Readiness goal">
+    <textarea id="profileNotes" rows="5" placeholder="Parent observations...">${p.notes||""}</textarea>
+    <br>
+    <button class="btn primary" onclick="saveProfile()">Save Profile</button>
+  </div>
+
+  <div class="card">
+    <h2>Oversight</h2>
+    <p><b>Home Teacher:</b> ${APP.teacher}</p>
+    <p><b>Founder / Developer:</b> ${APP.founder}</p>
+    <p><b>Programme:</b> ${APP.period}</p>
+  </div>
+
+  <div class="card">
+    <h2>Data & Backup</h2>
+    <button class="btn primary" onclick="exportData()">Export JSON Backup</button>
+    <input type="file" accept=".json" onchange="importData(event)">
+    <button class="btn" onclick="resetProgress()">Reset Learning Progress</button>
+  </div>`;
 }
 
 function saveAssessment(){
- const score=
-  +document.getElementById('score').value;
-
- if(
-  score<0||
-  score>30||
-  Number.isNaN(score)
- ){
-  return alert(
-   'Enter a score from 0 to 30.'
-  );
- }
-
- state.assessments['mathematics-week1']={
-  score,
-  note:document.getElementById('assessNote').value,
-  date:new Date().toISOString()
- };
-
- save();
-
- alert('Assessment result saved.');
+  state.assessments["week1-math"]={
+    a1:document.getElementById("a1").value,
+    a2:document.getElementById("a2").value,
+    a3:document.getElementById("a3").value,
+    a4:document.getElementById("a4").value,
+    a5:document.getElementById("a5").value,
+    a6:document.getElementById("a6").value,
+    a7:document.getElementById("a7").value,
+    a8:document.getElementById("a8").value,
+    a9:document.getElementById("a9").value,
+    savedAt:new Date().toISOString()
+  };
+  save();
+  alert("Assessment saved.");
 }
 
 function saveProfile(){
- state.profile={
-  learnerName:document.getElementById('pname').value,
-  school:document.getElementById('pschool').value,
-  level:document.getElementById('plevel').value,
-  parentName:document.getElementById('pparent').value,
-  programme:document.getElementById('pprogramme').value,
-  goal:document.getElementById('pgoal').value
- };
-
- save();
-
- alert('Profile saved.');
+  state.profile={
+    name:document.getElementById("profileName").value,
+    school:document.getElementById("profileSchool").value,
+    goal:document.getElementById("profileGoal").value,
+    notes:document.getElementById("profileNotes").value
+  };
+  save();
+  alert("Profile saved.");
 }
 
 function exportData(){
- const clean=
-  JSON.parse(
-   JSON.stringify({
-    ...state,
-    evidence:state.evidence.map(
-     x=>({...x,audioUrl:undefined})
-    )
-   })
-  );
-
- const blob=
-  new Blob(
-   [JSON.stringify(clean,null,2)],
-   {type:'application/json'}
-  );
-
- const a=document.createElement('a');
-
- a.href=
-  URL.createObjectURL(blob);
-
- a.download=
-  'education-access-academy-v2.1-backup.json';
-
- a.click();
-
- URL.revokeObjectURL(a.href);
+  const data=JSON.stringify(state,null,2);
+  const blob=new Blob([data],{type:"application/json"});
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(blob);
+  a.download="Education-Access-Academy-backup.json";
+  a.click();
+  URL.revokeObjectURL(a.href);
 }
 
-function importData(inp){
- const f=inp.files[0];
-
- if(!f)return;
-
- const r=new FileReader();
-
- r.onload=()=>{
-  try{
-   const incoming=
-    JSON.parse(r.result);
-
-   state=
-    Object.assign(
-     defaultState(),
-     incoming
-    );
-
-   save();
-
-   alert('Backup imported.');
-
-  }catch(e){
-   alert('Invalid backup file.');
-  }
- };
-
- r.readAsText(f);
-}
-
-async function resetProgress(){
-
- if(
-  confirm(
-   'Reset learner progress on this device? This cannot be undone unless you have a backup.'
-  )
- ){
-
-  state=defaultState();
-
-  localStorage.removeItem(KEY);
-
-  try{
-
-   const db=
-    await openAudioDB();
-
-   await new Promise(
-    (resolve,reject)=>{
-     const tx=
-      db.transaction(
-       AUDIO_STORE,
-       'readwrite'
-      );
-
-     tx.objectStore(AUDIO_STORE).clear();
-
-     tx.oncomplete=resolve;
-     tx.onerror=()=>reject(tx.error);
+function importData(event){
+  const file=event.target.files[0];
+  if(!file)return;
+  const reader=new FileReader();
+  reader.onload=()=>{
+    try{
+      const data=JSON.parse(reader.result);
+      Object.assign(state,data);
+      save();
+      render();
+      alert("Backup restored successfully.");
+    }catch(e){
+      alert("Invalid backup file.");
     }
-   );
+  };
+  reader.readAsText(file);
+}
 
-  }catch(e){}
+function resetProgress(){
+  if(!confirm("Reset learning progress? This cannot be undone."))return;
+  state.completed={};
+  state.evidence=[];
+  state.journals={};
+  state.checks={};
+  state.mastery={};
+  state.assessments={};
+  save();
+  render();
+}
+
+function go(page){
+  state.page=page;
+  if(page==="curriculum"&&!state.subject)state.subject="mathematics";
+  save();
+  render();
+}
+
+function openSubject(key){
+  state.subject=key;
+  state.week=1;
+  state.tab="discover";
+  state.page="curriculum";
+  save();
+  render();
+}
+
+function openWeek(week){
+  state.week=Number(week);
+  state.tab="discover";
+  state.page="curriculum";
+  save();
+  render();
+}
+
+function setTab(tab){
+  state.tab=tab;
+  save();
+  render();
+}
+
+function completeUnit(){
+  state.completed[unitKey()]=true;
+  save();
+  alert("Unit marked complete.");
+  render();
+}
+
+function saveCheck(){
+  const el=document.getElementById("checkAnswer");
+  state.checks[unitKey()]={answer:el?el.value:"",savedAt:new Date().toISOString()};
+  save();
+  alert("Knowledge check saved.");
+}
+
+function saveJournal(){
+  const el=document.getElementById("journalText");
+  state.journals[unitKey()]=el?el.value:"";
+  save();
+  alert("Journal saved.");
+}
+
+function setMastery(level){
+  state.mastery[unitKey()]=level;
+  save();
+  render();
+}
+
+function saveReview(id){
+  const el=document.getElementById("review-"+id);
+  const e=state.evidence.find(x=>x.id===id);
+  if(e){
+    e.review=el?el.value:"";
+    e.reviewedAt=new Date().toISOString();
+    save();
+    alert("Parent review saved.");
+    render();
+  }
+}
+
+function addEvidence(){
+  const d=getUnitData(state.subject,state.week);
+  const e={
+    id:"ev-"+Date.now(),
+    unitKey:unitKey(),
+    subject:SUBJECTS[state.subject].title,
+    week:state.week,
+    topic:d.title,
+    learningOutcome:d.outcome,
+    type:"Learning Evidence",
+    reflection:"",
+    review:"Pending parent review",
+    status:"Emerging",
+    createdAt:new Date().toISOString()
+  };
+  state.evidence.push(e);
+  save();
+  render();
+}
+
+async function startRecording(){
+  try{
+    if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia){
+      alert("This browser does not support microphone recording.");
+      return;
+    }
+
+    const stream=await navigator.mediaDevices.getUserMedia({audio:true});
+    chunks=[];
+    recorder=new MediaRecorder(stream);
+
+    recorder.ondataavailable=e=>{
+      if(e.data.size)chunks.push(e.data);
+    };
+
+    recorder.onstop=async()=>{
+      const blob=new Blob(chunks,{type:recorder.mimeType||"audio/webm"});
+      const id="audio-"+Date.now();
+      await putAudio(id,blob);
+
+      const d=getUnitData(state.subject,state.week);
+
+      state.evidence.push({
+        id:"ev-"+Date.now(),
+        audioId:id,
+        unitKey:unitKey(),
+        subject:SUBJECTS[state.subject].title,
+        week:state.week,
+        topic:d.title,
+        learningOutcome:d.outcome,
+        type:"Voice Learning Evidence v2.1",
+        reflection:"",
+        review:"Pending parent review",
+        status:"Emerging",
+        createdAt:new Date().toISOString()
+      });
+
+      stream.getTracks().forEach(t=>t.stop());
+      recorder=null;
+      chunks=[];
+      save();
+      await hydrateAudioUrls();
+      render();
+    };
+
+    recorder.start();
+    render();
+  }catch(e){
+    recorder=null;
+    alert("Microphone access was not available. Please allow microphone permission and try again.");
+  }
+}
+
+function stopRecording(){
+  if(recorder&&recorder.state!=="inactive")recorder.stop();
+}
+
+async function hydrateAudioUrls(){
+  for(const e of state.evidence||[]){
+    if(e.audioId&&!e.audioUrl){
+      try{
+        const blob=await getAudio(e.audioId);
+        if(blob)e.audioUrl=URL.createObjectURL(blob);
+      }catch(err){}
+    }
+  }
+}
+
+function render(){
+  let content="";
+
+  if(state.page==="dashboard")content=dashboardPageFinal();
+  else if(state.page==="curriculum")content=curriculumPageFinal();
+  else if(state.page==="voice")content=voicePageFinal();
+  else if(state.page==="assessment")content=assessmentPageFinal();
+  else if(state.page==="journal")content=journalPageFinal();
+  else if(state.page==="parent")content=parentPageFinal();
+  else if(state.page==="profile")content=profilePageFinal();
+  else content=dashboardPageFinal();
+
+  document.getElementById("app").innerHTML=`
+    <header class="header">
+      <div class="headerTop">
+        <div class="logo">EA</div>
+        <div class="brand">
+          <b>Education Access</b>
+          <span>E-Learning Academy v2.0</span>
+        </div>
+      </div>
+
+      <nav class="nav">
+        <button onclick="go('dashboard')">Command Centre</button>
+        <button onclick="go('curriculum')">Curriculum</button>
+        <button onclick="go('voice')">Voice Studio</button>
+        <button onclick="go('assessment')">Friday Assessment</button>
+        <button onclick="go('journal')">Journal</button>
+        <button onclick="go('parent')">Parent Centre</button>
+        <button onclick="go('profile')">Profile</button>
+      </nav>
+    </header>
+
+    <main class="wrap">${content}</main>
+
+    <footer class="card full" style="margin-top:20px">
+      <small>
+        Education Access E-Learning Academy v2.0 •
+        Developed by Dr. James K. Mushi, PhD.
+      </small>
+    </footer>`;
+}
+
+/* START APPLICATION */
+load();
+openAudioDB().then(()=>hydrateAudioUrls()).catch(()=>{});
+render();
+ <!-- PART 6B/8 -->
+function assessmentPage(){
+  return `
+    <div class="hero">
+      <span class="tag">FRIDAY ASSESSMENT CENTRE</span>
+      <h1>Independent Assessment</h1>
+      <p class="muted">
+        Show what you know. Work independently, then review your evidence.
+      </p>
+    </div>
+
+    <div class="card full">
+      <h2>Week 1 — Mathematics</h2>
+      <p class="muted">Total: 30 marks</p>
+
+      <form id="assessmentForm">
+
+        <p><b>1. Define mathematics. (2)</b></p>
+        <textarea name="q1" rows="2"></textarea>
+
+        <p><b>2. Give three everyday uses of mathematics. (3)</b></p>
+        <textarea name="q2" rows="2"></textarea>
+
+        <p><b>3. Calculate: TZS 50,000 − TZS 12,500 − TZS 8,000. (3)</b></p>
+        <textarea name="q3" rows="2"></textarea>
+
+        <p><b>4. If it is 7:30 and 45 minutes pass, what time is it? (2)</b></p>
+        <textarea name="q4" rows="2"></textarea>
+
+        <p><b>5. Calculate 100 − 37. (2)</b></p>
+        <textarea name="q5" rows="2"></textarea>
+
+        <p><b>6. Why does accurate calculation matter in business? (3)</b></p>
+        <textarea name="q6" rows="3"></textarea>
+
+        <p><b>7. You compare prices in two shops. What information do you need before deciding where to buy? (4)</b></p>
+        <textarea name="q7" rows="3"></textarea>
+
+        <p><b>8. Create and solve one real-life mathematics problem. (6)</b></p>
+        <textarea name="q8" rows="4"></textarea>
+
+        <p><b>9. Write 3–5 sentences explaining:
+        “Mathematics is not only a school subject.” (5)</b></p>
+        <textarea name="q9" rows="4"></textarea>
+
+        <div class="actions">
+          <button type="button" class="btn primary"
+            onclick="saveAssessment()">
+            Save Assessment
+          </button>
+        </div>
+
+      </form>
+    </div>
+
+    <div class="card full">
+      <span class="tag">ANSWER KEY</span>
+      <h3>Parent Marking Reference</h3>
+      <p>Q3 = TZS 29,500</p>
+      <p>Q4 = 8:15</p>
+      <p>Q5 = 63</p>
+      <p class="muted">
+        Other questions should be marked for accuracy,
+        understanding, explanation and reasoning.
+      </p>
+    </div>
+  `;
+}
+
+function saveAssessment(){
+  const form=document.getElementById("assessmentForm");
+  if(!form)return;
+
+  const data={};
+
+  [...form.elements].forEach(x=>{
+    if(x.name)data[x.name]=x.value;
+  });
+
+  state.assessments["week-1-mathematics"]={
+    answers:data,
+    submittedAt:new Date().toISOString()
+  };
 
   save();
- }
+  alert("Friday Assessment saved.");
 }
 
-state.page='dashboard';
+/* EVIDENCE REVIEW */
 
+function evidencePage(){
+  const list=state.evidence||[];
+
+  return `
+    <div class="hero">
+      <span class="tag">EVIDENCE PORTFOLIO</span>
+      <h1>Learning Evidence</h1>
+      <p class="muted">
+        Every piece of evidence is connected to a subject,
+        topic, learning outcome and mastery status.
+      </p>
+    </div>
+
+    <div class="card full">
+      <h2>${list.length} Evidence Item${list.length===1?"":"s"}</h2>
+
+      ${
+        list.length
+        ? list.map(e=>`
+          <div class="card">
+            <b>${esc(e.subject)}</b>
+            <p>Week ${e.week}: ${esc(e.topic)}</p>
+            <p class="muted">${esc(e.learningOutcome||"")}</p>
+            <span class="tag">${esc(e.status||"Emerging")}</span>
+
+            ${
+              e.audioId
+              ? `<p>🎙 Voice recording captured</p>`
+              : ""
+            }
+
+            <textarea id="review-${e.id}"
+              style="width:100%;min-height:70px;background:#07101d;color:#edf5ff;border:1px solid #22334b;border-radius:10px;padding:10px"
+              placeholder="Parent review...">${esc(e.review||"")}</textarea>
+
+            <button class="btn" onclick="saveReview('${e.id}')">
+              Save Parent Review
+            </button>
+          </div>
+        `).join("")
+        : `<p class="muted">No evidence has been captured yet.</p>`
+      }
+    </div>
+  `;
+}
+
+/* APPLY ACTIVITY */
+
+function applyTab(){
+  const u=currentUnitData();
+
+  return `
+    <div class="card full">
+      <span class="tag">APPLY</span>
+      <h2>Use What You Learned</h2>
+
+      <p>${esc(u.apply)}</p>
+
+      <textarea id="evidenceText"
+        style="width:100%;min-height:140px;background:#07101d;color:#edf5ff;border:1px solid #22334b;border-radius:12px;padding:12px"
+        placeholder="Describe or show what you applied..."></textarea>
+
+      <div class="actions">
+        <button class="btn primary" onclick="addEvidence()">
+          Save Learning Evidence
+        </button>
+      </div>
+    </div>
+  `;
+}
+
+/* LEARNING UNIT */
+
+function learningPage(){
+  const s=currentSubjectData();
+  const u=currentUnitData();
+  const key=unitKey();
+  const doneNow=!!state.completed[key];
+
+  return `
+    <div class="hero">
+      <span class="tag">${esc(s.name)}</span>
+      <h1>Week ${state.week}: ${esc(s.weeks[state.week-1])}</h1>
+      <p>${esc(u.outcome)}</p>
+    </div>
+
+    <div class="nav" style="margin-bottom:14px">
+      ${[
+        ["discover","Discover"],
+        ["learn","Learn"],
+        ["practise","Practise"],
+        ["check","Knowledge Check"],
+        ["apply","Apply"],
+        ["voice","Voice"],
+        ["journal","Journal"],
+        ["mastery","Evidence & Mastery"]
+      ].map(x=>`
+        <button class="${state.tab===x[0]?"active":""}"
+          onclick="setTab('${x[0]}')">
+          ${x[1]}
+        </button>
+      `).join("")}
+    </div>
+
+    ${
+      state.tab==="discover"
+      ? `<div class="card full">
+          <span class="tag">DISCOVER</span>
+          <h2>Start Here</h2>
+          <p>${esc(u.discover)}</p>
+        </div>`
+
+      : state.tab==="learn"
+      ? `<div class="card full">
+          <span class="tag">LEARN</span>
+          ${u.learn.map(x=>`<p>• ${esc(x)}</p>`).join("")}
+        </div>`
+
+      : state.tab==="practise"
+      ? `<div class="card full">
+          <span class="tag">PRACTISE</span>
+          ${u.practise.map(x=>`<p>• ${esc(x)}</p>`).join("")}
+        </div>`
+
+      : state.tab==="check"
+      ? checkTab()
+
+      : state.tab==="apply"
+      ? applyTab()
+
+      : state.tab==="voice"
+      ? voiceTaskTab()
+
+      : state.tab==="journal"
+      ? journalTab()
+
+      : masteryTab()
+    }
+
+    <div class="card full">
+      <div class="actions">
+        <button class="btn primary"
+          onclick="completeUnit()">
+          ${doneNow?"✓ Unit Completed":"Mark Unit Complete"}
+        </button>
+
+        <button class="btn"
+          onclick="go('curriculum')">
+          Back to Curriculum
+        </button>
+      </div>
+    </div>
+  `;
+}
+ <!-- PART 6B/7 -->
+function dashboardPageFinal(){
+  const total=Object.keys(SUBJECTS).length*15;
+  const completed=Object.keys(state.completed).length;
+  const evidence=state.evidence.length;
+  const pct=Math.round((completed/total)*100);
+
+  return `
+    <div class="hero">
+      <span class="tag">COMMAND CENTRE</span>
+      <h1>Education Access E-Learning Academy</h1>
+      <p>${APP.learner} • ${APP.level} • ${APP.goal}</p>
+      <div class="progress"><i style="width:${pct}%"></i></div>
+      <p class="muted">${completed} / ${total} units completed • ${evidence} evidence items</p>
+    </div>
+
+    <div class="grid">
+      ${allSubjects().map(s=>`
+        <div class="card">
+          <span class="tag">${esc(s.name)}</span>
+          <h2>${esc(s.weeks[state.week-1])}</h2>
+          <p class="muted">${esc(s.identity||"Structured Form One readiness learning")}</p>
+          <button class="btn primary"
+            onclick="openSubject('${s.key}')">
+            Open Subject
+          </button>
+        </div>
+      `).join("")}
+    </div>
+
+    <div class="card full">
+      <h2>Learning Cycle</h2>
+      <p>DISCOVER → LEARN → PRACTISE → CHECK → APPLY → VOICE → JOURNAL → ASSESS → MASTER</p>
+    </div>
+  `;
+}
+
+function curriculumPageFinal(){
+  const s=currentSubjectData();
+
+  return `
+    <div class="hero">
+      <span class="tag">CURRICULUM ENGINE</span>
+      <h1>${esc(s.name)}</h1>
+      <p>15-week Form One readiness pathway</p>
+    </div>
+
+    <div class="grid">
+      ${s.weeks.map((w,i)=>{
+        const n=i+1;
+        const done=state.completed[s.key+"-week-"+n];
+
+        return `
+          <div class="card">
+            <span class="tag">WEEK ${n}</span>
+            <h3>${esc(w)}</h3>
+            <p>${done?"✓ Completed":"Ready to learn"}</p>
+            <button class="btn primary"
+              onclick="openWeek(${n})">
+              Open Week
+            </button>
+          </div>
+        `;
+      }).join("")}
+    </div>
+  `;
+}
+
+function unitPageFinal(){
+  const s=currentSubjectData();
+  const u=currentUnitData();
+  const key=unitKey();
+
+  return `
+    <div class="hero">
+      <span class="tag">${esc(s.name)} • WEEK ${state.week}</span>
+      <h1>${esc(s.weeks[state.week-1])}</h1>
+      <p>${esc(u.outcome)}</p>
+
+      <button class="btn primary" onclick="completeUnit()">
+        ${state.completed[key]?"✓ Unit Completed":"Mark Unit Complete"}
+      </button>
+    </div>
+
+    <div class="nav">
+      ${[
+        ["discover","Discover"],
+        ["learn","Learn"],
+        ["practise","Practise"],
+        ["check","Knowledge Check"],
+        ["apply","Apply"],
+        ["voice","Voice"],
+        ["journal","Journal"],
+        ["mastery","Evidence & Mastery"]
+      ].map(x=>`
+        <button class="${state.tab===x[0]?"active":""}"
+          onclick="setTab('${x[0]}')">${x[1]}</button>
+      `).join("")}
+    </div>
+
+    ${unitTabFinal()}
+  `;
+}
+
+function unitTabFinal(){
+  const u=currentUnitData();
+
+  if(state.tab==="voice")return voiceTaskTab();
+  if(state.tab==="journal")return journalTab();
+  if(state.tab==="check")return checkTab();
+  if(state.tab==="mastery")return masteryTab();
+
+  if(state.tab==="discover"){
+    return `
+      <div class="card full">
+        <span class="tag">DISCOVER</span>
+        <h2>Start with a question</h2>
+        <p>${esc(u.discover)}</p>
+      </div>
+    `;
+  }
+
+  if(state.tab==="learn"){
+    return `
+      <div class="card full">
+        <span class="tag">LEARN</span>
+        ${u.learn.map((x,i)=>`
+          <div class="card">
+            <b>Learning Point ${i+1}</b>
+            <p>${esc(x)}</p>
+          </div>
+        `).join("")}
+      </div>
+    `;
+  }
+
+  if(state.tab==="practise"){
+    return `
+      <div class="card full">
+        <span class="tag">PRACTISE</span>
+        ${u.practise.map((x,i)=>`
+          <div class="card">
+            <b>Practice ${i+1}</b>
+            <p>${esc(x)}</p>
+          </div>
+        `).join("")}
+      </div>
+    `;
+  }
+
+  if(state.tab==="apply"){
+    return `
+      <div class="card full">
+        <span class="tag">APPLY</span>
+        <h2>Use the knowledge</h2>
+        <p>${esc(u.apply)}</p>
+
+        <textarea id="evidenceText"
+          style="width:100%;min-height:140px;background:#07101d;color:#edf5ff;border:1px solid #22334b;border-radius:12px;padding:12px"
+          placeholder="Record your example, discovery or application..."></textarea>
+
+        <div class="actions">
+          <button class="btn primary" onclick="addEvidence()">
+            Save Evidence
+          </button>
+        </div>
+      </div>
+    `;
+  }
+
+  return "";
+}
+
+function voicePageFinal(){
+  return `
+    <div class="hero">
+      <span class="tag">VOICE STUDIO v2.1</span>
+      <h1>Learning Evidence Portfolio</h1>
+      <p>Every recording is linked to a subject, week, topic and learning outcome.</p>
+    </div>
+
+    ${state.evidence.length ?
+      state.evidence.map(e=>`
+        <div class="card full">
+          <span class="tag">${esc(e.status)}</span>
+          <h3>${esc(e.subject)} — Week ${e.week}</h3>
+          <p>${esc(e.topic)}</p>
+          <p class="muted">${esc(e.learningOutcome||"")}</p>
+          ${e.audioId?`<button class="btn" onclick="playEvidence('${e.audioId}')">▶ Play Evidence</button>`:""}
+          <p>${esc(e.review||"Pending parent review")}</p>
+        </div>
+      `).join("")
+      :`<div class="card"><p class="muted">No evidence recorded yet.</p></div>`
+    }
+  `;
+}
+
+async function playEvidence(id){
+  try{
+    const x=await getAudio(id);
+    if(!x)return;
+
+    const url=URL.createObjectURL(x.blob);
+    const a=new Audio(url);
+    a.play();
+  }catch(err){
+    alert("This recording could not be played.");
+  }
+}
+
+function assessmentPageFinal(){
+  return `
+    <div class="hero">
+      <span class="tag">FRIDAY ASSESSMENT CENTRE</span>
+      <h1>Independent Assessment</h1>
+      <p>Complete independently. Parent marks using the answer guide.</p>
+    </div>
+
+    <div class="card full">
+      <h2>Week 1 Mathematics — 30 Marks</h2>
+
+      <p><b>1.</b> Define mathematics. <small>(2)</small></p>
+      <textarea id="a1"></textarea>
+
+      <p><b>2.</b> Give three everyday uses of mathematics. <small>(3)</small></p>
+      <textarea id="a2"></textarea>
+
+      <p><b>3.</b> TZS 50,000 − TZS 12,500 − TZS 8,000 = ? <small>(3)</small></p>
+      <textarea id="a3"></textarea>
+
+      <p><b>4.</b> 7:30 + 45 minutes = ? <small>(2)</small></p>
+      <textarea id="a4"></textarea>
+
+      <p><b>5.</b> 100 − 37 = ? <small>(2)</small></p>
+      <textarea id="a5"></textarea>
+
+      <p><b>6.</b> Why does accurate calculation matter in business? <small>(3)</small></p>
+      <textarea id="a6"></textarea>
+
+      <p><b>7.</b> You compare prices in two shops. What information do you need? Explain. <small>(4)</small></p>
+      <textarea id="a7"></textarea>
+
+      <p><b>8.</b> Create and solve one real-life mathematics problem. <small>(6)</small></p>
+      <textarea id="a8"></textarea>
+
+      <p><b>9.</b> Explain in 3–5 sentences: “Mathematics is not only a school subject.” <small>(5)</small></p>
+      <textarea id="a9"></textarea>
+
+      <button class="btn primary" onclick="saveAssessment()">
+        Save Assessment
+      </button>
+    </div>
+
+    <div class="card full">
+      <h2>Parent Answer Guide</h2>
+      <p><b>3.</b> TZS 29,500</p>
+      <p><b>4.</b> 8:15</p>
+      <p><b>5.</b> 63</p>
+      <p class="muted">
+        Other answers should be marked for accuracy,
+        explanation, reasoning and real-life application.
+      </p>
+    </div>
+  `;
+}
+
+function saveAssessment(){
+  const answers={};
+
+  for(let i=1;i<=9;i++){
+    const x=document.getElementById("a"+i);
+    answers["q"+i]=x?x.value:"";
+  }
+
+  state.assessments["mathematics-week-1"]={
+    answers:answers,
+    savedAt:new Date().toISOString()
+  };
+
+  save();
+  alert("Friday assessment saved.");
+}
+
+function journalPageFinal(){
+  return `
+    <div class="hero">
+      <span class="tag">LEARNER JOURNAL</span>
+      <h1>My Learning Journey</h1>
+      <p>Reflect on progress, challenges, discoveries and goals.</p>
+    </div>
+
+    ${Object.keys(state.journals).length ?
+      Object.entries(state.journals).map(([k,v])=>`
+        <div class="card full">
+          <span class="tag">${esc(k)}</span>
+          <p>${esc(v)}</p>
+        </div>
+      `).join("")
+      :`<div class="card"><p class="muted">No journal entries yet.</p></div>`
+    }
+  `;
+}
+
+function parentPageFinal(){
+  const total=Object.keys(SUBJECTS).length*15;
+  const completed=Object.keys(state.completed).length;
+
+  const counts={
+    Emerging:0,
+    Developing:0,
+    Secure:0,
+    Mastered:0
+  };
+
+  Object.values(state.mastery).forEach(x=>{
+    if(counts[x]!==undefined)counts[x]++;
+  });
+
+  return `
+    <div class="hero">
+      <span class="tag">PARENT CENTRE</span>
+      <h1>Learning Oversight</h1>
+      <p>Parent/Home Teacher: ${esc(APP.teacher)}</p>
+    </div>
+
+    <div class="grid">
+      <div class="card"><h2>${completed}</h2><p>Units Completed</p></div>
+      <div class="card"><h2>${state.evidence.length}</h2><p>Evidence Items</p></div>
+      <div class="card"><h2>${counts.Mastered}</h2><p>Mastered</p></div>
+      <div class="card"><h2>${Math.round(completed/total*100)}%</h2><p>Overall Progress</p></div>
+    </div>
+
+    <div class="card full">
+      <h2>Mastery Profile</h2>
+      <p>Emerging: ${counts.Emerging}</p>
+      <p>Developing: ${counts.Developing}</p>
+      <p>Secure: ${counts.Secure}</p>
+      <p>Mastered: ${counts.Mastered}</p>
+    </div>
+
+    <div class="card full">
+      <h2>Evidence Review Desk</h2>
+
+      ${state.evidence.length?
+        state.evidence.map(e=>`
+          <div class="card">
+            <span class="tag">${esc(e.status)}</span>
+            <h3>${esc(e.subject)} — Week ${e.week}</h3>
+            <p>${esc(e.topic)}</p>
+            <p>${esc(e.reflection||"Voice evidence recorded.")}</p>
+
+            <textarea id="review-${e.id}"
+              style="width:100%;min-height:80px;background:#07101d;color:#edf5ff;border:1px solid #22334b;border-radius:10px;padding:10px"
+              placeholder="Parent review / feedback...">${esc(e.review==="Pending parent review"?"":e.review||"")}</textarea>
+
+            <button class="btn primary"
+              onclick="saveReview('${e.id}')">
+              Save Review
+            </button>
+          </div>
+        `).join("")
+        :`<p class="muted">No evidence awaiting review.</p>`
+      }
+    </div>
+
+    <div class="card full">
+      <h2>January 2027 Readiness Profile</h2>
+      <p>
+        The profile combines completed learning units,
+        knowledge checks, assessments, journal reflections,
+        voice evidence and mastery status.
+      </p>
+    </div>
+  `;
+}
+
+function profilePageFinal(){
+  return `
+    <div class="hero">
+      <span class="tag">PROFILE & OVERSIGHT</span>
+      <h1>${esc(APP.learner)}</h1>
+      <p>${esc(APP.level)}</p>
+    </div>
+
+    <div class="card full">
+      <h2>Learner</h2>
+      <p><b>Name:</b> ${esc(APP.learner)}</p>
+      <p><b>Level:</b> ${esc(APP.level)}</p>
+      <p><b>Programme:</b> ${esc(APP.period)}</p>
+      <p><b>Goal:</b> ${esc(APP.goal)}</p>
+      <p><b>Home Teacher:</b> ${esc(APP.teacher)}</p>
+    </div>
+
+    <div class="card full">
+      <h2>Developer / Founder</h2>
+      <p>${esc(APP.founder)}</p>
+      <p class="muted">Education Access E-Learning Academy v2.0</p>
+    </div>
+  `;
+}
+
+function exportData(){
+  const blob=new Blob(
+    [JSON.stringify(state,null,2)],
+    {type:"application/json"}
+  );
+
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(blob);
+  a.download="Education-Access-Academy-backup.json";
+  a.click();
+
+  setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+}
+
+function importData(event){
+  const file=event.target.files[0];
+  if(!file)return;
+
+  const reader=new FileReader();
+
+  reader.onload=()=>{
+    try{
+      const data=JSON.parse(reader.result);
+
+      Object.assign(state,data);
+
+      save();
+      render();
+
+      alert("Academy backup restored.");
+    }catch(err){
+      alert("Invalid backup file.");
+    }
+  };
+
+  reader.readAsText(file);
+}
+
+function resetProgress(){
+  if(!confirm("Reset all learner progress and evidence?"))return;
+
+  state.completed={};
+  state.evidence=[];
+  state.journals={};
+  state.checks={};
+  state.mastery={};
+  state.assessments={};
+
+  save();
+  render();
+}
+
+function go(page){
+  state.page=page;
+
+  if(page==="dashboard")state.subject=null;
+
+  save();
+  render();
+}
+
+function openSubject(key){
+  state.subject=key;
+  state.week=1;
+  state.tab="discover";
+  state.page="unit";
+
+  save();
+  render();
+}
+
+function openWeek(n){
+  state.week=Number(n);
+  state.tab="discover";
+  state.page="unit";
+
+  save();
+  render();
+}
+
+function finalNav(){
+  return `
+    <div class="nav">
+      <button class="${state.page==="dashboard"?"active":""}"
+        onclick="go('dashboard')">Command Centre</button>
+
+      <button class="${state.page==="curriculum"?"active":""}"
+        onclick="go('curriculum')">Curriculum</button>
+
+      <button class="${state.page==="voice"?"active":""}"
+        onclick="go('voice')">Voice Studio</button>
+
+      <button class="${state.page==="assessment"?"active":""}"
+        onclick="go('assessment')">Friday Assessment</button>
+
+      <button class="${state.page==="journal"?"active":""}"
+        onclick="go('journal')">Journal</button>
+
+      <button class="${state.page==="parent"?"active":""}"
+        onclick="go('parent')">Parent Centre</button>
+
+      <button class="${state.page==="profile"?"active":""}"
+        onclick="go('profile')">Profile</button>
+    </div>
+  `;
+}
+
+function finalRender(){
+  const app=document.getElementById("app");
+  if(!app)return;
+
+  let page="";
+
+  if(state.page==="dashboard")
+    page=dashboardPageFinal();
+
+  else if(state.page==="curriculum")
+    page=curriculumPageFinal();
+
+  else if(state.page==="unit")
+    page=unitPageFinal();
+
+  else if(state.page==="voice")
+    page=voicePageFinal();
+
+  else if(state.page==="assessment")
+    page=assessmentPageFinal();
+
+  else if(state.page==="journal")
+    page=journalPageFinal();
+
+  else if(state.page==="parent")
+    page=parentPageFinal();
+
+  else if(state.page==="profile")
+    page=profilePageFinal();
+
+  else
+    page=dashboardPageFinal();
+
+  app.innerHTML=`
+    <header class="header">
+      <div class="headerTop">
+        <div class="logo">EA</div>
+        <div class="brand">
+          <b>Education Access</b>
+          <small>E-Learning Academy v2.0</small>
+        </div>
+      </div>
+      ${finalNav()}
+    </header>
+
+    <main class="wrap">
+      ${page}
+
+      <div class="card full">
+        <h3>Data Protection & Continuity</h3>
+        <p class="muted">
+          Progress is stored locally on this device.
+          Export a JSON backup regularly.
+        </p>
+
+        <div class="actions">
+          <button class="btn" onclick="exportData()">Export Backup</button>
+
+          <label class="btn">
+            Import Backup
+            <input type="file"
+              accept=".json,application/json"
+              onchange="importData(event)"
+              style="display:none">
+          </label>
+
+          <button class="btn" onclick="resetProgress()">Reset Progress</button>
+        </div>
+      </div>
+
+      <div class="card full">
+        <p class="muted">
+          Developed by Dr. James K. Mushi, PhD.
+        </p>
+      </div>
+    </main>
+  `;
+
+  if(state.page==="unit" && state.tab==="voice"){
+    setTimeout(renderRecordings,50);
+  }
+}
+
+/* Replace earlier render wrappers with the final engine */
+render=finalRender;
 render();
-
-hydrateAudioUrls();
-
 </script>
 </body>
-  </html>
+</html>

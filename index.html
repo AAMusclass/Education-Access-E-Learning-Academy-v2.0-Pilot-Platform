@@ -1319,58 +1319,10 @@ function dashboardPageFinal(){
     <div class="card"><b>${mastered}</b><br><span class="muted">Mastered</span></div>
   </div>
 
- <div class="card full">
-  <h2>Learning Cycle</h2>
-
-  <div class="learning-cycle">
-
-    <button class="cycle-step" onclick="go('curriculum')">
-      <span class="cycle-icon">🔎</span>
-      <strong>DISCOVER</strong>
-    </button>
-
-    <button class="cycle-step" onclick="go('curriculum')">
-      <span class="cycle-icon">📖</span>
-      <strong>LEARN</strong>
-    </button>
-
-    <button class="cycle-step" onclick="go('curriculum')">
-      <span class="cycle-icon">✏️</span>
-      <strong>PRACTISE</strong>
-    </button>
-
-    <button class="cycle-step" onclick="go('curriculum')">
-      <span class="cycle-icon">✓</span>
-      <strong>KNOWLEDGE CHECK</strong>
-    </button>
-
-    <button class="cycle-step" onclick="go('curriculum')">
-      <span class="cycle-icon">🚀</span>
-      <strong>APPLY</strong>
-    </button>
-
-    <button class="cycle-step" onclick="go('curriculum')">
-      <span class="cycle-icon">🎙️</span>
-      <strong>VOICE</strong>
-    </button>
-
-    <button class="cycle-step" onclick="go('curriculum')">
-      <span class="cycle-icon">📓</span>
-      <strong>JOURNAL</strong>
-    </button>
-
-    <button class="cycle-step" onclick="go('assessment')">
-      <span class="cycle-icon">📝</span>
-      <strong>ASSESS</strong>
-    </button>
-
-    <button class="cycle-step" onclick="go('curriculum')">
-      <span class="cycle-icon">🏆</span>
-      <strong>MASTER</strong>
-    </button>
-
+  <div class="card full">
+    <h2>Learning Cycle</h2>
+    <p>DISCOVER → LEARN → PRACTISE → KNOWLEDGE CHECK → APPLY → VOICE → JOURNAL → ASSESS → MASTER</p>
   </div>
-</div>
 
   <div class="grid">
     ${Object.keys(SUBJECTS).map(k=>{
@@ -2260,7 +2212,7 @@ function dashboardPageFinal(){
 
     <div class="card full">
       <h2>Learning Cycle</h2>
-      <p>DISCOVER → LEARN → PRACTISE → KNOWLEDGE CHECK → APPLY → VOICE → JOURNAL → ASSESS → MASTER</p>
+      <p>DISCOVER → LEARN → PRACTISE → CHECK → APPLY → VOICE → JOURNAL → ASSESS → MASTER</p>
     </div>
   `;
 }

@@ -1510,7 +1510,47 @@ function savePractice(){
 
  alert('Practice evidence saved.');
 }
+function saveMood(mood){
+  const reaction = document.getElementById("moodReaction");
+  if(!reaction) return;
 
+  const reactions = {
+    "Great": {
+      icon: "🎉",
+      title: "That’s wonderful!",
+      text: "You’re ready to learn, explore and do your best today."
+    },
+    "Good": {
+      icon: "😊",
+      title: "Nice!",
+      text: "A positive start. Let’s make today a great learning session."
+    },
+    "Okay": {
+      icon: "👍",
+      title: "That’s okay.",
+      text: "Every learning day is different. Let’s take it one step at a time."
+    },
+    "Not great": {
+      icon: "😔",
+      title: "Thank you for telling me.",
+      text: "It’s okay not to feel your best. We can learn gently and take things one step at a time."
+    }
+  };
+
+  const r = reactions[mood] || reactions["Okay"];
+
+  reaction.innerHTML = `
+    <div class="card" style="padding:14px;text-align:center;">
+      <div style="font-size:42px;">${r.icon}</div>
+      <div style="font-size:18px;font-weight:700;margin-top:6px;">${r.title}</div>
+      <div class="muted" style="margin-top:5px;">${r.text}</div>
+    </div>
+  `;
+
+  try{
+    localStorage.setItem("EA_LEARNER_MOOD", mood);
+  }catch(e){}
+ }
 function saveApply(){
  addEvidence(
   'Application evidence',

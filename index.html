@@ -2774,6 +2774,2148 @@ function finalRender(){
 /* Replace earlier render wrappers with the final engine */
 render=finalRender;
 render();
+<script>
+/* =========================================================
+   PART 6A — MULTI-STUDENT PROFILE ENGINE v2.2
+   Education Access E-Learning Academy
+   ========================================================= */
+
+const PROFILE_KEY = "EA_ACADEMY_STUDENT_PROFILES_V22";
+const ACTIVE_KEY = "EA_ACADEMY_ACTIVE_STUDENT_V22";
+
+let profiles = {};
+let activeProfileId = null;
+
+
+/* ---------- PROFILE STORAGE ---------- */
+
+function loadProfiles(){
+  try{
+    profiles = JSON.parse(localStorage.getItem(PROFILE_KEY) || "{}");
+  }catch(e){
+    profiles = {};
+  }
+
+  activeProfileId = localStorage.getItem(ACTIVE_KEY) || null;
+}
+
+
+function persistProfiles(){
+  localStorage.setItem(PROFILE_KEY, JSON.stringify(profiles));
+
+  if(activeProfileId){
+    localStorage.setItem(ACTIVE_KEY, activeProfileId);
+  }else{
+    localStorage.removeItem(ACTIVE_KEY);
+  }
+}
+
+
+/* ---------- CONNECT LEARNING STATE TO PROFILE ---------- */
+
+const originalSave = save;
+
+save = function(){
+  originalSave();
+
+  if(activeProfileId && profiles[activeProfileId]){
+    profiles[activeProfileId].learningState =
+      JSON.parse(JSON.stringify(state));
+
+    profiles[activeProfileId].updatedAt =
+      new Date().toISOString();
+
+    persistProfiles();
+  }
+};
+
+
+/* ---------- STUDENT ID ---------- */
+
+function nextStudentId(){
+  const numbers = Object.values(profiles)
+    .map(p => p.studentId || "")
+    .map(id => {
+      const m = id.match(/EA-(\d+)/);
+      return m ? Number(m[1]) : 0;
+    });
+
+  const next = Math.max(0,...numbers) + 1;
+
+  return "EA-" + String(next).padStart(5,"0");
+}
+
+
+/* ---------- CREATE STUDENT ---------- */
+
+function createStudent(data){
+  const id =
+    "student_" +
+    Date.now() +
+    "_" +
+    Math.random().toString(36).slice(2,7);
+
+  profiles[id] = {
+    id:id,
+
+    studentId:nextStudentId(),
+
+    fullName:data.fullName || "",
+    preferredName:data.preferredName || data.fullName || "",
+    dob:data.dob || "",
+    age:data.age || "",
+
+    school:data.school || "",
+    level:data.level || "Grade 7 → Form One",
+
+    parent:data.parent || "",
+    programme:data.programme || APP.name,
+    startDate:data.startDate || "October 2026",
+
+    photo:"",
+
+    mood:"",
+    recallHistory:[],
+
+    createdAt:new Date().toISOString(),
+    updatedAt:new Date().toISOString(),
+
+    learningState:{
+      page:"dashboard",
+      subject:null,
+      week:1,
+      tab:"discover",
+      completed:{},
+      evidence:[],
+      journals:{},
+      checks:{},
+      mastery:{},
+      assessments:{}
+    }
+  };
+
+  activeProfileId = id;
+
+  persistProfiles();
+
+  restoreStudent(id,false);
+
+  state.page = "dashboard";
+
+  save();
+
+  render();
+}
+
+
+/* ---------- RESTORE STUDENT ---------- */
+
+function restoreStudent(id, rerender=true){
+
+  if(!profiles[id]) return;
+
+  activeProfileId = id;
+
+  const p = profiles[id];
+
+  if(p.learningState){
+    Object.keys(state).forEach(key => {
+      delete state[key];
+    });
+
+    Object.assign(
+      state,
+      JSON.parse(JSON.stringify(p.learningState))
+    );
+  }
+
+  persistProfiles();
+
+  if(rerender) render();
+}
+
+
+/* ---------- SWITCH STUDENT ---------- */
+
+function switchStudent(id){
+  if(!profiles[id]) return;
+
+  activeProfileId = id;
+
+  restoreStudent(id,false);
+
+  state.page = "dashboard";
+
+  save();
+
+  render();
+}
+
+
+/* ---------- LOGOUT ---------- */
+
+function logoutStudent(){
+
+  if(activeProfileId && profiles[activeProfileId]){
+    profiles[activeProfileId].learningState =
+      JSON.parse(JSON.stringify(state));
+
+    profiles[activeProfileId].updatedAt =
+      new Date().toISOString();
+
+    persistProfiles();
+  }
+
+  activeProfileId = null;
+
+  localStorage.removeItem(ACTIVE_KEY);
+
+  state.page = "login";
+
+  render();
+}
+
+
+/* ---------- CURRENT STUDENT ---------- */
+
+function student(){
+  return activeProfileId
+    ? profiles[activeProfileId]
+    : null;
+}
+
+
+function studentName(){
+
+  const p = student();
+
+  if(!p) return "Learner";
+
+  return p.preferredName ||
+         p.fullName ||
+         "Learner";
+}
+
+
+/* ---------- PROFILE PHOTO ---------- */
+
+function handleProfilePhoto(event){
+
+  const file =
+    event.target.files &&
+    event.target.files[0];
+
+  if(!file || !activeProfileId) return;
+
+  const reader = new FileReader();
+
+  reader.onload = function(){
+
+    profiles[activeProfileId].photo =
+      reader.result;
+
+    profiles[activeProfileId].updatedAt =
+      new Date().toISOString();
+
+    persistProfiles();
+
+    render();
+  };
+
+  reader.readAsDataURL(file);
+}
+
+
+/* ---------- MOOD ---------- */
+
+function saveMood(mood){
+
+  if(!activeProfileId) return;
+
+  profiles[activeProfileId].mood = mood;
+
+  profiles[activeProfileId].updatedAt =
+    new Date().toISOString();
+
+  persistProfiles();
+
+  render();
+}
+
+
+/* ---------- PREVIOUS LESSON ---------- */
+
+function previousLesson(){
+
+  const completed =
+    Object.keys(state.completed || {});
+
+  if(!completed.length){
+    return null;
+  }
+
+  const lastKey =
+    completed[completed.length - 1];
+
+  const parts =
+    lastKey.split("_");
+
+  const subject =
+    parts[0];
+
+  const week =
+    Number(parts[1]);
+
+  if(!SUBJECTS[subject]) return null;
+
+  const data =
+    getUnitData(subject,week);
+
+  return {
+    subject:subject,
+    week:week,
+    data:data
+  };
+}
+
+
+/* ---------- REFRESHER ---------- */
+
+function refresherHTML(){
+
+  const previous =
+    previousLesson();
+
+  if(!previous){
+
+    return `
+      <div class="card">
+        <div class="tag">STARTING POINT</div>
+
+        <h3>Let's discover your first lesson.</h3>
+
+        <p class="muted">
+          You don't have a previous lesson yet.
+          Your learning journey will build from here.
+        </p>
+      </div>
+    `;
+  }
+
+  const s =
+    SUBJECTS[previous.subject];
+
+  const title =
+    previous.data.title ||
+    "Previous Lesson";
+
+  return `
+    <div class="card">
+
+      <div class="tag">
+        PREVIOUS LESSON REFRESHER
+      </div>
+
+      <h3>
+        Week ${previous.week} —
+        ${esc(s ? s.name : previous.subject)}
+      </h3>
+
+      <p>
+        <strong>${esc(title)}</strong>
+      </p>
+
+      <p class="muted">
+        Before starting today's learning,
+        let's see what you remember.
+      </p>
+
+      <div class="card">
+        <strong>Quick Recall 1</strong>
+
+        <p>
+          What is one important idea
+          you remember from this lesson?
+        </p>
+
+        <input
+          id="recall1"
+          class="input"
+          placeholder="Type your answer..."
+        >
+      </div>
+
+      <div class="card">
+        <strong>Quick Recall 2</strong>
+
+        <p>
+          Can you explain one example
+          from the previous lesson?
+        </p>
+
+        <input
+          id="recall2"
+          class="input"
+          placeholder="Type your answer..."
+        >
+      </div>
+
+      <div class="card">
+        <strong>Quick Recall 3</strong>
+
+        <p>
+          What would you like to understand
+          better before moving forward?
+        </p>
+
+        <input
+          id="recall3"
+          class="input"
+          placeholder="Type your answer..."
+        >
+      </div>
+
+      <div class="actions">
+
+        <button
+          class="btn primary"
+          onclick="saveRecall()">
+          Save Recall
+        </button>
+
+        <button
+          class="btn"
+          onclick="openWeekForSubject(
+            '${previous.subject}',
+            ${previous.week}
+          )">
+          Review Previous Lesson
+        </button>
+
+      </div>
+
+    </div>
+  `;
+}
+
+
+/* ---------- SAVE RECALL ---------- */
+
+function saveRecall(){
+
+  if(!activeProfileId) return;
+
+  const previous =
+    previousLesson();
+
+  if(!previous) return;
+
+  const item = {
+
+    date:new Date().toISOString(),
+
+    subject:previous.subject,
+
+    week:previous.week,
+
+    recall1:
+      document.getElementById("recall1")?.value || "",
+
+    recall2:
+      document.getElementById("recall2")?.value || "",
+
+    recall3:
+      document.getElementById("recall3")?.value || ""
+  };
+
+  if(!profiles[activeProfileId].recallHistory){
+    profiles[activeProfileId].recallHistory = [];
+  }
+
+  profiles[activeProfileId]
+    .recallHistory
+    .push(item);
+
+  persistProfiles();
+
+  alert("Recall saved. Great work!");
+
+  render();
+}
+
+
+/* ---------- WELCOME ---------- */
+
+function welcomeHTML(){
+
+  const p =
+    student();
+
+  const name =
+    p?.preferredName ||
+    p?.fullName ||
+    "Learner";
+
+  return `
+
+    <div class="hero">
+
+      <div class="tag">
+        PERSONAL LEARNING SPACE
+      </div>
+
+      <h1>
+        Hello, ${esc(name)}! 👋
+      </h1>
+
+      <p>
+        Glad to have you in this session today.
+      </p>
+
+      <p>
+        How are you?
+      </p>
+
+      <div class="actions">
+
+        <button
+          class="btn"
+          onclick="saveMood('Great')">
+          Great 😊
+        </button>
+
+        <button
+          class="btn"
+          onclick="saveMood('Good')">
+          Good 🙂
+        </button>
+
+        <button
+          class="btn"
+          onclick="saveMood('Okay')">
+          Okay 😐
+        </button>
+
+        <button
+          class="btn"
+          onclick="saveMood('Not great')">
+          Not great 😔
+        </button>
+
+      </div>
+
+    </div>
+
+    ${refresherHTML()}
+
+  `;
+}
+
+
+/* ---------- DASHBOARD ---------- */
+
+function dashboardFinal(){
+
+  const p =
+    student();
+
+  const completed =
+    Object.keys(state.completed || {}).length;
+
+  const totalUnits = 90;
+
+  const progress =
+    Math.round(
+      (completed / totalUnits) * 100
+    );
+
+  return `
+
+    ${welcomeHTML()}
+
+    <div class="grid">
+
+      <div class="card">
+
+        <div class="tag">
+          LEARNING PROGRESS
+        </div>
+
+        <h2>${progress}%</h2>
+
+        <div class="progress">
+          <i style="width:${progress}%"></i>
+        </div>
+
+        <p class="muted">
+          ${completed} of ${totalUnits}
+          learning units completed
+        </p>
+
+      </div>
+
+
+      <div class="card">
+
+        <div class="tag">
+          STUDENT PROFILE
+        </div>
+
+        <h3>
+          ${esc(
+            p?.preferredName ||
+            p?.fullName ||
+            "Learner"
+          )}
+        </h3>
+
+        <p class="muted">
+          Student ID:
+          ${esc(p?.studentId || "—")}
+        </p>
+
+        <button
+          class="btn"
+          onclick="go('profile')">
+          Open Profile
+        </button>
+
+      </div>
+
+
+      <div class="card">
+
+        <div class="tag">
+          JANUARY 2027
+        </div>
+
+        <h3>
+          Form One Readiness
+        </h3>
+
+        <p class="muted">
+          Track knowledge, evidence,
+          mastery and assessment progress.
+        </p>
+
+        <button
+          class="btn primary"
+          onclick="go('readiness')">
+          View Readiness Profile
+        </button>
+
+      </div>
+
+    </div>
+
+  `;
+}
+
+
+/* ---------- CURRICULUM ---------- */
+
+function curriculumFinal(){
+
+  const keys =
+    Object.keys(SUBJECTS);
+
+  return `
+
+    <div class="hero">
+
+      <div class="tag">
+        DISCOVER
+      </div>
+
+      <h1>
+        Form One Readiness Curriculum
+      </h1>
+
+      <p class="muted">
+        Choose a subject to enter its
+        personalised learning laboratory.
+      </p>
+
+    </div>
+
+    <div class="grid">
+
+      ${keys.map(key => {
+
+        const s =
+          SUBJECTS[key];
+
+        const completed =
+          Object.keys(
+            state.completed || {}
+          ).filter(k =>
+            k.startsWith(key + "_")
+          ).length;
+
+        const percent =
+          Math.round(
+            (completed / 15) * 100
+          );
+
+        return `
+
+          <div class="card">
+
+            <div class="tag">
+              ${esc(s.lab || "LEARNING LAB")}
+            </div>
+
+            <h2>
+              ${esc(s.name)}
+            </h2>
+
+            <p class="muted">
+              ${esc(s.signature || "")}
+            </p>
+
+            <div class="progress">
+              <i style="width:${percent}%"></i>
+            </div>
+
+            <p class="muted">
+              ${completed}/15 weeks completed
+            </p>
+
+            <button
+              class="btn primary"
+              onclick="openSubject('${key}')">
+              Open Subject
+            </button>
+
+          </div>
+
+        `;
+
+      }).join("")}
+
+    </div>
+
+  `;
+}
+ /* =========================================================
+   PART 6B-1 — ASSESSMENT, PARENT & PROFILE ENGINE
+   ========================================================= */
+
+
+/* ---------- OPEN WEEK ---------- */
+
+function openWeekForSubject(subject,week){
+
+  state.subject = subject;
+  state.week = Number(week);
+  state.page = "unit";
+  state.tab = "discover";
+
+  save();
+  render();
+}
+
+
+/* ---------- ASSESSMENT CENTRE ---------- */
+
+function assessmentPageFinal(){
+
+  const assessments =
+    state.assessments || {};
+
+  const completed =
+    Object.keys(assessments).length;
+
+  return `
+
+    <div class="hero">
+
+      <div class="tag">
+        FRIDAY ASSESSMENT CENTRE
+      </div>
+
+      <h1>
+        Independent Assessment
+      </h1>
+
+      <p class="muted">
+        Use this space to demonstrate what
+        you can remember, understand and apply.
+      </p>
+
+    </div>
+
+    <div class="card">
+
+      <h3>
+        Assessment Progress
+      </h3>
+
+      <p class="muted">
+        ${completed} assessment record(s) saved.
+      </p>
+
+      <div class="actions">
+
+        <button
+          class="btn primary"
+          onclick="saveAssessmentFinal()">
+          Record Assessment
+        </button>
+
+      </div>
+
+    </div>
+
+    <div class="card">
+
+      <div class="tag">
+        PARENT MARKING
+      </div>
+
+      <p>
+        Friday assessments are intended to provide
+        independent evidence of learning.
+      </p>
+
+      <p class="muted">
+        Parent/teacher review should focus on
+        understanding, corrections and next steps,
+        not only marks.
+      </p>
+
+    </div>
+
+  `;
+}
+
+
+/* ---------- SAVE ASSESSMENT ---------- */
+
+function saveAssessmentFinal(){
+
+  const subject =
+    state.subject ||
+    "general";
+
+  const week =
+    state.week || 1;
+
+  const key =
+    subject + "_" + week;
+
+  state.assessments[key] = {
+
+    subject:subject,
+    week:week,
+    date:new Date().toISOString(),
+    status:"Submitted",
+    parentMark:"",
+    parentComment:"",
+    corrections:""
+
+  };
+
+  save();
+
+  alert(
+    "Assessment record saved successfully."
+  );
+
+  render();
+}
+
+
+/* ---------- PARENT CENTRE ---------- */
+
+function parentPageFinal(){
+
+  const p =
+    student();
+
+  const completed =
+    Object.keys(
+      state.completed || {}
+    ).length;
+
+  const evidence =
+    state.evidence || [];
+
+  const mastered =
+    Object.values(
+      state.mastery || {}
+    ).filter(
+      x => x === "Mastered"
+    ).length;
+
+  return `
+
+    <div class="hero">
+
+      <div class="tag">
+        PARENT CENTRE
+      </div>
+
+      <h1>
+        Learning Oversight
+      </h1>
+
+      <p class="muted">
+        A clear view of the learner's progress,
+        evidence and areas requiring support.
+      </p>
+
+    </div>
+
+
+    <div class="grid">
+
+      <div class="card">
+
+        <div class="tag">
+          LEARNER
+        </div>
+
+        <h3>
+          ${esc(
+            p?.preferredName ||
+            p?.fullName ||
+            "Learner"
+          )}
+        </h3>
+
+        <p class="muted">
+          ${esc(
+            p?.school ||
+            "School not entered"
+          )}
+        </p>
+
+      </div>
+
+
+      <div class="card">
+
+        <div class="tag">
+          COMPLETION
+        </div>
+
+        <h2>
+          ${completed}/90
+        </h2>
+
+        <p class="muted">
+          Learning units completed
+        </p>
+
+      </div>
+
+
+      <div class="card">
+
+        <div class="tag">
+          MASTERED
+        </div>
+
+        <h2>
+          ${mastered}
+        </h2>
+
+        <p class="muted">
+          Learning areas currently marked
+          Mastered
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <div class="card">
+
+      <div class="tag">
+        EVIDENCE
+      </div>
+
+      <h3>
+        ${evidence.length}
+        learning evidence record(s)
+      </h3>
+
+      <p class="muted">
+        Evidence includes learning activities,
+        reflections, voice work and reviews.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <div class="tag">
+        PARENT GUIDANCE
+      </div>
+
+      <p>
+        Encourage the learner to explain
+        their thinking rather than simply
+        giving the answer.
+      </p>
+
+      <p>
+        When an area is still developing,
+        use the Academy's
+        <strong>
+          Re-teach → Re-record → Compare
+        </strong>
+        cycle.
+      </p>
+
+      <p class="muted">
+        The purpose of assessment is to identify
+        learning and guide the next learning step.
+      </p>
+
+    </div>
+
+  `;
+}
+
+
+/* ---------- PROFILE PAGE ---------- */
+
+function profilePageFinal(){
+
+  const p =
+    student();
+
+  if(!p){
+
+    return `
+
+      <div class="card">
+
+        <h2>
+          No student profile selected
+        </h2>
+
+        <button
+          class="btn primary"
+          onclick="go('login')">
+          Select Student
+        </button>
+
+      </div>
+
+    `;
+  }
+
+  return `
+
+    <div class="hero">
+
+      <div class="tag">
+        STUDENT PROFILE
+      </div>
+
+      <h1>
+        ${esc(
+          p.preferredName ||
+          p.fullName ||
+          "Learner"
+        )}
+      </h1>
+
+      <p class="muted">
+        Personal learning identity and
+        Academy record.
+      </p>
+
+    </div>
+
+
+    <div class="grid">
+
+      <div class="card">
+
+        <div style="
+          text-align:center;
+          margin-bottom:16px;
+        ">
+
+          ${
+            p.photo
+            ? `
+              <img
+                src="${p.photo}"
+                alt="Student profile"
+                style="
+                  width:110px;
+                  height:110px;
+                  object-fit:cover;
+                  border-radius:50%;
+                  border:3px solid var(--line);
+                "
+              >
+            `
+            : `
+              <div style="
+                width:110px;
+                height:110px;
+                border-radius:50%;
+                margin:auto;
+                display:flex;
+                align-items:center;
+                justify-content:center;
+                background:var(--panel2);
+                font-size:42px;
+              ">
+                👤
+              </div>
+            `
+          }
+
+        </div>
+
+        <label class="muted">
+          Profile picture
+        </label>
+
+        <input
+          type="file"
+          accept="image/*"
+          onchange="handleProfilePhoto(event)"
+          style="
+            width:100%;
+            margin-top:8px;
+          "
+        >
+
+        <p class="muted">
+          Stored locally on this device
+          for the current pilot.
+        </p>
+
+      </div>
+
+
+      <div class="card">
+
+        <div class="tag">
+          STUDENT ID
+        </div>
+
+        <h2>
+          ${esc(p.studentId)}
+        </h2>
+
+        <p class="muted">
+          This ID connects the learner's
+          profile with their Academy evidence.
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <div class="card">
+
+      <div class="tag">
+        PROFILE INFORMATION
+      </div>
+
+      <label>Full Name</label>
+
+      <input
+        id="profileFullName"
+        class="input"
+        value="${esc(p.fullName)}"
+      >
+
+      <label>Preferred Name</label>
+
+      <input
+        id="profilePreferredName"
+        class="input"
+        value="${esc(p.preferredName)}"
+      >
+
+      <label>Age</label>
+
+      <input
+        id="profileAge"
+        class="input"
+        value="${esc(p.age)}"
+      >
+
+      <label>Date of Birth</label>
+
+      <input
+        id="profileDob"
+        class="input"
+        type="date"
+        value="${esc(p.dob)}"
+      >
+
+      <label>School</label>
+
+      <input
+        id="profileSchool"
+        class="input"
+        value="${esc(p.school)}"
+      >
+
+      <label>Education Level</label>
+
+      <input
+        id="profileLevel"
+        class="input"
+        value="${esc(p.level)}"
+      >
+
+      <label>Parent / Guardian</label>
+
+      <input
+        id="profileParent"
+        class="input"
+        value="${esc(p.parent)}"
+      >
+
+      <div class="actions">
+
+        <button
+          class="btn primary"
+          onclick="saveProfileFinal()">
+          Save Profile
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <div class="card">
+
+      <div class="tag">
+        ACCOUNT
+      </div>
+
+      <button
+        class="btn"
+        onclick="go('login')">
+        Switch Student
+      </button>
+
+      <button
+        class="btn"
+        onclick="logoutStudent()">
+        Sign Out
+      </button>
+
+    </div>
+
+  `;
+}
+
+
+/* ---------- SAVE PROFILE ---------- */
+
+function saveProfileFinal(){
+
+  if(!activeProfileId) return;
+
+  const p =
+    profiles[activeProfileId];
+
+  p.fullName =
+    document.getElementById(
+      "profileFullName"
+    )?.value || "";
+
+  p.preferredName =
+    document.getElementById(
+      "profilePreferredName"
+    )?.value || "";
+
+  p.age =
+    document.getElementById(
+      "profileAge"
+    )?.value || "";
+
+  p.dob =
+    document.getElementById(
+      "profileDob"
+    )?.value || "";
+
+  p.school =
+    document.getElementById(
+      "profileSchool"
+    )?.value || "";
+
+  p.level =
+    document.getElementById(
+      "profileLevel"
+    )?.value || "";
+
+  p.parent =
+    document.getElementById(
+      "profileParent"
+    )?.value || "";
+
+  p.updatedAt =
+    new Date().toISOString();
+
+  persistProfiles();
+
+  alert("Student profile saved.");
+
+  render();
+}
+ /* =========================================================
+   PART 6B-2 — LOGIN, BACKUP, READINESS & FINAL ROUTER
+   ========================================================= */
+
+
+/* ---------- CREATE PROFILE PAGE ---------- */
+
+function createProfilePage(){
+
+  return `
+
+    <div class="hero">
+
+      <div class="tag">
+        CREATE PROFILE
+      </div>
+
+      <h1>
+        Create a Student Learning Space
+      </h1>
+
+      <p class="muted">
+        Each learner receives a separate
+        profile and learning record.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <label>Full Name</label>
+
+      <input
+        id="newFullName"
+        class="input"
+        placeholder="Enter full name"
+      >
+
+
+      <label>Preferred Name</label>
+
+      <input
+        id="newPreferredName"
+        class="input"
+        placeholder="What should the Academy call you?"
+      >
+
+
+      <label>Age</label>
+
+      <input
+        id="newAge"
+        class="input"
+        type="number"
+        placeholder="Age"
+      >
+
+
+      <label>Date of Birth</label>
+
+      <input
+        id="newDob"
+        class="input"
+        type="date"
+      >
+
+
+      <label>School</label>
+
+      <input
+        id="newSchool"
+        class="input"
+        placeholder="School"
+      >
+
+
+      <label>Education Level</label>
+
+      <input
+        id="newLevel"
+        class="input"
+        value="Grade 7 → Form One"
+      >
+
+
+      <label>Parent / Guardian</label>
+
+      <input
+        id="newParent"
+        class="input"
+        placeholder="Parent or guardian"
+      >
+
+
+      <div class="actions">
+
+        <button
+          class="btn primary"
+          onclick="
+            createStudent({
+              fullName:
+                document.getElementById('newFullName').value,
+
+              preferredName:
+                document.getElementById('newPreferredName').value,
+
+              age:
+                document.getElementById('newAge').value,
+
+              dob:
+                document.getElementById('newDob').value,
+
+              school:
+                document.getElementById('newSchool').value,
+
+              level:
+                document.getElementById('newLevel').value,
+
+              parent:
+                document.getElementById('newParent').value
+            })
+          ">
+          Create Student Profile
+        </button>
+
+        <button
+          class="btn"
+          onclick="go('login')">
+          Back to Student Selection
+        </button>
+
+      </div>
+
+    </div>
+
+  `;
+}
+
+
+/* ---------- LOGIN / STUDENT SELECTION ---------- */
+
+function loginPage(){
+
+  const ids =
+    Object.keys(profiles);
+
+  return `
+
+    <div class="hero">
+
+      <div class="tag">
+        EDUCATION ACCESS ACADEMY
+      </div>
+
+      <h1>
+        Student Sign In
+      </h1>
+
+      <p class="muted">
+        Select a learner to enter their
+        personal learning space.
+      </p>
+
+    </div>
+
+
+    <div class="grid">
+
+      ${
+        ids.length
+        ? ids.map(id => {
+
+            const p =
+              profiles[id];
+
+            return `
+
+              <div class="card">
+
+                <div style="
+                  text-align:center;
+                ">
+
+                  ${
+                    p.photo
+                    ? `
+                      <img
+                        src="${p.photo}"
+                        style="
+                          width:80px;
+                          height:80px;
+                          border-radius:50%;
+                          object-fit:cover;
+                        "
+                      >
+                    `
+                    : `
+                      <div style="
+                        font-size:48px;
+                      ">
+                        👤
+                      </div>
+                    `
+                  }
+
+                </div>
+
+                <h3>
+                  ${esc(
+                    p.preferredName ||
+                    p.fullName ||
+                    "Learner"
+                  )}
+                </h3>
+
+                <p class="muted">
+                  ${esc(p.studentId)}
+                </p>
+
+                <button
+                  class="btn primary"
+                  onclick="
+                    switchStudent('${id}')
+                  ">
+                  Enter Learning Space
+                </button>
+
+              </div>
+
+            `;
+
+          }).join("")
+        : `
+          <div class="card">
+
+            <h3>
+              No student profiles yet
+            </h3>
+
+            <p class="muted">
+              Create the first learner profile
+              to begin.
+            </p>
+
+          </div>
+        `
+      }
+
+    </div>
+
+
+    <div class="card">
+
+      <button
+        class="btn primary"
+        onclick="go('createProfile')">
+        + Create New Student
+      </button>
+
+    </div>
+
+  `;
+}
+
+
+/* ---------- EXPORT DATA ---------- */
+
+function exportData(){
+
+  const data = {
+
+    exportedAt:
+      new Date().toISOString(),
+
+    academy:
+      APP.name,
+
+    version:
+      APP.version,
+
+    profiles:
+      profiles,
+
+    activeProfileId:
+      activeProfileId
+  };
+
+  const blob =
+    new Blob(
+      [JSON.stringify(data,null,2)],
+      {type:"application/json"}
+    );
+
+  const url =
+    URL.createObjectURL(blob);
+
+  const a =
+    document.createElement("a");
+
+  a.href = url;
+
+  a.download =
+    "education-access-academy-backup.json";
+
+  document.body.appendChild(a);
+
+  a.click();
+
+  a.remove();
+
+  URL.revokeObjectURL(url);
+}
+
+
+/* ---------- IMPORT DATA ---------- */
+
+function importData(event){
+
+  const file =
+    event.target.files &&
+    event.target.files[0];
+
+  if(!file) return;
+
+  const reader =
+    new FileReader();
+
+  reader.onload = function(){
+
+    try{
+
+      const data =
+        JSON.parse(reader.result);
+
+      if(!data.profiles){
+        throw new Error(
+          "Invalid Academy backup"
+        );
+      }
+
+      profiles =
+        data.profiles;
+
+      activeProfileId =
+        data.activeProfileId || null;
+
+      persistProfiles();
+
+      if(activeProfileId){
+        restoreStudent(
+          activeProfileId,
+          false
+        );
+      }
+
+      alert(
+        "Backup imported successfully."
+      );
+
+      render();
+
+    }catch(error){
+
+      alert(
+        "The selected file is not a valid Academy backup."
+      );
+
+    }
+
+  };
+
+  reader.readAsText(file);
+}
+
+
+/* ---------- RESET PROGRESS ---------- */
+
+function resetProgress(){
+
+  if(!confirm(
+    "Reset this student's learning progress? This cannot be undone unless you have a backup."
+  )){
+    return;
+  }
+
+  state.completed = {};
+  state.evidence = [];
+  state.journals = {};
+  state.checks = {};
+  state.mastery = {};
+  state.assessments = {};
+
+  state.page = "dashboard";
+  state.subject = null;
+  state.week = 1;
+
+  save();
+
+  render();
+}
+
+
+/* ---------- READINESS PROFILE ---------- */
+
+function readinessPage(){
+
+  const completed =
+    Object.keys(
+      state.completed || {}
+    ).length;
+
+  const evidence =
+    (state.evidence || []).length;
+
+  const mastered =
+    Object.values(
+      state.mastery || {}
+    ).filter(
+      x => x === "Mastered"
+    ).length;
+
+  const assessments =
+    Object.keys(
+      state.assessments || {}
+    ).length;
+
+  const percent =
+    Math.round(
+      (completed / 90) * 100
+    );
+
+  return `
+
+    <div class="hero">
+
+      <div class="tag">
+        JANUARY 2027 READINESS PROFILE
+      </div>
+
+      <h1>
+        Form One Readiness
+      </h1>
+
+      <p class="muted">
+        A developing evidence-based picture
+        of the learner's preparation.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <div class="tag">
+        OVERALL COMPLETION
+      </div>
+
+      <h1>
+        ${percent}%
+      </h1>
+
+      <div class="progress">
+        <i style="width:${percent}%"></i>
+      </div>
+
+      <p class="muted">
+        ${completed} of 90 learning units completed.
+      </p>
+
+    </div>
+
+
+    <div class="grid">
+
+      <div class="card">
+
+        <div class="tag">
+          LEARNING EVIDENCE
+        </div>
+
+        <h2>
+          ${evidence}
+        </h2>
+
+        <p class="muted">
+          Evidence records captured.
+        </p>
+
+      </div>
+
+
+      <div class="card">
+
+        <div class="tag">
+          MASTERY
+        </div>
+
+        <h2>
+          ${mastered}
+        </h2>
+
+        <p class="muted">
+          Areas marked Mastered.
+        </p>
+
+      </div>
+
+
+      <div class="card">
+
+        <div class="tag">
+          ASSESSMENTS
+        </div>
+
+        <h2>
+          ${assessments}
+        </h2>
+
+        <p class="muted">
+          Assessment records submitted.
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <div class="card">
+
+      <div class="tag">
+        READINESS PRINCIPLE
+      </div>
+
+      <h3>
+        Evidence over appearance
+      </h3>
+
+      <p>
+        Readiness is built from what the learner
+        can demonstrate, explain, practise,
+        correct and apply.
+      </p>
+
+      <p class="muted">
+        Continue using:
+        Discover → Learn → Practise →
+        Check → Apply → Voice → Journal →
+        Assessment → Correct → Master.
+      </p>
+
+    </div>
+
+  `;
+}
+
+
+/* =========================================================
+   FINAL APPLICATION ROUTER
+   ========================================================= */
+
+render = function(){
+
+  const app =
+    document.getElementById("app");
+
+  if(!app) return;
+
+
+  /* ---------- LOGIN WITHOUT ACTIVE PROFILE ---------- */
+
+  if(
+    !activeProfileId &&
+    state.page !== "createProfile"
+  ){
+
+    app.innerHTML = `
+
+      <header class="header">
+
+        <div class="headerTop">
+
+          <div class="logo">
+            EA
+          </div>
+
+          <div class="brand">
+            <strong>
+              Education Access
+            </strong>
+
+            <span>
+              E-Learning Academy
+            </span>
+          </div>
+
+        </div>
+
+      </header>
+
+      <main class="wrap">
+
+        ${loginPage()}
+
+      </main>
+    `;
+
+    return;
+  }
+
+
+  /* ---------- CREATE PROFILE ---------- */
+
+  if(state.page === "createProfile"){
+
+    app.innerHTML = `
+
+      <header class="header">
+
+        <div class="headerTop">
+
+          <div class="logo">
+            EA
+          </div>
+
+          <div class="brand">
+            <strong>
+              Education Access
+            </strong>
+
+            <span>
+              E-Learning Academy
+            </span>
+          </div>
+
+        </div>
+
+      </header>
+
+      <main class="wrap">
+
+        ${createProfilePage()}
+
+      </main>
+
+    `;
+
+    return;
+  }
+
+
+  /* ---------- MAIN APPLICATION ---------- */
+
+  let content = "";
+
+
+  if(state.page === "dashboard"){
+
+    content =
+      dashboardFinal();
+
+  }else if(state.page === "curriculum"){
+
+    content =
+      curriculumFinal();
+
+  }else if(state.page === "unit"){
+
+    content =
+      learningUnitPage();
+
+  }else if(state.page === "voice"){
+
+    content =
+      voicePage();
+
+  }else if(state.page === "journal"){
+
+    content =
+      journalPage();
+
+  }else if(state.page === "assessment"){
+
+    content =
+      assessmentPageFinal();
+
+  }else if(state.page === "parent"){
+
+    content =
+      parentPageFinal();
+
+  }else if(state.page === "profile"){
+
+    content =
+      profilePageFinal();
+
+  }else if(state.page === "readiness"){
+
+    content =
+      readinessPage();
+
+  }else{
+
+    content =
+      dashboardFinal();
+
+  }
+
+
+  app.innerHTML = `
+
+    <header class="header">
+
+      <div class="headerTop">
+
+        <div class="logo">
+          EA
+        </div>
+
+        <div class="brand">
+
+          <strong>
+            Education Access
+          </strong>
+
+          <span>
+            E-Learning Academy
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <nav class="nav">
+
+        <button
+          onclick="go('dashboard')">
+          Command Centre
+        </button>
+
+        <button
+          onclick="go('curriculum')">
+          Curriculum
+        </button>
+
+        <button
+          onclick="go('voice')">
+          Voice Studio
+        </button>
+
+        <button
+          onclick="go('journal')">
+          Journal
+        </button>
+
+        <button
+          onclick="go('assessment')">
+          Assessment
+        </button>
+
+        <button
+          onclick="go('parent')">
+          Parent Centre
+        </button>
+
+        <button
+          onclick="go('readiness')">
+          Readiness
+        </button>
+
+        <button
+          onclick="go('profile')">
+          Profile
+        </button>
+
+      </nav>
+
+    </header>
+
+
+    <main class="wrap">
+
+      ${content}
+
+    </main>
+
+  `;
+
+
+  /* ---------- VOICE AUDIO HYDRATION ---------- */
+
+  if(state.page === "voice"){
+
+    setTimeout(() => {
+
+      if(
+        typeof hydrateAudioUrls ===
+        "function"
+      ){
+
+        hydrateAudioUrls();
+
+      }
+
+    },50);
+
+  }
+
+};
+
+
+/* =========================================================
+   INITIALISE MULTI-STUDENT ENGINE
+   ========================================================= */
+
+loadProfiles();
+
+
+if(
+  activeProfileId &&
+  profiles[activeProfileId]
+){
+
+  restoreStudent(
+    activeProfileId,
+    false
+  );
+
+  state.page = "dashboard";
+
+}else{
+
+  activeProfileId = null;
+
+  state.page = "login";
+
+}
+
+
+/* ---------- FINAL RENDER ---------- */
+
+render();
+
 </script>
 </body>
 </html>

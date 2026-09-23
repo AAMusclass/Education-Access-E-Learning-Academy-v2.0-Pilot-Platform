@@ -298,7 +298,501 @@ function renderAudioOnly(){
   }
  });
 }
+function curriculumPage(){
+ const s=current();
+ const w=state.current.week;
+ const selectedKey=unitKey();
 
+ const totalUnits=Object.keys(SUBJECTS).length*15;
+ const completedUnits=Object.keys(state.completed).length;
+ const evidenceCount=state.evidence.length;
+ const masteredUnits=Object.values(state.mastery)
+  .filter(x=>x==='Mastered').length;
+ const secureUnits=Object.values(state.mastery)
+  .filter(x=>x==='Secure'||x==='Mastered').length;
+
+ const overallPct=Math.round(
+  completedUnits/totalUnits*100
+ );
+
+ const subjectCards=Object.entries(SUBJECTS).map(([k,x])=>{
+  let completed=0;
+  let mastered=0;
+
+  for(let i=1;i<=15;i++){
+   const key=`${k}-${i}`;
+
+   if(state.completed[key]) completed++;
+   if(state.mastery[key]==='Mastered') mastered++;
+  }
+
+  const pct=Math.round(completed/15*100);
+
+  return `
+   <div class="card span4">
+    <div class="between">
+     <h3>${x.icon} ${esc(x.name)}</h3>
+     <span class="tag">${completed}/15</span>
+    </div>
+
+    <p class="small muted">${esc(x.lab)}</p>
+
+    <div class="progress">
+     <i style="width:${pct}%"></i>
+    </div>
+
+    <p class="small">
+     ${pct}% complete • ${mastered} mastered
+    </p>
+
+    <button
+     class="btn primary"
+     onclick="openUnit('${k}',1)">
+     Open Subject
+    </button>
+   </div>
+  `;
+ }).join('');
+
+ const roadmap=s.weeks.map((title,i)=>{
+  const week=i+1;
+  const key=`${state.current.subject}-${week}`;
+  const isSelected=week===w;
+  const isDone=!!state.completed[key];
+  const mastery=masteryFor(key);
+
+  return `
+   <button
+    class="btn ${isSelected?'primary':''}"
+    style="text-align:left;min-width:190px;flex:1"
+    onclick="chooseWeek(${week})">
+
+    <b>${isDone?'✓ ':''}Week ${week}</b>
+
+    <div class="small">
+     ${esc(title)}
+    </div>
+
+    <div class="small muted">
+     ${esc(mastery)}
+    </div>
+   </button>
+  `;
+ }).join('');
+
+ const c=content();
+
+ return `
+ <div class="grid">
+
+  <div class="card hero span12">
+
+   <span class="tag">
+    EDUCATION ACCESS • CURRICULUM ENGINE
+   </span>
+
+   <h2>Curriculum Engine — Command Centre</h2>
+
+   <p class="muted">
+    Six subjects • 15 weeks • 90 learning units •
+    learning evidence • assessment • mastery tracking
+   </p>
+
+   <div class="actions">
+
+    <button
+     class="btn primary"
+     onclick="openUnit('${state.current.subject}',${w})">
+     Open Current Learning Unit
+    </button>
+
+    <button
+     class="btn blue"
+     onclick="go('voice')">
+     Voice Evidence
+    </button>
+
+    <button
+     class="btn blue"
+     onclick="go('assessment')">
+     Friday Assessment
+    </button>
+
+    <button
+     class="btn"
+     onclick="go('parent')">
+     Parent Centre
+    </button>
+
+   </div>
+
+  </div>
+
+
+  <div class="card span3">
+   <div class="small muted">SUBJECTS</div>
+   <div class="kpi">${Object.keys(SUBJECTS).length}</div>
+   <div class="small">Core learning areas</div>
+  </div>
+
+  <div class="card span3">
+   <div class="small muted">LEARNING UNITS</div>
+   <div class="kpi">${totalUnits}</div>
+   <div class="small">15 weeks × 6 subjects</div>
+  </div>
+
+  <div class="card span3">
+   <div class="small muted">COMPLETED</div>
+   <div class="kpi">${completedUnits}</div>
+   <div class="small">${overallPct}% programme progress</div>
+  </div>
+
+  <div class="card span3">
+   <div class="small muted">EVIDENCE</div>
+   <div class="kpi">${evidenceCount}</div>
+   <div class="small">${secureUnits} Secure/Mastered units</div>
+  </div>
+
+
+  <div class="card span12">
+
+   <div class="between">
+    <div>
+     <h3>Curriculum Progress</h3>
+     <p class="muted small">
+      Overall progress across the 90-unit programme.
+     </p>
+    </div>
+
+    <b>${overallPct}%</b>
+   </div>
+
+   <div class="progress">
+    <i style="width:${overallPct}%"></i>
+   </div>
+
+   <div class="actions">
+
+    <span class="tag">
+     Completed: ${completedUnits}/${totalUnits}
+    </span>
+
+    <span class="tag">
+     Evidence: ${evidenceCount}
+    </span>
+
+    <span class="tag">
+     Mastered: ${masteredUnits}
+    </span>
+
+   </div>
+
+  </div>
+
+
+  <div class="card span12">
+
+   <div class="between">
+    <div>
+     <h3>Subject Library</h3>
+     <p class="muted small">
+      Select a subject to open its 15-week programme.
+     </p>
+    </div>
+
+    <span class="tag">6 Learning Labs</span>
+   </div>
+
+   <div class="grid">
+    ${subjectCards}
+   </div>
+
+  </div>
+
+
+  <div class="card span12">
+
+   <div class="between">
+
+    <div>
+     <span class="tag">
+      ${s.icon} ${esc(s.name)}
+     </span>
+
+     <h3>15-Week Programme Roadmap</h3>
+
+     <p class="muted small">
+      ${esc(s.lab)}
+     </p>
+    </div>
+
+    <span class="tag">Week ${w}/15</span>
+
+   </div>
+
+   <div class="actions">
+    ${roadmap}
+   </div>
+
+  </div>
+
+
+  <div class="card span12">
+
+   <div class="between">
+
+    <div>
+     <span class="tag">ACTIVE LEARNING UNIT</span>
+
+     <h2>${s.icon} ${esc(s.name)}</h2>
+
+     <p class="muted">
+      Week ${w}/15 — ${esc(s.weeks[w-1])}
+     </p>
+    </div>
+
+    <span class="tag">
+     ${masteryFor(selectedKey)}
+    </span>
+
+   </div>
+
+
+   <div class="row">
+
+    <select
+     class="select"
+     style="max-width:360px"
+     onchange="chooseSubject(this.value)">
+
+     ${Object.entries(SUBJECTS).map(([k,x])=>
+      `<option
+       value="${k}"
+       ${k===state.current.subject?'selected':''}>
+       ${x.icon} ${esc(x.name)}
+      </option>`
+     ).join('')}
+
+    </select>
+
+
+    <select
+     class="select"
+     style="max-width:200px"
+     onchange="chooseWeek(this.value)">
+
+     ${s.weeks.map((title,i)=>
+      `<option
+       value="${i+1}"
+       ${i+1===w?'selected':''}>
+       Week ${i+1}: ${esc(title)}
+      </option>`
+     ).join('')}
+
+    </select>
+
+    <span class="tag">
+     ${done(selectedKey)
+      ?'✓ Unit completed'
+      :'Learning in progress'}
+    </span>
+
+   </div>
+
+
+   <div class="tabs">
+    ${weekTabs()}
+   </div>
+
+   ${tabContent(c)}
+
+  </div>
+
+
+  <div class="card span4">
+
+   <h3>Weekly Learning</h3>
+
+   <p class="small muted">
+    Discover → Learn → Practise → Check → Apply
+   </p>
+
+   <button
+    class="btn"
+    onclick="setTab('discover')">
+    Open Learning
+   </button>
+
+  </div>
+
+
+  <div class="card span4">
+
+   <h3>Evidence Engine</h3>
+
+   <p class="small muted">
+    Capture written, application and voice evidence
+    linked to the selected learning unit.
+   </p>
+
+   <button
+    class="btn"
+    onclick="setTab('voice')">
+    Open Voice Evidence
+   </button>
+
+  </div>
+
+
+  <div class="card span4">
+
+   <h3>Mastery Tracking</h3>
+
+   <p class="small muted">
+    Track Emerging, Developing, Secure and Mastered
+    learning status.
+   </p>
+
+   <button
+    class="btn"
+    onclick="setTab('mastery')">
+    Open Mastery
+   </button>
+
+  </div>
+
+
+  <div class="card span12">
+
+   <h3>Priority Support Areas</h3>
+
+   <p class="muted small">
+    Units currently marked Emerging or Developing.
+    These areas may benefit from additional practice.
+   </p>
+
+   <div class="grid">
+
+    ${
+     Object.entries(SUBJECTS).map(([k,x])=>{
+
+      const needs=[];
+
+      for(let i=1;i<=15;i++){
+
+       const m=masteryFor(`${k}-${i}`);
+
+       if(m==='Emerging'||m==='Developing'){
+        needs.push({
+         week:i,
+         title:x.weeks[i-1],
+         mastery:m
+        });
+       }
+      }
+
+      if(!needs.length){
+       return `
+        <div class="card span4">
+         <b>${x.icon} ${esc(x.name)}</b>
+         <p class="small secure">
+          No priority support area recorded.
+         </p>
+        </div>
+       `;
+      }
+
+      return `
+       <div class="card span4">
+
+        <b>${x.icon} ${esc(x.name)}</b>
+
+        ${needs.slice(0,5).map(n=>
+         `<div class="notice" style="margin-top:8px">
+
+          <b>Week ${n.week}</b>
+
+          <div class="small">
+           ${esc(n.title)}
+          </div>
+
+          <span class="tag">
+           ${esc(n.mastery)}
+          </span>
+
+         </div>`
+        ).join('')}
+
+       </div>
+      `;
+
+     }).join('')
+    }
+
+   </div>
+
+  </div>
+
+
+  <div class="card span12 hero">
+
+   <span class="tag">
+    INTEGRATED CURRICULUM PROJECT
+   </span>
+
+   <h3>MY COMMUNITY — ONE PLACE, SIX SUBJECTS</h3>
+
+   <p class="muted">
+    Use one real community or place as evidence across
+    Mathematics, Kiswahili, English Language, Business Studies,
+    Geography and History.
+   </p>
+
+   <div class="actions">
+
+    <button
+     class="btn primary"
+     onclick="openUnit('mathematics',1)">
+     Mathematics
+    </button>
+
+    <button
+     class="btn"
+     onclick="openUnit('kiswahili',1)">
+     Kiswahili
+    </button>
+
+    <button
+     class="btn"
+     onclick="openUnit('english',1)">
+     English
+    </button>
+
+    <button
+     class="btn"
+     onclick="openUnit('business',1)">
+     Business
+    </button>
+
+    <button
+     class="btn"
+     onclick="openUnit('geography',1)">
+     Geography
+    </button>
+
+    <button
+     class="btn"
+     onclick="openUnit('history',1)">
+     History
+    </button>
+
+   </div>
+
+  </div>
+
+ </div>
+`;
+}
 function esc(s){
  return String(s??'').replace(
   /[&<>'"]/g,

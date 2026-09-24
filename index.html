@@ -1616,27 +1616,58 @@ function evidencePage(){
 
    <div class="card">
 
-     <div class="eyebrow">
-       TOTAL EVIDENCE
-     </div>
+     <div class="card" style="cursor:pointer"
+     onclick="go('evidence')">
 
-     <div class="kpi">
-       ${total}
-     </div>
+  <div class="eyebrow">
+    TOTAL EVIDENCE
+  </div>
 
-     <div class="small muted">
-       Learning evidence records
-     </div>
+  <div class="kpi">
+    ${total}
+  </div>
 
-   </div>
+  <div class="small muted">
+    Learning evidence records
+  </div>
+
+</div>
 
 
-   <div class="card">
+<div class="card" style="cursor:pointer"
+     onclick="go('voice')">
 
-     <div class="eyebrow">
-       VOICE EVIDENCE
-     </div>
+  <div class="eyebrow">
+    VOICE EVIDENCE
+  </div>
 
+  <div class="kpi">
+    ${voice}
+  </div>
+
+  <div class="small muted">
+    Recorded learning explanations
+  </div>
+
+</div>
+
+
+<div class="card" style="cursor:pointer"
+     onclick="go('evidence')">
+
+  <div class="eyebrow">
+    PARENT REVIEW
+  </div>
+
+  <div class="kpi">
+    ${pending}
+  </div>
+
+  <div class="small muted">
+    Evidence awaiting review
+  </div>
+
+</div>
      <div class="kpi">
        ${voice}
      </div>

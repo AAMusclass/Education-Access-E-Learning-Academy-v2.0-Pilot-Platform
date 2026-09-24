@@ -830,8 +830,225 @@ function genericContent(s,w){
  const subj=SUBJECTS[s];
  const title=subj.weeks[w-1];
 
+ const detailed={
+  mathematics:{
+   2:{
+    mission:'Number Universe — understand how different types of numbers describe the world.',
+    learn:'Explore natural numbers, whole numbers, integers, rational numbers, irrational numbers and real numbers. Compare their properties and recognise where each type is useful.',
+    try:'Classify 12 numbers as natural, whole, integer, rational, irrational or real. Explain why each classification is appropriate.',
+    practice:[
+     'Explain the difference between a whole number and an integer.',
+     'Give three examples of rational numbers.',
+     'Give one example of an irrational number and explain why it cannot be written as a simple fraction.',
+     'Place selected numbers on a number line.',
+     'Create a real-life situation where negative numbers are useful.'
+    ],
+    voice:'Explain the main number groups to a younger learner using examples.',
+    apply:'Create a Number Universe poster showing the relationships between the major number sets.'
+   },
+
+   3:{
+    mission:'Decimals and Number Lines — represent quantities accurately and reason about their positions.',
+    learn:'Investigate terminating and recurring decimals, decimal place value, comparison of decimals and the representation of decimals on number lines.',
+    try:'Compare 0.7, 0.70, 0.705 and 0.75. Explain what the digits mean and arrange the numbers from smallest to largest.',
+    practice:[
+     'Convert simple fractions into decimals.',
+     'Identify the place value of selected decimal digits.',
+     'Locate decimals on a number line.',
+     'Compare terminating and recurring decimals.',
+     'Use decimals in a Tanzanian money or measurement example.'
+    ],
+    voice:'Explain why 0.5 and 0.50 represent the same quantity.',
+    apply:'Create a decimal number-line investigation using prices, distances or measurements from your environment.'
+   },
+
+   4:{
+    mission:'Inequalities and Absolute Value — compare quantities and understand distance from zero.',
+    learn:'Use inequality symbols to compare values and explore absolute value as distance from zero on a number line.',
+    try:'Compare -8 and -3 using an inequality sign. Then explain the absolute value of each number.',
+    practice:[
+     'Use <, > and = correctly.',
+     'Order positive and negative numbers.',
+     'Find absolute values.',
+     'Represent inequalities on a number line.',
+     'Write three real-life examples involving comparison.'
+    ],
+    voice:'Explain absolute value without using a memorised definition.',
+    apply:'Design a temperature, money or elevation comparison showing positive numbers, negative numbers and absolute values.'
+   },
+
+   5:{
+    mission:'Ratios and Proportions — use relationships between quantities to solve real problems.',
+    learn:'Explore ratios, equivalent ratios, rates and proportions. Connect mathematical ratios to recipes, maps, mixtures, sharing and business.',
+    try:'A drink uses 2 cups of concentrate for every 5 cups of water. Determine the quantities needed for a larger batch while maintaining the same ratio.',
+    practice:[
+     'Simplify ratios.',
+     'Find equivalent ratios.',
+     'Solve simple proportions.',
+     'Interpret a rate in context.',
+     'Create a ratio problem from home or school.'
+    ],
+    voice:'Teach the difference between a ratio and a total quantity.',
+    apply:'Develop a real-life proportion investigation using cooking, transport, construction, shopping or business.'
+   },
+
+   6:{
+    mission:'Approximation, Estimation and Significant Figures — make sensible decisions with numbers.',
+    learn:'Learn why numbers are sometimes rounded or estimated. Apply decimal-place rounding, significant figures and estimation to check whether answers are reasonable.',
+    try:'Estimate the total cost of several household items before calculating the exact total. Compare the estimate with the exact answer.',
+    practice:[
+     'Round numbers to specified decimal places.',
+     'Round numbers to significant figures.',
+     'Estimate sums and products.',
+     'Check whether an answer is reasonable.',
+     'Explain when estimation is more useful than an exact calculation.'
+    ],
+    voice:'Explain why estimation can prevent mathematical mistakes.',
+    apply:'Conduct a shopping-estimation investigation using realistic Tanzanian prices.'
+   },
+
+   7:{
+    mission:'Geometry Around Me — identify, describe and reason about shapes and measurements.',
+    learn:'Investigate angles, lines, polygons, triangles, quadrilaterals, circles, perimeter and area through objects and structures around you.',
+    try:'Choose a room, table, window or playground area. Identify its geometric shapes and estimate or calculate relevant measurements.',
+    practice:[
+     'Classify common polygons.',
+     'Identify different types of angles.',
+     'Calculate perimeter of simple shapes.',
+     'Calculate area of rectangles and related shapes.',
+     'Explain how geometry is used in construction.'
+    ],
+    voice:'Describe how geometry appears in one building or object near you.',
+    apply:'Create a simple geometric plan of a room, classroom or outdoor space with labelled measurements.'
+   },
+
+   8:{
+    mission:'Algebra Translator — turn words and situations into mathematical expressions.',
+    learn:'Understand variables, constants, coefficients and algebraic expressions. Translate everyday statements into mathematical language.',
+    try:'If a notebook costs x shillings, express the cost of 5 notebooks and explain what x represents.',
+    practice:[
+     'Identify variables and constants.',
+     'Translate words into expressions.',
+     'Evaluate simple expressions.',
+     'Combine like terms in simple cases.',
+     'Create an algebraic expression from a real situation.'
+    ],
+    voice:'Explain what a variable represents using an everyday example.',
+    apply:'Build an Algebra Translator table converting five everyday statements into mathematical expressions.'
+   },
+
+   9:{
+    mission:'Build-and-Solve Algebra Lab — use equations to find unknown quantities.',
+    learn:'Explore simple equations and inverse operations. Learn to maintain equality while solving for an unknown.',
+    try:'Solve 3x + 4 = 19. Explain each step and check the answer by substitution.',
+    practice:[
+     'Solve one-step equations.',
+     'Solve simple two-step equations.',
+     'Use inverse operations.',
+     'Check solutions.',
+     'Create a simple equation from a real-life problem.'
+    ],
+    voice:'Teach someone why both sides of an equation must remain balanced.',
+    apply:'Create three real-life equations involving money, age, distance or quantities and solve them.'
+   },
+
+   10:{
+    mission:'Unknown X Investigation — use clues, patterns and equations to determine missing values.',
+    learn:'Use algebraic reasoning, tables, patterns and equations to investigate unknown quantities rather than guessing.',
+    try:'A number is multiplied by 4 and then increased by 6 to give 30. Find the number and explain your reasoning.',
+    practice:[
+     'Work backwards through operations.',
+     'Complete input-output tables.',
+     'Identify number patterns.',
+     'Represent unknowns with variables.',
+     'Check an unknown value using the original condition.'
+    ],
+    voice:'Explain how working backwards can help solve an unknown.',
+    apply:'Create an Unknown X puzzle for another learner and provide a separate solution.'
+   },
+
+   11:{
+    mission:'Mathematics in Real-World Decisions — use evidence and calculation to make informed choices.',
+    learn:'Apply number, ratio, percentage, measurement and comparison skills to everyday decisions involving money, time, transport and resources.',
+    try:'Compare two purchasing options and determine which information is necessary before making a mathematical comparison.',
+    practice:[
+     'Compare prices and quantities.',
+     'Calculate simple percentage changes.',
+     'Use unit rates.',
+     'Interpret information in a table.',
+     'Explain a decision using mathematical evidence.'
+    ],
+    voice:'Explain how mathematics can improve a real-life decision.',
+    apply:'Prepare a short evidence-based comparison between two real-world options.'
+   },
+
+   12:{
+    mission:'Integrated Numerical Reasoning — connect several number skills in one investigation.',
+    learn:'Combine operations, decimals, ratios, percentages, estimation and algebraic reasoning to solve multi-step problems.',
+    try:'Design a multi-step household or school problem requiring at least three mathematical ideas. Solve and explain it.',
+    practice:[
+     'Identify the information needed in a multi-step problem.',
+     'Choose appropriate operations.',
+     'Estimate before calculating.',
+     'Show organised working.',
+     'Check and explain the final answer.'
+    ],
+    voice:'Describe how you decide which mathematical operation to use.',
+    apply:'Complete an Integrated Numerical Reasoning case study using realistic data.'
+   },
+
+   13:{
+    mission:'Geometry + Algebra Design Challenge — combine shape, measurement and unknown quantities.',
+    learn:'Use geometry and algebra together to solve design problems involving dimensions, perimeter, area and unknown measurements.',
+    try:'Create a rectangular garden with an unknown length or width. Use a stated perimeter or area to determine the missing measurement.',
+    practice:[
+     'Write formulas for perimeter and area.',
+     'Substitute known values.',
+     'Use algebra to find an unknown dimension.',
+     'Check whether the result is realistic.',
+     'Explain the design mathematically.'
+    ],
+    voice:'Explain how algebra can help solve a geometry problem.',
+    apply:'Design a small classroom, garden or play area and provide its mathematical plan.'
+   },
+
+   14:{
+    mission:'Mathematics Mastery Mission — demonstrate connected mathematical understanding.',
+    learn:'Review the major ideas studied so far and identify connections between number, algebra, geometry, measurement, ratios and estimation.',
+    try:'Choose three topics from the programme and solve one integrated problem using all three.',
+    practice:[
+     'Review important formulas and concepts.',
+     'Identify personal strengths.',
+     'Identify one concept needing further practice.',
+     'Solve a mixed mathematical problem.',
+     'Explain your reasoning clearly.'
+    ],
+    voice:'Teach one mathematical idea that you understand particularly well.',
+    apply:'Build a personal Mathematics Mastery portfolio containing solved problems and explanations.'
+   },
+
+   15:{
+    mission:'Explain-Your-Thinking Final Challenge — demonstrate readiness through reasoning, not memorisation.',
+    learn:'Use the full range of mathematical reasoning developed during the programme. Focus on accuracy, explanation, checking and independent problem solving.',
+    try:'Complete a mixed challenge containing number, ratio, algebra, geometry and real-life reasoning.',
+    practice:[
+     'Solve unfamiliar problems independently.',
+     'Show complete working.',
+     'Check answers using another method.',
+     'Explain why an answer is reasonable.',
+     'Reflect on mathematical progress.'
+    ],
+    voice:'Teach a complete mathematical idea as if you were preparing a younger learner for Form One.',
+    apply:'Create a final Mathematics Readiness Portfolio demonstrating what you can calculate, explain, investigate and apply.'
+   }
+  }
+ };
+
+ if(detailed[s] && detailed[s][w]){
+  return detailed[s][w];
+ }
+
  const themes={
-  mathematics:'Use mathematical language, relationships, quantities and logical reasoning in a real situation.',
   kiswahili:'Use Kiswahili accurately to listen, speak, read, analyse, write and revise.',
   english:'Use English to understand information and communicate clearly in speech and writing.',
   business:'Think like a young entrepreneur: identify needs, resources, value, costs and responsible decisions.',
@@ -840,21 +1057,16 @@ function genericContent(s,w){
  };
 
  return {
-  mission:themes[s],
-
+  mission:themes[s]||'Explore the topic through evidence, practice and reflection.',
   learn:`${title} is explored as an active learning investigation. Start with what you already know, connect the idea to everyday life, then explain it in your own words. Your goal is not to memorise a paragraph: it is to demonstrate understanding with evidence.`,
-
-  try:`Find one real example connected to “${title}”. Write the example, identify the important information, and explain what the example teaches you.`,
-
+  try:`Find one real example connected to "${title}". Write the example, identify the important information, and explain what the example teaches you.`,
   practice:[
    'Define the key idea in your own words.',
    'Give two examples from school, home or community.',
    'Create one question someone could ask about this topic.',
    'Solve, explain or demonstrate the question without copying a model answer.'
   ],
-
-  voice:`In 45–90 seconds, teach one important idea from “${title}” as if you were helping a younger learner. State the idea, give an example, and explain why it matters.`,
-
+  voice:`In 45–90 seconds, teach one important idea from "${title}" as if you were helping a younger learner. State the idea, give an example, and explain why it matters.`,
   apply:`Create a small piece of evidence from your environment: a calculation, paragraph, map, business idea, historical explanation, comparison, observation or explanation appropriate to this subject.`
  };
 }

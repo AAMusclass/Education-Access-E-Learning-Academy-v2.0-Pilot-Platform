@@ -1255,8 +1255,7 @@ function evidencePage(){
    return `
      <div class="card"
           style="cursor:pointer"
-          onclick="go('curriculum');state.current.subject='${key}';render()">
-
+          onclick="state.page='curriculum';state.current.subject='${key}';save();render()">
        <div class="eyebrow">
          SUBJECT
        </div>

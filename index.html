@@ -1152,317 +1152,542 @@ function evidencePage(){
 
  const subjects=Object.keys(SUBJECTS);
 
-  const subjectStats=subjects.map(key=>{
+ const subjectStats=subjects.map(key=>{
    const items=all.filter(e=>e.subject===key);
-
    const secure=items.filter(e=>{
      const s=String(e.status||'').toLowerCase();
      return s==='secure'||s==='mastered';
    }).length;
 
-   const masteredCount=items.filter(e=>
-     String(e.status||'').toLowerCase()==='mastered'
-   ).length;
-
-   const pendingCount=items.filter(e=>
-     !e.review ||
-     String(e.review).toLowerCase()==='pending parent review'
-   ).length;
-
-   const progress=items.length
-     ? Math.min(100,(secure/items.length)*100)
-     : 0;
-
    return `
-     <div class="card"
-          style="cursor:pointer;transition:.2s"
-          onclick="openEvidenceSubject('${key}')">
+    <div class="card">
+      <h3>${SUBJECTS[key].name||key}</h3>
+      <div class="small muted">
+        ${items.length} evidence record${items.length===1?'':'s'}
+      </div>
 
-       <div style="display:flex;
-                   justify-content:space-between;
-                   align-items:flex-start;
-                   gap:10px">
+      <div class="progress" style="margin-top:12px">
+        <span style="width:${items.length?
+          Math.min(100,(secure/items.length)*100):0}%"></span>
+      </div>
 
-         <div>
-           <div class="eyebrow">SUBJECT EVIDENCE</div>
-           <h3>${SUBJECTS[key].name||key}</h3>
-         </div>
+      <div class="small" style="margin-top:8px">
+        ${secure} Secure+ evidence
+      </div>
 
-         <div class="badge">
-           ${items.length} Evidence
-         </div>
-
-       </div>
-
-       <div class="small muted" style="margin-top:8px">
-         ${items.length
-           ? 'Evidence records linked to this subject'
-           : 'No evidence captured yet'}
-       </div>
-
-       <div class="progress" style="margin-top:14px">
-         <span style="width:${progress}%"></span>
-       </div>
-
-       <div class="grid grid-3" style="margin-top:12px">
-
-         <div>
-           <div class="kpi">${secure}</div>
-           <div class="small muted">Secure+</div>
-         </div>
-
-         <div>
-           <div class="kpi">${masteredCount}</div>
-           <div class="small muted">Mastered</div>
-         </div>
-
-         <div>
-           <div class="kpi">${pendingCount}</div>
-           <div class="small muted">Pending</div>
-         </div>
-
-       </div>
-
-       <div style="display:flex;
-                   gap:8px;
-                   flex-wrap:wrap;
-                   margin-top:14px">
-
-         <button class="btn"
-                 onclick="event.stopPropagation();
-                          openEvidenceSubject('${key}')">
-           Open Evidence
-         </button>
-
-         <button class="btn"
-                 onclick="event.stopPropagation();
-                          openSubjectEvidenceUnits('${key}')">
-           View Units
-         </button>
-
-       </div>
-
-     </div>
+      <button class="btn"
+        style="margin-top:12px"
+        onclick="openEvidenceSubject('${key}')">
+        Open Evidence
+      </button>
+    </div>
    `;
  }).join('');
 
  const rows=all.length
-   ? all.slice().reverse().map(e=>`
-     <div class="card" style="margin-top:12px">
+ ? [...all].reverse().map(e=>`
+    <div class="card" style="margin-top:12px">
 
-       <div style="display:flex;
-                   justify-content:space-between;
-                   gap:10px;
-                   flex-wrap:wrap">
+      <div style="display:flex;justify-content:space-between;
+                  gap:10px;flex-wrap:wrap">
 
-         <div>
-           <strong>
-             ${SUBJECTS[e.subject]?.name||e.subject||'Unknown Subject'}
-           </strong>
+        <div>
+          <strong>
+            ${SUBJECTS[e.subject]?.name||e.subject||'Unknown Subject'}
+          </strong>
 
-           <div class="small muted">
-             Week ${e.week||'-'} • ${e.topic||'Learning Unit'}
-           </div>
-         </div>
+          <div class="small muted">
+            Week ${e.week||'-'} • ${e.topic||'Learning Unit'}
+          </div>
+        </div>
 
-         <div class="badge">
-           ${e.status||'Emerging'}
-         </div>
+        <div class="badge">
+          ${e.status||'Emerging'}
+        </div>
 
-       </div>
+      </div>
 
-       <div class="small" style="margin-top:10px">
-         <strong>Type:</strong>
-         ${e.type||'Learning Evidence'}
-       </div>
+      <div class="small" style="margin-top:10px">
+        <strong>Type:</strong> ${e.type||'Learning Evidence'}
+      </div>
 
-       ${e.reflection?`
-         <div class="small" style="margin-top:8px">
-           <strong>Reflection:</strong>
-           ${e.reflection}
-         </div>
-       `:''}
+      ${e.reflection?`
+        <div class="small" style="margin-top:8px">
+          <strong>Reflection:</strong> ${e.reflection}
+        </div>
+      `:''}
 
-       <div class="small muted" style="margin-top:8px">
-         <strong>Review:</strong>
-         ${e.review||'Pending parent review'}
-       </div>
+      <div class="small muted" style="margin-top:8px">
+        <strong>Review:</strong>
+        ${e.review||'Pending parent review'}
+      </div>
 
-       <div style="display:flex;
-                   gap:8px;
-                   flex-wrap:wrap;
-                   margin-top:12px">
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px">
 
-         <button class="btn"
-                 onclick="openEvidenceUnit('${e.unitKey}')">
-           Open Unit
-         </button>
+        <button class="btn"
+          onclick="openEvidenceUnit('${e.unitKey}')">
+          Open Unit
+        </button>
 
-         ${e.audioId?`
-           <button class="btn"
-                   onclick="playEvidenceAudio('${e.audioId}')">
-             Play Voice
-           </button>
-         `:''}
+        ${e.audioId?`
+          <button class="btn"
+            onclick="playEvidenceAudio('${e.audioId}')">
+            Play Voice
+          </button>
+        `:''}
 
-         <button class="btn"
-                 onclick="reviewEvidenceFromEngine('${e.id}')">
-           Review
-         </button>
+        <button class="btn"
+          onclick="reviewEvidenceFromEngine('${e.id}')">
+          Review
+        </button>
 
-       </div>
-
-     </div>
-   `).join('')
-   : `
-     <div class="card">
-       <div class="small muted">
-         No evidence has been captured yet.
-         Open a subject and begin the learning evidence process.
-       </div>
-     </div>
-   `;
-
- return `
-   <div class="hero">
-
-     <div class="eyebrow">
-       EDUCATION ACCESS • EVIDENCE ENGINE v2.1
-     </div>
-
-     <h1>Learning Evidence Command Centre</h1>
-
+      </div>
+    </div>
+ `).join('')
+ : `
+   <div class="card">
+     <h3>No evidence captured yet</h3>
      <p class="muted">
-       Capture, review and track evidence of learning across
-       all six curriculum subjects.
+       Complete learning activities, practice, application,
+       reflection or voice tasks to create evidence.
      </p>
 
-   </div>
-
-   <div class="grid grid-4" style="margin-top:16px">
-
-     <div class="card">
-       <div class="eyebrow">TOTAL</div>
-       <div class="kpi">${total}</div>
-       <div class="small muted">Evidence records</div>
-     </div>
-
-     <div class="card">
-       <div class="eyebrow">VOICE</div>
-       <div class="kpi">${voice}</div>
-       <div class="small muted">Voice evidence</div>
-     </div>
-
-     <div class="card">
-       <div class="eyebrow">REVIEWED</div>
-       <div class="kpi">${reviewed}</div>
-       <div class="small muted">Reviewed records</div>
-     </div>
-
-     <div class="card">
-       <div class="eyebrow">MASTERED</div>
-       <div class="kpi">${mastered}</div>
-       <div class="small muted">Mastered evidence</div>
-     </div>
-
-   </div>
-
-   <div class="card" style="margin-top:16px">
-
-     <div class="eyebrow">EVIDENCE WORKFLOW</div>
-
-     <h2>Capture → Review → Master</h2>
-
-     <div class="grid grid-4" style="margin-top:14px">
-
-       <button class="card"
-               style="text-align:left;cursor:pointer"
-               onclick="go('curriculum')">
-         <strong>1. Select Subject</strong>
-         <div class="small muted" style="margin-top:6px">
-           Choose the curriculum learning unit.
-         </div>
-       </button>
-
-       <button class="card"
-               style="text-align:left;cursor:pointer"
-               onclick="go('voice')">
-         <strong>2. Capture Evidence</strong>
-         <div class="small muted" style="margin-top:6px">
-           Written, application or voice evidence.
-         </div>
-       </button>
-
-       <button class="card"
-               style="text-align:left;cursor:pointer"
-               onclick="go('parent')">
-         <strong>3. Review</strong>
-         <div class="small muted" style="margin-top:6px">
-           Parent or teacher reviews evidence.
-         </div>
-       </button>
-
-       <button class="card"
-               style="text-align:left;cursor:pointer"
-               onclick="go('curriculum')">
-         <strong>4. Master</strong>
-         <div class="small muted" style="margin-top:6px">
-           Track Secure and Mastered learning.
-         </div>
-       </button>
-
-     </div>
-
-   </div>
-
-   <div class="card" style="margin-top:16px">
-
-     <div style="display:flex;
-                 justify-content:space-between;
-                 align-items:center;
-                 gap:10px;
-                 flex-wrap:wrap">
-
-       <div>
-         <div class="eyebrow">SUBJECT EVIDENCE</div>
-         <h2>Evidence by Subject</h2>
-       </div>
-
-       <button class="btn" onclick="go('curriculum')">
-         Curriculum Engine
-       </button>
-
-     </div>
-
-     <div class="grid grid-3" style="margin-top:14px">
-       ${subjectStats}
-     </div>
-
-   </div>
-
-   <div class="card" style="margin-top:16px">
-
-     <div class="eyebrow">PORTFOLIO</div>
-
-     <h2>Evidence Timeline</h2>
-
-     ${rows}
-
-   </div>
-
-   <div class="card" style="margin-top:16px">
-
-     <div class="eyebrow">MASTERED EVIDENCE</div>
-
-     <div class="kpi">${mastered}</div>
-
-     <div class="small muted">
-       Evidence records currently marked Mastered.
-     </div>
-
+     <button class="btn" onclick="go('curriculum')">
+       Open Curriculum Engine
+     </button>
    </div>
  `;
+
+ return `
+ <section class="hero">
+   <div>
+     <div class="eyebrow">
+       EDUCATION ACCESS • EVIDENCE SYSTEM
+     </div>
+
+     <h1>EVIDENCE ENGINE v2.1</h1>
+
+     <p>
+       Central learning evidence portfolio for Brielle.
+       Every evidence record remains connected to the
+       subject, week, learning unit, review and mastery.
+     </p>
+   </div>
+ </section>
+
+ <div class="grid grid-4" style="margin-top:16px">
+
+   <div class="card">
+     <div class="small muted">TOTAL EVIDENCE</div>
+     <div class="kpi">${total}</div>
+     <div class="small">All evidence records</div>
+   </div>
+
+   <div class="card">
+     <div class="small muted">VOICE EVIDENCE</div>
+     <div class="kpi">${voice}</div>
+     <div class="small">Recorded learning evidence</div>
+   </div>
+
+   <div class="card">
+     <div class="small muted">REVIEWED</div>
+     <div class="kpi">${reviewed}</div>
+     <div class="small">Parent/teacher reviewed</div>
+   </div>
+
+   <div class="card">
+     <div class="small muted">PENDING</div>
+     <div class="kpi">${pending}</div>
+     <div class="small">Awaiting review</div>
+   </div>
+
+ </div>
+
+ <div class="card" style="margin-top:16px">
+
+   <div class="eyebrow">EVIDENCE PIPELINE</div>
+
+   <h2>Learning → Capture → Review → Mastery</h2>
+
+   <div class="grid grid-4" style="margin-top:12px">
+
+     <div class="card">
+       <strong>01 • CAPTURE</strong>
+       <p class="small muted">
+         Written, practice, application, assessment and voice evidence.
+       </p>
+     </div>
+
+     <div class="card">
+       <strong>02 • ORGANISE</strong>
+       <p class="small muted">
+         Evidence is linked to subject, week and learning unit.
+       </p>
+     </div>
+
+     <div class="card">
+       <strong>03 • REVIEW</strong>
+       <p class="small muted">
+         Parent and teacher review records learning progress.
+       </p>
+     </div>
+
+     <div class="card">
+       <strong>04 • MASTERY</strong>
+       <p class="small muted">
+         Evidence supports Secure and Mastered learning status.
+       </p>
+     </div>
+
+   </div>
+ </div>
+
+ <div class="card" style="margin-top:16px">
+
+   <div style="display:flex;justify-content:space-between;
+               align-items:center;gap:10px;flex-wrap:wrap">
+
+     <div>
+       <div class="eyebrow">SUBJECT EVIDENCE</div>
+       <h2>Evidence by Subject</h2>
+     </div>
+
+     <button class="btn" onclick="go('curriculum')">
+       Curriculum Engine
+     </button>
+
+   </div>
+
+   <div class="grid grid-3" style="margin-top:14px">
+     ${subjectStats}
+   </div>
+
+ </div>
+
+ <div class="card" style="margin-top:16px">
+
+   <div class="eyebrow">PORTFOLIO</div>
+
+   <h2>Evidence Timeline</h2>
+
+   ${rows}
+
+ </div>
+
+ <div class="card" style="margin-top:16px">
+
+   <div class="eyebrow">MASTERED EVIDENCE</div>
+
+   <div class="kpi">${mastered}</div>
+
+   <div class="small muted">
+     Evidence records currently marked Mastered.
+   </div>
+
+ </div>
+ `;
 }
+
+function openEvidenceSubject(subject){
+ state.current.subject=subject;
+ save();
+ go('evidence');
+}
+
+function openEvidenceUnit(key){
+ if(!key)return;
+
+ const parts=String(key).split('-');
+ const subject=parts[0];
+ const week=parseInt(parts[1],10);
+
+ if(SUBJECTS[subject]){
+   state.current.subject=subject;
+
+   if(Number.isFinite(week)){
+     state.current.week=week;
+   }
+
+   state.current.tab='mastery';
+
+   save();
+   go('curriculum');
+ }
+}
+
+async function playEvidenceAudio(audioId){
+ if(!audioId)return;
+
+ const blob=await getAudio(audioId);
+
+ if(!blob){
+   alert('Voice evidence audio is not available.');
+   return;
+ }
+
+ const url=URL.createObjectURL(blob);
+ const audio=new Audio(url);
+
+ audio.onended=()=>{
+   URL.revokeObjectURL(url);
+ };
+
+ audio.play();
+}
+
+function reviewEvidenceFromEngine(id){
+ const item=(state.evidence||[])
+   .find(e=>String(e.id)===String(id));
+
+ if(!item){
+   alert('Evidence record not found.');
+   return;
+ }
+
+ const review=prompt(
+   'Enter parent/teacher review:',
+   item.review||''
+ );
+
+ if(review===null)return;
+
+ item.review=review.trim()||'Reviewed';
+ item.reviewedAt=new Date().toISOString();
+
+ save();
+ render();
+ }
+function tabContent(c){
+ const t=state.current.tab;
+
+ if(t==='discover')
+ return `
+  <div class="mission">
+   <b>DISCOVER</b>
+   <p>${esc(c.mission)}</p>
+  </div>
+
+  <div class="card">
+   <h3>Before you learn</h3>
+   <p>
+    Write or say what you already know.
+    Look for one example around you.
+    Ask one question you want this week to answer.
+   </p>
+
+   <textarea id="discoverNote"
+    placeholder="My starting idea..."></textarea>
+
+   <div class="actions">
+    <button class="btn primary" onclick="saveDiscover()">
+     Save Starting Evidence
+    </button>
+   </div>
+  </div>
+ `;
+
+ if(t==='learn')
+ return `
+  <div class="content">
+   <h3>LEARN — Study Notes</h3>
+   <p>${esc(c.learn)}</p>
+
+   <div class="callout">
+    <b>Education Access rule:</b>
+    Explain the idea in your own words before moving to practice.
+   </div>
+  </div>
+ `;
+
+ if(t==='practise')
+ return `
+  <div class="content">
+   <h3>PRACTISE</h3>
+
+   <ol>
+    ${c.practice.map(x=>`<li>${esc(x)}</li>`).join('')}
+   </ol>
+
+   <textarea id="practiceNote"
+    placeholder="Show your work, examples or explanation..."></textarea>
+
+   <div class="actions">
+    <button class="btn primary" onclick="savePractice()">
+     Save Practice Evidence
+    </button>
+   </div>
+  </div>
+ `;
+
+ if(t==='check')
+ return checkTab();
+
+ if(t==='apply')
+ return `
+  <div class="content">
+   <h3>APPLY — Create evidence</h3>
+   <p>${esc(c.apply)}</p>
+
+   <textarea id="applyNote"
+    rows="7"
+    placeholder="Describe or paste your application evidence..."></textarea>
+
+   <div class="actions">
+    <button class="btn primary" onclick="saveApply()">
+     Save Application Evidence
+    </button>
+   </div>
+  </div>
+ `;
+
+ if(t==='voice')
+ return voiceTaskTab(c);
+
+ if(t==='journal')
+ return journalTab();
+
+ if(t==='friday')
+ return fridayMini();
+
+ return masteryTab();
+}
+
+function checkTab(){
+ let q=state.checks[unitKey()]||{};
+
+ let qs=
+ state.current.subject==='mathematics'&&state.current.week===1
+ ?[
+   ['q1','In your own words, what is mathematics?'],
+   ['q2','Give three everyday uses of mathematics.'],
+   ['q3','Why is mathematics useful when managing money?'],
+   ['q4','Calculate TZS 20,000 − 7,500.'],
+   ['q5','Explain the difference between giving an answer and explaining your reasoning.']
+  ]
+ :[
+   ['q1','Define the main idea of this week in your own words.'],
+   ['q2','Give two real-life examples.'],
+   ['q3','What evidence shows that you understand it?']
+  ];
+
+ return `
+ <div class="check">
+  <h3>KNOWLEDGE CHECK</h3>
+
+  ${qs.map(([id,text])=>
+   `<div class="question">
+    <b>${esc(text)}</b>
+    <textarea id="${id}" rows="3">${esc(q[id]||'')}</textarea>
+   </div>`
+  ).join('')}
+ </div>
+
+ <div class="actions">
+  <button class="btn primary" onclick="saveCheck()">
+   Submit Knowledge Check
+  </button>
+ </div>
+ `;
+}
+
+function voiceTaskTab(c){
+ return `
+ <div class="mission">
+  <b>VOICE STUDIO TASK</b>
+  <p>${esc(c.voice)}</p>
+ </div>
+
+ <div class="card">
+
+  <p class="small muted">
+   Auto-tag:
+   <b>
+    ${SUBJECTS[state.current.subject].name}
+    → Week ${state.current.week}
+    → ${esc(SUBJECTS[state.current.subject].weeks[state.current.week-1])}
+   </b>
+  </p>
+
+  <label>
+   Learner reflection before/after recording
+   <textarea
+    id="voiceReflection"
+    rows="3"
+    placeholder="What did I understand? What was difficult?"
+   ></textarea>
+  </label>
+
+  <div class="actions">
+   <button class="btn primary" onclick="startRecording()">
+    🎙️ Start Recording
+   </button>
+
+   <button class="btn danger" onclick="stopRecording()">
+    ⏹ Stop
+   </button>
+  </div>
+
+  <div id="recStatus"
+   class="notice"
+   style="margin-top:10px">
+   Ready. Record a 45–90 second explanation.
+  </div>
+
+ </div>
+
+ <div class="card">
+  <h3>Evidence captured for this unit</h3>
+  ${renderRecordings(unitKey())}
+ </div>
+ `;
+}
+
+function renderRecordings(k){
+ const a=evidenceFor(k);
+
+ if(!a.length)
+  return '<p class="muted">No voice evidence yet.</p>';
+
+ return a.map((x,i)=>
+  `<div class="recording">
+
+   <div class="between">
+    <b>
+     Evidence ${i+1} —
+     ${esc(x.type||'Learning Evidence')}
+    </b>
+
+    <span class="tag">
+     ${esc(x.status||'Emerging')}
+    </span>
+   </div>
+
+   <p class="small muted">
+    ${esc(x.topic)} •
+    ${new Date(x.createdAt).toLocaleString()}
+   </p>
+
+   ${
+    x.audioId
+    ?`<audio controls
+       ${x.audioUrl?`src="${x.audioUrl}"`:''}
+       data-audio-id="${esc(x.audioId)}">
+      </audio>`
+    :''
+   }
+
+   <p>
+    <b>Learner reflection:</b>
+    ${esc(x.reflection||'No reflection added yet.')}
+   </p>
+
+   <p>
+    <b>Parent review:</b>
+    ${esc(x.review||'Pending review')}
+   </p>
+
+  </div>`
+ ).join('');
 }
 
 function journalTab(){

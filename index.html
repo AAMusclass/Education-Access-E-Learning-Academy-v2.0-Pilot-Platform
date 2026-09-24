@@ -858,7 +858,83 @@ function genericContent(s,w){
   apply:`Create a small piece of evidence from your environment: a calculation, paragraph, map, business idea, historical explanation, comparison, observation or explanation appropriate to this subject.`
  };
 }
+function tabContent(c){
+ const t=state.current.tab||'learn';
 
+ return `
+  <div class="card" style="margin-top:16px">
+
+   <div class="row" style="gap:8px;flex-wrap:wrap">
+
+    <button class="btn ${t==='learn'?'active':''}"
+      onclick="state.current.tab='learn';save();render();">
+      Learn
+    </button>
+
+    <button class="btn ${t==='assess'?'active':''}"
+      onclick="state.current.tab='assess';save();render();">
+      Assess
+    </button>
+
+    <button class="btn ${t==='evidence'?'active':''}"
+      onclick="state.current.tab='evidence';save();render();">
+      Evidence
+    </button>
+
+    <button class="btn ${t==='journal'?'active':''}"
+      onclick="state.current.tab='journal';save();render();">
+      Journal
+    </button>
+
+   </div>
+
+   <div style="margin-top:16px">
+
+    ${
+     t==='learn'
+      ? c
+      : t==='assess'
+      ? `
+        <div class="eyebrow">ASSESSMENT</div>
+        <h3>Week ${state.current.week} Assessment</h3>
+        <p class="muted">
+         Complete the learning activities and record your assessment evidence.
+        </p>
+        <button class="btn"
+          onclick="go('assessment')">
+          Open Assessment
+        </button>
+       `
+      : t==='evidence'
+      ? `
+        <div class="eyebrow">LEARNING EVIDENCE</div>
+        <h3>Build Evidence</h3>
+        <p class="muted">
+         Record what the learner knows, explains, produces and demonstrates.
+        </p>
+        <button class="btn"
+          onclick="go('evidence')">
+          Open Evidence Engine
+        </button>
+       `
+      : `
+        <div class="eyebrow">LEARNING JOURNAL</div>
+        <h3>Reflection</h3>
+        <p class="muted">
+         Record the learner's reflection for this learning unit.
+        </p>
+        <button class="btn"
+          onclick="go('journal')">
+          Open Journal
+        </button>
+       `
+    }
+
+   </div>
+
+  </div>
+ `;
+ }
 function mathWeek1(){
  return {
   mission:'Mathematics Is Everywhere — become a Mathematics Detective.',
